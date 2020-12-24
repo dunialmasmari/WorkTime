@@ -14,11 +14,9 @@ class CreateMajorsTable extends Migration
     public function up()
     {
         Schema::create('majors', function (Blueprint $table) {
-            $table->bigIncrements('major_id');
-            $table->foreignId('user_id');
+            $table->bigIncrements('majorid');
             $table->string('major_name');
             $table->boolean('type');
-            $table->datetime('create_date');
             $table->boolean('active');
             $table->timestamps();
         });
