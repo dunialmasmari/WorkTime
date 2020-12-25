@@ -31,3 +31,14 @@ Route::get('major/{majorid}', 'Major\MajorController@majorByID');
 Route::post('major', 'Major\MajorController@majorSave');
 Route::put('major/{major}', 'Major\MajorController@majorUpdate');
 Route::delete('major/{major}', 'Major\MajorController@majorDelete');
+
+Route::namespace('Tender')->group(function(){
+
+    Route::get('Tender/get','TenderController@getActiveTenders');
+    Route::get('Tender/get/{id}','TenderController@getTenders');
+    //Route::get('Tender/filters','TenderController@filterAllActiveTender');
+    //Route::get('Tender/filter/{filters?}','TenderController@filterActiveTender');
+
+
+    
+});
