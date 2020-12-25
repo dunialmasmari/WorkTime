@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 */
-
+/*
 
 Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']);
@@ -26,8 +26,12 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('posts', PostController::class);
 });
 
+//Route::middleware('auth:api')->group(function () {});
 Route::get('major', 'Major\MajorController@major');
-Route::get('major/{majorid}', 'Major\MajorController@majorByID');
+Route::get('major/{id}', 'Major\MajorController@majorByID');
 Route::post('major', 'Major\MajorController@majorSave');
-Route::put('major/{major}', 'Major\MajorController@majorUpdate');
-Route::delete('major/{major}', 'Major\MajorController@majorDelete');
+Route::put('major/{id}', 'Major\MajorController@majorUpdate');
+Route::delete('major/{id}', 'Major\MajorController@majorDelete');
+*/
+
+Route::apiResource('major', 'Major\MajorController');

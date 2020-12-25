@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MajorModel extends Model
+class Major extends Model
 {
     protected $table = "majors";
 
