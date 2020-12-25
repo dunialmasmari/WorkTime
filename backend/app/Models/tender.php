@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TenderModel extends Model
+class tender extends Model
 {
     //
-    protected $table="tenders";
+    
     public $timestamps = false;
     protected $filtable=[
         "tender_id",
