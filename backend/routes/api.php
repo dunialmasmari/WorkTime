@@ -35,3 +35,4 @@ Route::delete('major/{id}', 'Major\MajorController@majorDelete');
 */
 
 Route::apiResource('major', 'Major\MajorController');
+
