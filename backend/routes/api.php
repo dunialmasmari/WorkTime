@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PassportAuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,4 +36,7 @@ Route::delete('major/{id}', 'Major\MajorController@majorDelete');
 */
 
 Route::apiResource('major', 'Major\MajorController');
-
+Route::post('login', 'login\loginController@login');
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
