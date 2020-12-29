@@ -34,9 +34,11 @@ Route::post('major', 'Major\MajorController@majorSave');
 Route::put('major/{id}', 'Major\MajorController@majorUpdate');
 Route::delete('major/{id}', 'Major\MajorController@majorDelete');
 */
-
-Route::apiResource('major', 'Major\MajorController');
-Route::post('login', 'login\loginController@login');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('major', 'Major\MajorController');
+Route::post('login', 'login\loginController@login');
+Route::get('checklogin', 'login\loginController@checklogin');
+
