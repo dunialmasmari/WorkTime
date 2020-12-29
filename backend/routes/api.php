@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PassportAuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,8 +36,11 @@ Route::delete('major/{id}', 'Major\MajorController@majorDelete');
 */
 Route::apiResource('major', 'Major\MajorController');
 
-Route::namespace('Tender')->group(function(){
-
+Route::post('login', 'login\loginController@login');
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+  
+  Route::namespace('Tender')->group(function(){
     Route::get('Tender/get','TenderController@getActiveTenders'); // for get all tenders 
     Route::get('Tender/get/{id}','TenderController@getTenderById'); //for get tender by its id 
     Route::get('Tender/major','TenderController@getTenderMajor'); // for get all major and its count in tenders 
