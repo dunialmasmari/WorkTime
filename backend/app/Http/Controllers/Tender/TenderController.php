@@ -158,13 +158,46 @@ class TenderController extends Controller
                               })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')
                             ->get(),200);
           }
-          
-  
       }
-
-    public function filterActiveTender($id_major)
+      
+    public function filterActiveTenderField()
     {
-        return response()->json(tender::where('active','0')->orderByRaw('deadline - start_date DESC')->get(),200);
+        $tenders=tender::where('active','1')->get();
+        $majors=Major::where('active','1')->get();
+        $major_ar=array();
+        $compa_ar=array();
+        $loca_ar=array();
+        foreach($majors as $major)
+        {  
+            foreach($tenders as $tender)
+            {
+                if($tender->major_id == $major->majorid)
+                {
+                    $name=$major->major_name ; 
+                    $id=$major->majorid;
+                    $major_ar[]=[$id => $name];
+                break;
+                }
+            }
+        }
+        foreach($tenders as $tender)
+            {
+                $compa_ar[]=$tender->company;
+            }
+            //$compa_ar=array_unique($compa_ar);
+        $compa_ar = array_values( array_flip( array_flip( $compa_ar ) ) );
+        foreach($tenders as $tender)
+        {
+            $loca_ar[]=$tender->location;
+        }
+        //$loca_ar=array_unique($loca_ar);
+        $loca_ar = array_values( array_flip( array_flip( $loca_ar ) ) );
+        $key=['major','company','location'];
+        $value=[$major_ar,$compa_ar,$loca_ar];
+        $filters=array_combine($key,$value);
+        //print_r($filters);
+
+        return response()->json($filters,200);
     }
 
 
