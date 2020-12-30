@@ -15,7 +15,7 @@ class TenderController extends Controller
     //
     public function getActiveTenders()
     {
-        $tender=tender::where('active','1')->where('deadline','>=',now())->where('start_date','>=',now())->orderByRaw('start_date DESC')->limit(8)->get();
+        $tender=tender::where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->limit(8)->get();
         return response()->json($tender,200);
     }
     
