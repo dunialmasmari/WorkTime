@@ -37,6 +37,7 @@ Route::delete('major/{id}', 'Major\MajorController@majorDelete');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
   
   Route::namespace('Tender')->group(function(){
     Route::get('Tender/get','TenderController@getActiveTenders'); // for get all tenders 
