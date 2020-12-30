@@ -40,3 +40,4 @@ Route::post('login', 'login\loginController@login');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('uploadefile','Tender\TenderController@store');
