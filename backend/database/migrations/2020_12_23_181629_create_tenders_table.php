@@ -26,6 +26,7 @@ class CreateTendersTable extends Migration
             $table->datetime('deadline');
             $table->datetime('posted_date');
             $table->boolean('active');
+            $table->string('location');
             $table->timestamps();
         });
     }

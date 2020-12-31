@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMajorsTable extends Migration
+class CreateIntermediateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateMajorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('majors', function (Blueprint $table) {
-            $table->bigIncrements('major_id');
-            $table->string('major_name');
-            $table->boolean('type');
-            $table->boolean('active');
-            $table->timestamps();
+        Schema::create('users_tenders', function (Blueprint $table) {
+            $table->bigIncrements('users_tenders_id');
+            $table->foreignId('user_id');
+            $table->foreignId('tender_id');
+         
         });
     }
 
@@ -29,6 +28,6 @@ class CreateMajorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('majors');
+        Schema::dropIfExists('users_tenders');
     }
 }
