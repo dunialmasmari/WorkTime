@@ -25,4 +25,13 @@ class tender extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function Major()
+    {
+        return $this->belongsTo('App\Models\Major', 'major_id', 'tender_id');
+    }
+
+    public function user(){
+        return $this->belongsToMany('App\User', 'users_tenders', 'user_id', 'tender_id');
+    }
 }
