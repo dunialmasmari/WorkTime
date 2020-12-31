@@ -1,5 +1,4 @@
 {
-    "message": "hello i18n !!",
     "Core":{
       "Footer":{
         "WhoWeAre":"من نحن",
@@ -29,15 +28,13 @@
         "Categories":"الاصناف",
         "Offers":"العروض"
   
+      },
+      "Drawer":{
+        "Dashboard":"الرئيسية",
+        "jobs&tendersManagement":"إدارة المناقصات ",
+        "tendersManagement":"إدارة المناقصات",
+        "MajorsManagement":"إدارة الاقسام"
       }
-    },
-    "material":{
-      "ProductCard":{
-        "AddToCart":"أضف للسلة",
-        "Buy":"شراء الان",
-        "View":"عرض"
-      }
-  
     },
     "validation":{
       "emptyfieldrequired":"يجب ملىء هذا الحقل" ,
@@ -58,26 +55,6 @@
         "lastname":"مثال:احمد",
         "email":"مثال:example@gmail.com"
       }
-    },
-    "CatreatAcount": {
-      "CatreatAcountTitle": "إنشاء حساب في المتجر",
-      "FirstName": "الاسم الاول",
-      "LastName": "اللقب",
-      "Email": "البريد الالكتروني",
-      "Pwd": "كلمة المرور",
-      "ConfirmPwd": "تأكيد كلمة المرور",
-      "Phone": "رقم الهاتف",
-      "countryCode":"مفتاح الدولة",
-      "Sex": "الجنس :",
-      "Create": "إنشاء",
-      "IhaveAccount": "لدي حساب بالفعل",
-      "Iagree": "أوافق على",
-      "StorePolicy": "سياسة خصوصية",
-      "OpeneStorePolicy": "الاطلاع على سياسة الخصوصية",
-      "Store": "المتجر",
-      "CreateAccountSuccess":"لقد تم انشاء حسابك بنجاح ،يجب عليك ان تتحقق من بريدك الالكتروني لتفعيل الحساب ",
-      "CreateAccountSuccessTittle": "رساله تأكيد",
-      "BackHome":"العودة الى الرئيسية"
     },
     "Home":{
       "mostOrdered":"الأكثر طلبا",
@@ -107,176 +84,37 @@
         "success":"لقد تم ارسال كلمة المرور الجديدة الى بريدك الالكتروني "
       }
     },
-    "SeetingProfile": {
-      "SeetingProfileTittle": "إعدادات الصفحة الشخصية",
-      "UpdateImage": "تغيير الصورة الشخصية",
-      "Save": "حفظ التعديلات",
-      "FirstName": "الاسم الاول",
-      "LastName": "اللقب",
-      "PwdUpdate": "تعديل كلمة المرور",
-      "EmailUpdate": "تعديل البريد الالكتروني"
+    "Tenders":{
+      "Title":"المناقصات",
+      "name":"عنوان المناقصه",
+      "image":"صورة المناقصه",
+      "major":"القسم",
+      "location":"المنطقة",
+      "company":"الشركة/المنظمة",
+      "applyLink":"رابط التقديم",
+      "startDate":"تاريخ البدء",
+      "Deadline":"تاريخ الانتهاء",
+      "save":"حفظ",
+      "action": "الحدث",
+      "AddNew":"إضافة مناقصة جديد"
+
     },
-    "ChangPwd": {
-      "ChangPwdTittle": "تعديل كلمة المرور",
-      "UpdateSave": "حفظ التعديلات",
-      "OldPwd": "كلمة المرور القديمة",
-      "NewPwd": "كلمة المرور الجديدة",
-      "ConfirmNewPwd": "تأكيد كلمة المرور الجديدة"
+    "Majors": {
+      "Title": "الأقسام",
+      "Tenders": "أقسام المناقصات",
+      "Jobs": "أقسام الوظايف",
+      "AddNew": "إضافة قسم جديد",
+      "UpdateMajor": "تعديل القسم",
+      "name":"عنوان القسم",
+      "active":"مفعل",
+      "disabled":"غير مفعل",
+      "status":"الحالة",
+      "save":"حفظ",
+      "Update": "تعديل",
+      "Delete": "حذف",
+      "action": "الحدث"
     },
-    "ChangEmail": {
-      "ChangEmailTittle": "تغيير البريد الالكتروني",
-      "UpdateSave": "حفظ التعديلات",
-      "NewEmail": "البريد الالكتروني الجديد",
-      "Pwd": "كلمة المرور"
-    },
-    "Orders":{
-      "title":"قائمة الطلبات",
-      "PENDING":"تحت الطلب",
-      "name":"",
-      "orderInfo":"بيانات الطلب",
-      "orderdetails":"تفاصيل الطلب",
-      "printReceipt":"طباعة الفاتوره",
-      "orderProducts":"المنتجات",
-      "paymentInfo":"بيانات الدفع",
-      "shippingInfo":"بيانات الشحن",
-      "orderNo":"رقم الطلب",
-      "custmerName":"إسم العميل",
-      "storeName":"إسم المتجر",
-      "orderStatus":"حالة الطلب",
-      "orderDate":"تاريخ الطلب",
-      "receiveDate":"تاريخ التسليم",
-      "productCount":"عدد المنتجات في الطلب",
-      "orderTotalPrice":"إجمالي الطلب",
-      "cancelOrder":"إلغاء الطلب",
-      "return&Exchange":"إستبدال وإسترجاع",
-      "viewOrder":"عرض الطلب",
-      "followOrder":"تتبع الشحن",
-      "taxs":"الضرائب",
-      "shippingCost":"عمولة الشحن",
-      "orderQty":"الكمية",
-      "price":"السعر",
-      "discount":"الخصم",
-      "extraItems":"المنتجات الإضافية",
-      "paymentMethod":"طريقة الدفع",
-      "accountInfo":"معلومات الحساب",
-      "shippingCompany":"شركة الشحن",
-      "shippingAddress":"عنوان الشحن",
-      "exportOrder":{
-        "title":"إنشاء تقرير",
-        "name":"إسم التقرير",
-        "createdAt":"تاريخ الانشاء",
-        "action":"الحدث",
-        "from":"من تاريخ",
-        "to":"إلى تاريخ",
-        "download":"تحميل",
-        "noData":"لا توجد تقارير بعد انشىء تقرير "
-      }
-    },"AddAcount": {
-    "Expn": "تاريخ الأنتهاء",
-    "CardNum": "رقم البطاقة",
-    "CvvNumber": " Cvv",
-    "FullNa": "الاسم الكامل",
-    "save": "حفظ",
-    "Title": "إضافة بطاقة جديدة",
-    "CardType": "نوع البطاقة"
-  },
-    "ViewAddress": {
-      "NoteAddress": "دفتر العناوين",
-      "postalCode": "الرمز البريدي",
-      "city": "المدينة",
-      "states": "الشارع",
-      "country": "الدولة",
-      "defaultAddress": "العنوان الافتراضي"
-    },
-    "AddAddress": {
-      "Add": " إضافة العنوان",
-      "defaultAddress": "تعيين كعنوان الافتراضي",
-      "AddNewAddress": "إضافة عنوان جديد"
-  
-    } ,
-    "WhishList": {
-      "Tittle": " قائمة المفضلة"
-    } ,
-    "Cart": {
-      "Tittle": "  السلة ",
-      "Total": " إجمالي السلة ",
-      "Price": "سعر القطعه :",
-      "Pay": "دفع"
-    },
-    "Return": {
-      "Tittle": " المنتجات المسترجعة",
-      "Details": "  المنتج",
-      "OrderDetails": "بيانات الطلب",
-      "Quantity": "الكمية",
-      "OrderNo": "رقم الطلب",
-      "ReasonReturn": "سبب الاسترجاع",
-      "Date": "التاريخ",
-      "ReturnOption": "خيار الاسترجاع",
-      "Status": "الحالة"
-  
-    },
-    "Categories": {
-      "Tittle": " الاصناف",
-      "price": "  السعر",
-      "classifications": "الانواع",
-      "colors": "الالوان",
-      "filter": "فرز حسب",
-      "brand": "الماركة",
-      "categories": "الانواع",
-      "Newer":"الاحدث",
-      "Older":"الأقدم",
-      "HeighestPrice":"الأكثر سعرا",
-      "LowestPrice":"الأقل سعرا",
-      "offer": "العروض",
-      "ShowBy": "عرض حسب "
-    } ,
-    "Comments": {
-      "Tab1": " وصف المنتج",
-      "Tab2": "  التعليقات والتقييمات",
-      "ReatingTotal": "إجمالي التقييمات",
-      "Addcomment": "أضف تعليقك"
-    },
-    "PaymentCard": {
-      "Tittle": " الحسابات وطرق الدفع",
-      "PaymentType": "نوع البطاقة",
-      "Name": "الاسم ",
-      "Code": "CCV",
-      "EXP": "تاريخ الانتهاء",
-      "Actions": "إجراءات",
-      "AddNew": " إضافة بطاقة جديدة"
-    },
-    "CheckOut": {
-      "Summery": " ملخص الطلب ",
-      "Total": "الاجمالي ",
-      "SippingStep": "الشحن ",
-      "PaymentStep": "الدفع",
-      "SippingAdress": " شحن الى عنوان سابق",
-      "AddNewAdress": "إضافة عنوان جديد",
-      "Next": " متابعة",
-      "Payment": " حدد طريقة الدفع",
-      "Sipping": " حدد شركة الشحن",
-      "Choose": "أختيار",
-      "AddNewAccount": " أضافة حساب جديد "
-  
-    },
-    "ReturnSteps": {
-      "Tittle": " إسترجاع المنتج ",
-      "Step1": "حدد المنتج وسبب الاسترجاع ",
-      "Step2": "حدد إجراء الاسترجاع ",
-      "Step3": "خطوات الشحن",
-      "Cancel": " تراجع",
-      "Quantity": " الكمية",
-      "Response": "سبب الاسترجاع",
-      "ProductImage": " أرسل صورة المنتج بعد الاسترجاع",
-      "Policy": " يرجرى قراءه بنود سياسة الاسترجاع",
-      "Action": " ماذا تريد أن تفعل ؟",
-      "Next": "متابعة",
-      "Code": "أدخل سند الشحن هنا",
-      "Information": " تعليمات ",
-      "Done": "إنهاء "
-  
-  
-    },
+    
     "apisuccessmesages":{
       "title":"تم بنجاح",
       "updatepwd":"تمت تعديل كلمة المرور بنجاح",

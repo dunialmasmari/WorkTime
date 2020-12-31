@@ -43,21 +43,14 @@
             <v-list
               dense
               class="profilelist">
-              <v-list-item
-                :to="`/${$i18n.locale}/controlPanel/user-profile`"
-              >
-                <v-list-item-action>
-                  <v-icon color="#0b0b0b">mdi-account</v-icon>
-                </v-list-item-action>
-                <v-list-item-title >{{ $t('Dashbord.toolbar.manageaccount') }}</v-list-item-title>
-              </v-list-item>
+            
               <v-list-item
                 @click="logoutbtn()"
               >
                 <v-list-item-action>
                   <v-icon color="#0b0b0b" >mdi-logout</v-icon>
                 </v-list-item-action>
-                <v-list-item-title>{{ $t('Dashbord.toolbar.logout') }}</v-list-item-title>
+                <v-list-item-title>{{ $t('Core.Header.Menu.logOut') }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-card>
@@ -89,7 +82,7 @@
               </v-badge>
             </v-btn>
           </template>
-          <v-card>
+          <!-- <v-card>
             <v-list dense>
               <v-list-item
                 v-for="notification in notifications"
@@ -99,7 +92,7 @@
                 <v-list-item-title v-text="notification" />
               </v-list-item>
             </v-list>
-          </v-card>
+          </v-card> -->
         </v-menu>
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
@@ -115,12 +108,12 @@
             <v-list-item
               @click="setlocale('ar')"
             >
-              <v-list-item-title>{{ $t('Dashbord.toolbar.languages.ar') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('Core.Header.language.ar') }}</v-list-item-title>
             </v-list-item>
             <v-list-item
               @click="setlocale('en')"
             >
-              <v-list-item-title>{{ $t('Dashbord.toolbar.languages.en') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('Core.Header.language.en') }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -202,22 +195,19 @@ export default {
     window.removeEventListener('resize', this.onResponsiveInverted)
   },
   methods: {
-    ...mapMutations({setDrawer:'app/setDrawer', toggleDrawer:'app/toggleDrawer', logout:'logout',projectdirection: 'app/projectdirection'}),
+    ...mapMutations({setDrawer:'app/setDrawer', toggleDrawer:'app/toggleDrawer', logout:'logout',projectDirection: 'app/projectDirection'}),
     logoutbtn () {
       this.logout()
     },
     onClickBtn () {
       this.setDrawer(!this.getdrawer)
     },
-    onClick () {
-      //
-    },
     setlocale (locale) {
       this.$i18n.locale = locale
-      this.$router.push({
-        params: { lang: locale }
-      })
-      this.projectdirection(this.$i18n.locale)
+      // this.$router.push({
+      //   params: { lang: locale }
+      // });
+      this.projectDirection(this.$i18n.locale)
       this.$vuetify.rtl = this.getdir
     },
     onResponsiveInverted () {

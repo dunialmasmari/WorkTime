@@ -19,7 +19,7 @@ export default {
   css: [
     '~/assets/style.scss'
   ],
-
+  loading: '~/components/material/loading',
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     '~/plugins/i18n.js',
@@ -37,22 +37,37 @@ export default {
           {
             path: '',
             component: 'pages/_lang/index.vue',
-            name: 'category',
+            name: 'home',
+          },
+          {
+            path: 'contact_us',
+            component: 'pages/_lang/contact_us.vue',
+            name: 'contact_us',
           },
           {
             path: '/ControlPanel',
             component: 'pages/_lang/controlPanel.vue',
             children: [
               {
-                path: '/Majors/',
+                path: '/Majors',
                 component: 'pages/_lang/controlPanel/Majors.vue',
-                name: 'Dashboard2',
-              }, 
+                name: 'Majors',
+              },
               {
-                path: '/Tenders/',
+                path: '/Tenders',
                 component: 'pages/_lang/controlPanel/Tenders.vue',
-                name: 'Dashboard2',
-              },   
+                name: 'AddTender',
+              },
+              {
+                path: '/AddTender',
+                component: 'pages/_lang/controlPanel/AddTender.vue',
+                name: 'AddTender',
+              },
+              {
+                path: '/:UpdateTender',
+                component: 'pages/_lang/controlPanel/_UpdateTender.vue',
+                name: 'UpdateTender',
+              },
             ]
           },
         ],
@@ -74,7 +89,7 @@ export default {
   ],
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'https://api.shopbayk.com/',
+    baseURL: 'http://127.0.0.1:8000/api/',
   },
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {

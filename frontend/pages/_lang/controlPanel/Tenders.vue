@@ -1,58 +1,56 @@
 <template>
   <div>
-  <v-data-table
-    :headers="headers"
-    :items="desserts"
-    sort-by="calories"
-    class="elevation-1"
-  >
-    <template v-slot:top>
-      <v-toolbar
-        flat
-      >
-        <v-toolbar-title>My CRUD</v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
-        <v-spacer></v-spacer>
-       
-        
-      </v-toolbar>
-    </template>
-    <template v-slot:item.actions="{ item }">
-      <v-icon
-        small
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        mdi-pencil
-      </v-icon>
-      <v-icon
-        small
-        @click="deleteItem(item)"
-      >
-        mdi-delete
-      </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
-      </v-btn>
-    </template>
-  </v-data-table>
+    <v-toolbar-items class="mx-5 pa-2">
+      <div class="ma-3 pa-2">
+        <h3 style="color: #0b0b0b">{{ $t("Tenders.Title") }}</h3>
+      </div>
+      <v-spacer />
+      <div class="ma-3 py-2">
+        <v-btn
+          @click="AddChangeVisibal(true)"
+          dark
+          style="height: 40px"
+          color="#0b0b0b"
+        >
+          <span>{{ $t("Tenders.AddNew") }}</span>
+        </v-btn>
+      </div>
+    </v-toolbar-items>
+    <v-layout justify-center align-center>
+      <v-flex lg9 py-4>
+        <v-data-table
+          :headers="headers"
+          :items="allMajors"
+          hide-default-footer
+          sort-by="calories"
+          class="elevation-1"
+        >
+          <template v-slot:item.isactive="{ item }">
+            <span v-if="item.active == 1">{{ $t("Majors.Tenders") }}</span>
+            <span v-if="item.active == 0">{{ $t("Majors.Tenders") }}</span>
+          </template>
+          <template v-slot:item.actions="{ item }">
+            <v-icon small class="mr-2" @click="editItem(item)">
+              mdi-pencil
+            </v-icon>
+            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+          </template>
+          <template v-slot:no-data>
+            <span>no data aaa</span>
+            <!--todo nodta image-->
+          </template>
+        </v-data-table>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
 <script>
-// :image-src="getMostOrdered.productDefaultConfig.imgUrl"
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import DeleteComponent from "../../../components/material/DeleteComponent.vue";
 export default {
-     layout:'control',
+  components: {DeleteComponent },
+  layout: "control",
   //  asyncData () {
   //   return new Promise((resolve) => {
   //     setTimeout(function () {
@@ -60,125 +58,58 @@ export default {
   //     }, 1000)
   //   })
   // },
-  data: () => ({
-      dialog: false,
-      dialogDelete: false,
+  asyncData({ app }) {
+    return {
       headers: [
         {
-          text: 'Dessert (100g serving)',
-          align: 'start',
+          text: app.i18n.t("Tenders.name"),
+          align: "start",
           sortable: false,
-          value: 'name',
+          value: "major_name",
         },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: app.i18n.t("Tenders.major"), value: "isactive" },
+        { text: app.i18n.t("Tenders.location"), value: "isactive" },
+        { text: app.i18n.t("Tenders.company"), value: "isactive" },
+        { text: app.i18n.t("Tenders.Deadline"), value: "isactive" },
+        { text: app.i18n.t("Tenders.action"), value: "actions" },
       ],
-      desserts: [],
-      editedIndex: -1,
-      editedItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
-      },
-      defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
-      },
+    };
+  },
+  data: () => ({
+    tab: null,
+    type: null,
+    currentId: null,
+    deleteId: null,
+    //  visible: true,
   }),
   computed: {
-   
+    ...mapGetters({
+      allMajors: "majors/allMajors",
+      visible: "majors/getAddVisibal",
+    }),
   },
   mounted() {
-    
-this.initialize()
-
+    this.loadAllMajors();
   },
   methods: {
-    initialize () {
-        this.desserts = [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-          },
-        ]
-      },
-   
+    ...mapMutations({
+      AddChangeVisibal: "majors/AddMajorChangeVisibal",
+      UpdateChangeVisibal: "majors/UpdateMajorChangeVisibal",
+    }),
+    ...mapActions({
+      loadOneMajors: "majors/loadOneMajors",
+      loadAllMajors: "majors/loadAllMajors",
+    }),
+    editItem(item) {
+      this.currentId = item.major_id;
+      this.loadOneMajors(this.currentId);
+      this.UpdateChangeVisibal(true);
+    },
+    deleteItem(item) {
+      this.deleteId = item.id;
+    },
   },
-}
+};
 </script>
 
 <style></style>

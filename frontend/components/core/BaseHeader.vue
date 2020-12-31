@@ -1,67 +1,22 @@
 <template>
-  <v-app-bar elevation="2" id="core-header" app height="80">
+  <v-app-bar elevation="2" color="black" app height="80">
+    <v-layout justify-center align-center >
     <v-toolbar-items>
       <v-flex align-center layout>
-        <v-menu offset-y>
-          <template v-slot:activator="{ on }">
-            <v-btn text  v-on="on">
-              <v-icon> mdi-translate </v-icon>
-            </v-btn>
-          </template>
-          <v-list>
-            <v-list-item @click="setlocale('ar')">
-              <v-list-item-title>
-                {{ $t('Core.Header.language.ar') }}
-              </v-list-item-title>
-            </v-list-item>
-            <v-list-item @click="setlocale('en')">
-              <v-list-item-title>
-                {{ $t('Core.Header.language.en') }}
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-        <v-menu
-          bottom
-          left
-          content-class="dropdown-menu"
-          offset-y
-          transition="slide-y-transition"
-        >
-          <template v-slot:activator="{ on }">
-            <v-btn v-ripple text class="toolbar-items pa-0 mx-0" v-on="on">
-              <v-avatar>
-                <v-icon>mdi-account</v-icon>
-              </v-avatar>
-            </v-btn>
-          </template>
-          <v-card>
-            <v-list dense>
-            
-               <v-list-item @click="logoutbtn()">
-                <v-list-item-action>
-                  <v-icon>mdi-login</v-icon>
-                </v-list-item-action>
-                <v-list-item-title>
-                  {{ $t('Core.Header.Menu.logOut') }}
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="logoutbtn()">
-                <v-list-item-action>
-                  <v-icon>mdi-logout</v-icon>
-                </v-list-item-action>
-                <v-list-item-title>
-                  {{ $t('Core.Header.Menu.logOut') }}
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-card>
-        </v-menu>
+        <div class="Navbar">
+<!--          <v-toolbar flat color="brown">-->
+              <v-btn  color="#ffffff" text :to="`/${$i18n.locale}/`">
+                Home
+              </v-btn>
+              <v-btn text color="#ffffff" :to="`/${$i18n.locale}/tenders`">
+                Tenders
+              </v-btn>
+<!--          </v-toolbar>-->
+        </div>
       </v-flex>
     </v-toolbar-items>
-    <v-spacer />
-   
-    <v-spacer />
+    </v-layout>
+
     <div>
       <v-avatar size="150" tile>
         <v-img :src="require('@/static/v.png')" height="70" contain />

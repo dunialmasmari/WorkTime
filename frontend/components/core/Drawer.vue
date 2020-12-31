@@ -24,7 +24,7 @@
             contain/> -->
         </v-avatar>
       </v-list-item-avatar>
-      <p style="margin: 0px 15px !important;   " >عالم التقنية</p>
+      <p style="margin: 0px 15px !important;   " >user name</p>
       <v-btn
         icon
         class="ma-0 pa-0 extandbtn"
@@ -42,7 +42,7 @@
       <v-list-item-action>
         <v-icon style="font-size:24px">  mdi-home</v-icon>
       </v-list-item-action>
-      <v-list-item-title >{{ $t('Dashbord.sidebar.main') }}</v-list-item-title>
+      <v-list-item-title >{{ $t('Core.Drawer.Dashboard') }}</v-list-item-title>
     </v-list-item>
     <v-list-group
       v-for="item in itemss"
@@ -55,8 +55,7 @@
         <v-list-item-action>
           <v-icon style="font-size:24px">{{ item.action }}</v-icon>
         </v-list-item-action>
-        <v-list-item-title v-text="item.title"/>
-
+        <v-list-item-title v-text="$t(item.title)"/>
       </template>
       <v-list-item
         v-for="subItem in item.sub"
@@ -64,12 +63,12 @@
         :to="`/${$i18n.locale}/controlPanel`+subItem.to"
       >
         <v-list-item-content>
-          <v-list-item-title v-text="subItem.title"/>
+          <v-list-item-title v-text="$t(subItem.title)"/>
         </v-list-item-content>
       </v-list-item>
 
     </v-list-group>
-    <v-list-item
+    <!-- <v-list-item
       v-for="(link, i) in links"
       :key="i"
       :to="`/${$i18n.locale}/controlPanel`+link.to"
@@ -78,7 +77,7 @@
         <v-icon style="font-size:24px">{{ link.icon }}</v-icon>
       </v-list-item-action>
       <v-list-item-title v-text="link.text" />
-    </v-list-item>
+    </v-list-item> -->
   </v-navigation-drawer>
 </template>
 
@@ -94,23 +93,21 @@ export default {
       default: false
     }
   },
+   asyncData({ app }) {
+    return {
+     
+    }
+   },
   data: () => ({
 
     mini: true,
     itemss: [
-      // {
-      //   action: ' mdi-cube',
-      //   title: 'dsfsd',
-      //   sub: [
-      //     { title:'tenders and jobs', to: '/tenders' },
-      //   ]
-      // },
       {
         action: ' mdi-clipboard-text',
-        title: 'teners and majors',
+        title:  "Core.Drawer.jobs&tendersManagement",
         sub: [
-          { title: 'majors', to: '/majors' },
-          { title: 'tenders', to: '/tenders' },
+          { title:  "Core.Drawer.tendersManagement", to: '/tenders' },
+          { title:  "Core.Drawer.MajorsManagement", to: '/majors' },
         ]
       }
     ],
@@ -160,7 +157,7 @@ export default {
 
   }),
   computed: {
-    ...mapGetters({getdrawer:'app/getdrawer',getdir:'app/getdir',getstoreinfo: 'app/getstoreinfo'}),
+    ...mapGetters({getdrawer:'app/getdrawer', getdir: 'app/getdir' ,getstoreinfo: 'app/getstoreinfo'}),
     inputValue: {
       get () {
         return this.$store.state.app.drawer

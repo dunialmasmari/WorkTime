@@ -5,5 +5,4 @@ export default () => ({
     messages: 'success',
     loading:false,
     drawer: null,
-  direction: true,
   })

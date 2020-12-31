@@ -58,7 +58,7 @@ export default {
     iscfooterActive: false
   }),
   computed: {
-    ...mapGetters(['getdir'])
+    ...mapGetters({getdir:'app/getdir'})
 
   },
   created () {
