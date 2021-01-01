@@ -107,8 +107,14 @@ class MajorController extends Controller
         $major = Major::where('major_id',$id);
         if($major->exists())
         {
-            $major->Update(['active' => '0']);
-            return response()->json(['message' => 'major not active'], 200);
+            if($major->active = 1){
+                $major->Update(['active' => '0']);
+                return response()->json(['message' => 'major not active'], 200);
+            }
+           else{
+               $major->Update(['active' => '1']);
+               return response()->json(['message' => 'major active'], 200);
+            }
         }
         else{
             return response()->json(['message' => 'major not found'], 404);
