@@ -20,7 +20,7 @@ class TenderDashboarController extends Controller
         ->select('majors.major_name', 'tenders.*' )->where('tenders.active','1');
         if($tender->exists())
         {
-            return response()->json($tender->get(), 200);
+            return response()->json($tender->paginate(10), 200);
         }
         else{
             return response()->json(['message' => 'You do not have active tenders '], 404);
@@ -85,7 +85,7 @@ class TenderDashboarController extends Controller
         ->select('majors.major_name', 'tenders.*' )->where('tenders.tender_id',$id);
         if($tender->exists())
         {
-            return response()->json($tender->get(), 200);
+            return response()->json($tender->paginate(), 200);
         }
         else{
             return response()->json(['message' => 'You do not have active tenders '], 404);
@@ -138,7 +138,7 @@ class TenderDashboarController extends Controller
              }
             $tender->Update();
            // $tender->Update($request->all());
-            return response()->json($tender->get(), 200);
+            return response()->json($tender->paginate(), 200);
         }
         else{
             return response()->json(['message' => 'tender not found'], 404);
