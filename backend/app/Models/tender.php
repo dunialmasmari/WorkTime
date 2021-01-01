@@ -17,6 +17,7 @@ class tender extends Model
         'image',
         'company',
         'description',
+        'filename',
         'apply_link',
         'start_date',
         'deadline',

@@ -41,10 +41,10 @@ class TenderController extends Controller
         {  
             foreach($tenders as $tender)
             {
-                if($tender->major_id == $major->majorid)
+                if($tender->major_id == $major->major_id)
                 {
                     $key=$major->major_name ; 
-                    $count=tender::where('active','1')->where('major_id',$major->majorid)->get()->count();
+                    $count=tender::where('active','1')->where('major_id',$major->major_id)->get()->count();
                     $collection->prepend( $count,$key);
                 break;
                 }
@@ -198,7 +198,5 @@ class TenderController extends Controller
         //print_r($filters);
 
         return response()->json($filters,200);
-    }
-
-
+    } 
 }
