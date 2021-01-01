@@ -21,7 +21,9 @@ class TenderController extends Controller
     
     public function getTenderById($id) 
     {
-        $tender=tender::where('tender_id', $id);
+        //$tender=tender::where('tender_id', $id);
+        $tender=tender::join('majors','tenders.major_id','=','majors.major_id')
+        ->select('majors.major_name','tenders.*')->where('tenders.tender_id', $id);
         if ($tender->exists())
          {
           return response()->json($tender->get() , 200);
@@ -41,10 +43,10 @@ class TenderController extends Controller
         {  
             foreach($tenders as $tender)
             {
-                if($tender->major_id == $major->majorid)
+                if($tender->major_id == $major->major_id)
                 {
                     $key=$major->major_name ; 
-                    $count=tender::where('active','1')->where('major_id',$major->majorid)->get()->count();
+                    $count=tender::where('active','1')->where('major_id',$major->major_id)->get()->count();
                     $collection->prepend( $count,$key);
                 break;
                 }
@@ -171,10 +173,10 @@ class TenderController extends Controller
         {  
             foreach($tenders as $tender)
             {
-                if($tender->major_id == $major->majorid)
+                if($tender->major_id == $major->major_id)
                 {
                     $name=$major->major_name ; 
-                    $id=$major->majorid;
+                    $id=$major->major_id;
                     $major_ar[]=[$id => $name];
                 break;
                 }
