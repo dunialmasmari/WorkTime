@@ -21,7 +21,9 @@ class TenderController extends Controller
     
     public function getTenderById($id) 
     {
-        $tender=tender::where('tender_id', $id);
+        //$tender=tender::where('tender_id', $id);
+        $tender=tender::join('majors','tenders.major_id','=','majors.major_id')
+        ->select('majors.major_name','tenders.*')->where('tenders.tender_id', $id);
         if ($tender->exists())
          {
           return response()->json($tender->paginate() , 200);
@@ -176,7 +178,6 @@ class TenderController extends Controller
                     $name=$major->major_name ; 
                     $id=$major->major_id;
                     $major_ar[]=['id'=>$id,'name'=>$name];
-                   
                 break;
                 }
             }
