@@ -52,3 +52,7 @@ Route::apiResource('major', 'Major\MajorController');
 Route::apiResource('tender', 'Tender\TenderDashboarController');
 Route::post('login', 'login\loginController@login');
 Route::get('checklogin', 'login\loginController@checklogin');
+
+Route::namespace('ContactUs')->group(function(){
+Route::post('ContactUs','ContactUSController@sendEmail');
+});
