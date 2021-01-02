@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="show" max-width="800">
+  <v-dialog v-model="show" max-width="500">
     <div class="Create">
       <v-card class="pb-5" style="border-radius: 15px">
         <v-card-title class="pa-2" style="background-color: #0b0b0b">

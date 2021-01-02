@@ -2,6 +2,7 @@
   <div>
     <v-text-field
       dense
+      :color="colour"
       class="py-0 styled-input toggle"
       :label="lable"
       :rules="typeofrules"
@@ -10,7 +11,9 @@
       required
       :type="types"
       :append-icon="appendIcon"
-      outlined
+      :outlined="outlined"
+      
+      :solo="solo"
       @input="updateValue($event)"
       @click:append="append"
     />
@@ -20,6 +23,18 @@
     export default {
         name: 'TextBoxMaterial',
         props: {
+            solo: {
+                type: Boolean,
+                default: false,
+            },
+            outlined: {
+                type: Boolean,
+                default: true,
+            },
+            colour: {
+                type: String,
+                default: 'blue',
+            },
             lable: {
                 type: String,
                 default: '',

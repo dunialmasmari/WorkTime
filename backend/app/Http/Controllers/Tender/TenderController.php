@@ -171,11 +171,12 @@ class TenderController extends Controller
         {  
             foreach($tenders as $tender)
             {
-                if($tender->major_id == $major->majorid)
+                if($tender->major_id == $major->major_id)
                 {
                     $name=$major->major_name ; 
-                    $id=$major->majorid;
-                    $major_ar[]=[$id => $name];
+                    $id=$major->major_id;
+                    $major_ar[]=['id'=>$id,'name'=>$name];
+                   
                 break;
                 }
             }

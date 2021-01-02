@@ -8,7 +8,7 @@ export default {
   },
   setOneMajors: (state) => {
     console.log('dsf')
-    state.loading = true
+    state.oneMajor = true
   },
   addMajor: (state, data) => {
     console.log('dsf')

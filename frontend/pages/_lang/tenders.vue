@@ -4,7 +4,7 @@
       <v-layout class="py-5 my-4">
         <v-flex class="mx-8">
           <h2 class="PageTittle">
-            {{ $t('Categories.Tittle') }}
+            {{ $t('Tenders.Title') }}
           </h2>
         </v-flex>
       </v-layout>
@@ -15,56 +15,61 @@
             <v-layout justify-center align-center class="py-4"
                       style="background: #3b8070; color: #ffffff">
               <h4>
-                {{ $t('Categories.filter') }}
+                {{ $t('Tenders.filter') }}
               </h4>
             </v-layout>
             <v-layout align-center justify-center wrap class="py-2">
               <v-flex lg12 md12 sm12 xs6 class="pa-3">
-                <h5>Location</h5>
-                <v-select
-                  v-model="chosenlocation"
-                  :items="slides"
-                  multiple
-                  @change="getProduct"
-                />
-              </v-flex>
-              <v-flex lg12 md12 sm12 xs6 class="pa-3">
-                <h5>Company</h5>
-                <v-select
-                  v-model="chosencompany"
-                  :items="slides"
-                  multiple
-                  @change="getProduct"
-                />
-              </v-flex>
-              <v-flex lg12 md12 sm12 xs6 class="pa-3">
-                <h5>Major</h5>
+                <h5>   {{ $t('Tenders.major') }}</h5>
                 <v-select
                   v-model="chosenmajor"
-                  :items="slides"
+                  :items="getFilterField.major"
                   multiple
-                  @change="getProduct"
+                  @change="getTenders"
+                  item-text="name"
+                  item-value="id"
                 />
               </v-flex>
+                <v-flex lg12 md12 sm12 xs6 class="pa-3">
+                <h5>   {{ $t('Tenders.location') }}</h5>
+                <v-select
+                  v-model="chosenlocation"
+                  :items="getFilterField.location"
+                  multiple
+                  @change="getTenders"
+                />
+              </v-flex>
+              <v-flex lg12 md12 sm12 xs6 class="pa-3">
+                <h5>   {{ $t('Tenders.company') }}</h5>
+                <v-select
+                  v-model="chosencompany"
+                  :items="getFilterField.company"
+                  multiple
+                  @change="getTenders"
+                />
+              </v-flex>
+            
             </v-layout>
           </v-card>
         </v-flex>
         <v-flex lg8 md8 sm8 xs12>
           <v-layout justify-center align-center wrap class="ma-5">
-            <v-card v-for="slide in card" class="ma-3" width="280" height="406">
+             <v-card v-for="(tender,i) in getTenderFilter" :key="i" class="ma-3" width="280" height="406">
               <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                :src="tender.image"
                 height="200px"
-              />
-              <v-card-title> {{slide.title}} </v-card-title>
+                />
+               <v-layout  align-center>
+              <v-card-title style="height:130px;"> {{ tender.title }} </v-card-title>
+           </v-layout>
               <v-divider
                 class="elevation-5 align-center mx-6"
                 style="background-color: #3b8070"
               />
               <v-card-subtitle>
-                {{slide.adress}}
+                {{ tender.company }}
                 <br />
-                Deadline:{{slide.dedline}}
+                {{ $t('Tenders.Deadline')}}:{{ tender.deadline }}
               </v-card-subtitle>
             </v-card>
           </v-layout>
@@ -77,23 +82,15 @@
     import { mapGetters, mapActions } from 'vuex'
     export default {
         async fetch({ store }) {
-            await store.dispatch('products/LoadFilterParams')
+          await store.dispatch('tenders/loadFilterField')
+            await store.dispatch('tenders/loadTenderFilter',{
+              major_id:'',
+              company:'',
+              location:'',
+            })
 
-        },
-        asyncData({ app }) {
-            return {
-                chosenMode: 'Newer',
-                getMode: [
-                    { id: 'Newer', name: app.i18n.t('Categories.Newer') },
-                    { id: 'Older', name: app.i18n.t('Categories.Older') },
-                    { id: 'Lowest Price', name: app.i18n.t('Categories.LowestPrice') },
-                    { id: 'Heighest Price', name: app.i18n.t('Categories.HeighestPrice') },
-                ],
-            }
         },
         data: () => ({
-            tab: null,
-
             card:[
                 {
                     title: "Top western road trips Top western road trips Top western road trips",
@@ -144,26 +141,21 @@
             chosenmajor: [],
             chosenlocation: [],
             chosencompany: [],
-            chosenClassifications: [],
-            chosenOffers: [],
-            colors: [],
         }),
+        computed: {
+    ...mapGetters({getFilterField: 'tenders/getFilterField',getTenderFilter:'tenders/getTenderFilter'})
+  },
         methods: {
             ...mapActions({
-                LoadFilterParams: 'products/LoadFilterParams',
-                LoadingCategoriesProduct: 'products/LoadingCategoriesProduct',
-            }),
-            getProduct() {
+                loadTenderFilter: 'tenders/loadTenderFilter',
+             }),
+            getTenders() {
                 console.log('hi')
                 //  this.debounce(function() {
-                this.LoadingCategoriesProduct({
-                    categories: this.$route.params.Categories,
-                    classifications: this.chosenClassifications.join(','),
-                    price: this.ex2.val,
-                    colors: this.colors.join(','),
-                    orderMode: this.chosenMode,
-                    brands: this.chosenBrands.join(','),
-                    offerTypes: this.chosenOffers.join(','),
+                this.loadTenderFilter({
+                    major_id: this.chosenmajor.join(','),
+                    location: this.chosenlocation.join(','),
+                    company: this.chosencompany.join(','),
                 }) //},3000)
             },
 

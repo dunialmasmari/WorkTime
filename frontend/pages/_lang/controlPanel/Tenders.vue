@@ -20,15 +20,15 @@
       <v-flex lg9 py-4>
         <v-data-table
           :headers="headers"
-          :items="allMajors"
+          :items="allTenders"
           hide-default-footer
           sort-by="calories"
           class="elevation-1"
         >
-          <template v-slot:item.isactive="{ item }">
+          <!-- <template v-slot:item.isactive="{ item }">
             <span v-if="item.active == 1">{{ $t("Majors.Tenders") }}</span>
             <span v-if="item.active == 0">{{ $t("Majors.Tenders") }}</span>
-          </template>
+          </template> -->
           <template v-slot:item.actions="{ item }">
             <v-icon small class="mr-2" @click="editItem(item)">
               mdi-pencil
@@ -65,12 +65,12 @@ export default {
           text: app.i18n.t("Tenders.name"),
           align: "start",
           sortable: false,
-          value: "major_name",
+          value: "title",
         },
-        { text: app.i18n.t("Tenders.major"), value: "isactive" },
-        { text: app.i18n.t("Tenders.location"), value: "isactive" },
-        { text: app.i18n.t("Tenders.company"), value: "isactive" },
-        { text: app.i18n.t("Tenders.Deadline"), value: "isactive" },
+        { text: app.i18n.t("Tenders.major"), value: "major_name" },
+        { text: app.i18n.t("Tenders.location"), value: "location" },
+        { text: app.i18n.t("Tenders.company"), value: "company" },
+        { text: app.i18n.t("Tenders.Deadline"), value: "deadline" },
         { text: app.i18n.t("Tenders.action"), value: "actions" },
       ],
     };
@@ -84,21 +84,17 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      allMajors: "majors/allMajors",
+      allTenders: "admintenders/getallTenders",
       visible: "majors/getAddVisibal",
     }),
   },
   mounted() {
-    this.loadAllMajors();
+    this.loadAllTender();
   },
   methods: {
-    ...mapMutations({
-      AddChangeVisibal: "majors/AddMajorChangeVisibal",
-      UpdateChangeVisibal: "majors/UpdateMajorChangeVisibal",
-    }),
     ...mapActions({
-      loadOneMajors: "majors/loadOneMajors",
-      loadAllMajors: "majors/loadAllMajors",
+      loadAllTender: "admintenders/loadAllTender",
+      deleteTender: "admintenders/deleteTender",
     }),
     editItem(item) {
       this.currentId = item.major_id;

@@ -45,10 +45,10 @@
               mdi-pencil
             </v-icon>
             <v-btn v-if="item.active == 0" text @click="deleteItem(item)">{{
-              $t("Majors.active")
+              $t("Majors.activate")
             }}</v-btn>
             <v-btn v-if="item.active == 1" text @click="deleteItem(item)"
-              >{{ $t("Majors.disabled") }}
+              >{{ $t("Majors.deactivate") }}
             </v-btn>
           </template>
           <template v-slot:no-data>
@@ -172,6 +172,7 @@ export default {
     ...mapActions({
       loadOneMajors: "majors/loadOneMajors",
       loadAllMajors: "majors/loadAllMajors",
+      deleteOneMajor: "majors/deleteOneMajor",
     }),
     editItem(item) {
       this.currentId = item.major_id;
@@ -179,7 +180,8 @@ export default {
       this.UpdateChangeVisibal(true);
     },
     deleteItem(item) {
-      this.deleteId = item.id;
+      this.deleteId = item.major_id;
+      this.deleteOneMajor(this.deleteId)
     },
   },
 };

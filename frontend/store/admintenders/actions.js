@@ -1,8 +1,8 @@
 export default {
-    async loadAllMajors({ commit }) {
+    async loadAllTender({ commit }) {
         commit('app/loadingStart', null, { root: true })
         await this.$axios
-            .get(`major`, {
+            .get(`tender`, {
                 retry: 5,
                 retryDelay: 10000,
             })
@@ -15,7 +15,7 @@ export default {
                 if (respo.status === 200) {
                     console.log(respo.data)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('setMajors', respo.data)
+                    commit('setTenders', respo.data)
                 }
             })
             .catch((error) => {
@@ -24,10 +24,10 @@ export default {
                 throw error
             })
     },
-    async loadOneMajors({ commit }, data) {
+    async loadOneTender({ commit }, data) {
         commit('app/loadingStart', null, { root: true })
         await this.$axios
-            .get(`major/${data}`, {
+            .get(`tender/${data}`, {
                 retry: 5,
                 retryDelay: 10000,
             })
@@ -40,7 +40,7 @@ export default {
                 if (respo.status === 200) {
                     console.log(respo.data)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('setOneMajors', respo.data)
+                    commit('setOneTender', respo.data)
                 }
             })
             .catch((error) => {
@@ -49,35 +49,10 @@ export default {
                 throw error
             })
     },
-    async addNewMajor({ commit }, data) {
+    async addNewTender({ commit },data) {
         commit('app/loadingStart', null, { root: true })
         await this.$axios
-            .post(`major`,data, {
-                retry: 5,
-                retryDelay: 10000,
-            })
-            .then((respo) => {
-                if (respo.status === 400) {
-                    console.log(respo.data.message)
-                    commit('app/loadingFinish', null, { root: true })
-                    commit('app/failMessage', respo.data.message, { root: true })
-                }
-                if (respo.status === 201) {
-                    console.log(respo.data)
-                    commit('app/loadingFinish', null, { root: true })
-                    commit('addMajor', respo.data)
-                }
-            })
-            .catch((error) => {
-                commit('app/loadingFinish', null, { root: true })
-                commit('app/failMessage', 'apiFail', { root: true })
-                throw error
-            })
-    },
-    async putNewMajor({ commit }, data) {
-        commit('app/loadingStart', null, { root: true })
-        await this.$axios
-            .put(`major/${data.major_id}`,data, {
+            .post(`tender`, data ,{
                 retry: 5,
                 retryDelay: 10000,
             })
@@ -90,7 +65,7 @@ export default {
                 if (respo.status === 200) {
                     console.log(respo.data)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('putMajor', respo.data)
+                    commit('addedTender', respo.data)
                 }
             })
             .catch((error) => {
@@ -99,10 +74,10 @@ export default {
                 throw error
             })
     },
-    async deleteOneMajor({ commit }, data) {
+    async updateTender({ commit },data) {
         commit('app/loadingStart', null, { root: true })
         await this.$axios
-            .delete(`major/?${data}`, {
+            .put(`tender/${data.id}`,data.fields ,{
                 retry: 5,
                 retryDelay: 10000,
             })
@@ -115,7 +90,7 @@ export default {
                 if (respo.status === 200) {
                     console.log(respo.data)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('deleteMajor', respo.data)
+                    commit('updatedOldTender', respo.data)
                 }
             })
             .catch((error) => {
@@ -124,4 +99,37 @@ export default {
                 throw error
             })
     },
+    async deleteTender({ commit },data) {
+        commit('app/loadingStart', null, { root: true })
+        await this.$axios
+            .delete(`tender/${data}`, {
+                retry: 5,
+                retryDelay: 10000,
+            })
+            .then((respo) => {
+                if (respo.status === 400) {
+                    console.log(respo.data.message)
+                    commit('app/loadingFinish', null, { root: true })
+                    commit('app/failMessage', respo.data.message, { root: true })
+                }
+                if (respo.status === 200) {
+                    console.log(respo.data)
+                    commit('app/loadingFinish', null, { root: true })
+                    commit('deletedTender', respo.data)
+                }
+            })
+            .catch((error) => {
+                commit('app/loadingFinish', null, { root: true })
+                commit('app/failMessage', 'apiFail', { root: true })
+                throw error
+            })
+    },
+
+
+
+
+
+
+
+
 }

@@ -24,6 +24,7 @@ export default {
   plugins: [
     '~/plugins/i18n.js',
     { src: '~/plugins/vue-notification.js', ssr: false },
+    { src: '~/plugins/vue-tinymce.js', ssr: false },
   ],
   router: {
     middleware: 'i18n',
@@ -41,8 +42,34 @@ export default {
           },
           {
             path: 'contact_us',
-            component: 'pages/_lang/contact_us.vue',
+            component: 'pages/_lang/Contact_us.vue',
             name: 'contact_us',
+          },
+          {
+            path: '/Tenders',
+            component: 'pages/_lang/tenders.vue',
+            children: [
+              {
+                path: '/',
+                component: 'pages/_lang/tenders.vue',
+                name: 'Tender',
+              },
+              {
+                path: '/tenderDetails/:TenderDetails',
+                component: 'pages/_lang/tenders/_TenderDetails.vue',
+                name: 'TenderDetails',
+              },
+            ]
+          },
+          {
+            path: 'About_us',
+            component: 'pages/_lang/About_us.vue',
+            name: 'About_us',
+          },
+          {
+            path: 'Login',
+            component: 'pages/_lang/Login.vue',
+            name: 'Login',
           },
           {
             path: '/ControlPanel',
@@ -56,17 +83,18 @@ export default {
               {
                 path: '/Tenders',
                 component: 'pages/_lang/controlPanel/Tenders.vue',
-                name: 'AddTender',
-              },
-              {
-                path: '/AddTender',
-                component: 'pages/_lang/controlPanel/AddTender.vue',
-                name: 'AddTender',
-              },
-              {
-                path: '/:UpdateTender',
-                component: 'pages/_lang/controlPanel/_UpdateTender.vue',
-                name: 'UpdateTender',
+                children: [
+                  {
+                    path: '/AddTender',
+                    component: 'pages/_lang/controlPanel/tenders/AddTender.vue',
+                    name: 'AddTender',
+                  },
+                  {
+                    path: '/:UpdateTender',
+                    component: 'pages/_lang/controlPanel/tenders/_UpdateTender.vue',
+                    name: 'UpdateTender',
+                  },
+                ]
               },
             ]
           },
