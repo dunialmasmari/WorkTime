@@ -42,5 +42,9 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
-    } 
+    }
+    
+    public function addTender(){
+        return $this->belongsToMany('App\Models\tender', 'users_tenders', 'user_id', 'tender_id');
+    }
 }

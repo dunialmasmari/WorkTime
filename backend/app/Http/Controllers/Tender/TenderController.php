@@ -15,7 +15,7 @@ class TenderController extends Controller
     //
     public function getActiveTenders()
     {
-        $tender=tender::where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->limit(8)->get();
+        $tender=tender::where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->limit(8)->paginate();
         return response()->json($tender,200);
     }
     
@@ -26,7 +26,7 @@ class TenderController extends Controller
         ->select('majors.major_name','tenders.*')->where('tenders.tender_id', $id);
         if ($tender->exists())
          {
-          return response()->json($tender->get() , 200);
+          return response()->json($tender->paginate() , 200);
          } 
         else 
         {
@@ -66,7 +66,7 @@ class TenderController extends Controller
           //////no filters 
           if($id == '' && $comp == '' && $loc == '') 
           {
-              $tender=tender::where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->get();
+              $tender=tender::where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->paginate();
               return response()->json($tender,200);
       
           }
@@ -77,7 +77,7 @@ class TenderController extends Controller
               {
                   foreach($id_ar as $va)
                      $query->orwhere('major_id', '=', $va);
-                  })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->get(),200);
+                  })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->paginate(),200);
       
           }
                   //////////filtter by company name
@@ -87,7 +87,7 @@ class TenderController extends Controller
               {
                   foreach($comp_ar as $va)
                      $query->orwhere('company', '=', $va);
-                  })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->get(),200);
+                  })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->paginate(),200);
       
           }
           //////////filtter by location 
@@ -97,7 +97,7 @@ class TenderController extends Controller
               {
                   foreach($loc_ar as $va)
                      $query->orwhere('location', '=', $va);
-                  })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->get(),200);
+                  })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->paginate(),200);
       
           }
           //////////filtter by major_id and company name
@@ -111,7 +111,7 @@ class TenderController extends Controller
                   {
                       foreach($comp_ar as $va)
                          $query->orwhere('company', '=', $va);
-                      })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->get(),200);
+                      })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->paginate(),200);
       
           }
           //////////filtter by major_id and location
@@ -125,7 +125,7 @@ class TenderController extends Controller
                   {
                       foreach($loc_ar as $va)
                          $query->orwhere('location', '=', $va);
-                      })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->get(),200);
+                      })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->paginate(),200);
       
           }
           //////////filtter by company name and location
@@ -139,7 +139,7 @@ class TenderController extends Controller
                   {
                       foreach($loc_ar as $va)
                          $query->orwhere('location', '=', $va);
-                      })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->get(),200);
+                      })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->paginate(),200);
       
           }
           //////////filtter by major id , company name and location
@@ -158,7 +158,7 @@ class TenderController extends Controller
                                 foreach($loc_ar as $va)
                                    $query->orwhere('location', '=', $va);
                               })->where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')
-                            ->get(),200);
+                            ->paginate(),200);
           }
       }
       
@@ -177,7 +177,7 @@ class TenderController extends Controller
                 {
                     $name=$major->major_name ; 
                     $id=$major->major_id;
-                    $major_ar[]=[$id => $name];
+                    $major_ar[]=['id'=>$id,'name'=>$name];
                 break;
                 }
             }
@@ -200,7 +200,5 @@ class TenderController extends Controller
         //print_r($filters);
 
         return response()->json($filters,200);
-    }
-
-
+    } 
 }
