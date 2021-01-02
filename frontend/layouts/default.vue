@@ -1,117 +1,102 @@
 <template>
-  <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </v-app-bar>
+  <v-app :class="$i18n.locale" :id="$i18n.locale">
+    <BaseHeader />
     <v-main>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <v-btn
+        v-show="fab"
+        v-scroll="onScroll"
+        class="upscroller"
+        :left="getdir"
+        fab
+        fixed
+        bottom
+        @click="toTop">
+        <v-icon>mdi-chevron-up</v-icon>
+      </v-btn>
+      <MainView />
     </v-main>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer
-      :absolute="!fixed"
-      app
-    >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    <BaseFooter />
+    <messages />
   </v-app>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
+// import View from '../components/core/View.vue'
+// import Navbar from '../components/core/Navbar.vue'
+// import Header from '../components/core/Header.vue'
+// import Footer from '../components/core/Footer.vue'
+// import messages from '../components/material/messages.vue'
 export default {
-  data () {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+  // components: {
+  //   'Core-Footer': Footer,
+  //   'Core-Header': Header,
+  //   'Core-View': View,
+  //   'Core-Navbar': Navbar,
+  //   'Core-messages': messages,
+  // },
+  data: () => ({
+    fab: false,
+  }),
+  computed: {
+    ...mapGetters({ getdir: 'app/getdir' }),
+  },
+  mounted() {
+    //this.AllCountries()
+    var vm = this
+    //this.$store.dispatch('auth/authApp', this.$router.currentRoute)
+    this.$axios.interceptors.response.use(
+      undefined,
+      function axiosRetryInterceptor(err) {
+        var config = err.config
+
+        if (err.response === undefined || err.response.status !== 401) {
+          console.log('bla bla')
+          // If config does not exist or the retry option is not set, reject
+          if (!config || !config.retry) {
+            return Promise.reject(err)
+          }
+
+          // Set the variable for keeping track of the retry count
+          config.__retryCount = config.__retryCount || 0
+
+          // Check if we've maxed out the total number of retries
+          if (config.__retryCount >= config.retry) {
+            // Reject with the error
+            return Promise.reject(err)
+          }
+
+          // Increase the retry count
+          config.__retryCount += 1
+
+          // Create new promise to handle exponential backoff
+          var backoff = new Promise(function (resolve) {
+            setTimeout(function () {
+              resolve()
+            }, config.retryDelay || 1)
+          })
+          // Return the promise in which recalls axios to retry the request
+          return backoff.then(function () {
+            return vm.$axios(config)
+          })
         }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
-  }
+        if (err.response.status === 401) {
+       //   vm.$store.dispatch('auth/authApp', vm.$router.currentRoute)
+        }
+      }
+    )
+  },
+  methods: {
+    //  ...mapActions({ AllCountries: 'usermanagement/AllCountries' }),
+    onScroll(e) {
+      if (typeof window === 'undefined') return
+      const top = window.pageYOffset || e.target.scrollTop || 0
+      this.fab = top > 20
+    },
+    toTop() {
+      this.$vuetify.goTo(0)
+    },
+  },
 }
 </script>

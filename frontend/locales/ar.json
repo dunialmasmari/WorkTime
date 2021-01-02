@@ -1,0 +1,124 @@
+{
+    "Core":{
+      "Footer":{
+        "about_us":"من نحن",
+        "contact_us":"تواصل معنا"
+      },
+      "Header":{
+        "language":{
+          "ar":"العربية",
+          "en":"الانجليزية"
+        },
+        "Menu":{
+          "accountSetting":"إعدادات الحساب",
+          "logOut":"تسجيل الخروج"
+        }
+      },
+      "Navbar":{
+        "Home":"الرئيسية",
+        "tenders":"المناقصات"
+  
+      },
+      "Drawer":{
+        "Dashboard":"الرئيسية",
+        "jobs&tendersManagement":"إدارة المناقصات ",
+        "tendersManagement":"إدارة المناقصات",
+        "MajorsManagement":"إدارة الاقسام"
+      }
+    },
+    "validation":{
+      "emptyfieldrequired":"يجب ملىء هذا الحقل" ,
+      "chooserequired":"هذا الحقل ضروري" ,
+      "exceededlimitation":"لقد تجاوزت الحد المسموح للكتابه",
+      "undermainlimitation":"يجب ان لا يكون اقل من 100 حرف ",
+      "emailvalidation":"يجب كتابة الايميل بشكل صحيح",
+      "wrongfieldinfo":"خطاء في ادخال البيانات",
+      "passwordnotmuch":"كلمة المرور لا تتطابق",
+      "phoneno":"يجب ملئ هذا الحقل بالبيانات وبشكل صحيح",
+      "imagename":"الملف الذي اخترته ليس صوره",
+      "imagesize":"حجم الملف يجب ان يكون 500*500",
+      "imagetype":"الصوره يجب ان تكون من نوع png ,jpg,jpeg",
+      "PasswordValidation":" يجب ان تكون اكثر من 8 وتحتوي على احرف صغيره،احرف كبيره وارقام ورمز واحد على الاقل ",
+      "example":{
+        "name":"مثال: محمد احمد",
+        "firstname":"مثال: محمد",
+        "lastname":"مثال:احمد",
+        "email":"مثال:example@gmail.com"
+      }
+    },
+    "Home":{
+      "latestTenders":"اخر المناقصات",
+      "majorsTenders":"fg"
+    },
+    "LogIn": {
+      "LogInTitle": "تسجيل الدخول ",
+      "ForgitPwd": "نسيت كلمة المرور",
+      "RemmberMe": "تذكرني",
+      "Submit": "دخول",
+      "Email": "البريد الالكتروني",
+      "Pwd": "كلمة المرور",
+      "IhaveAccount": "ليس لدي حساب"
+    },
+    "Tenders":{
+      "Title":"المناقصات",
+      "name":"عنوان المناقصه",
+      "image":"صورة المناقصه",
+      "major":"القسم",
+      "location":"المنطقة",
+      "company":"الشركة/المنظمة",
+      "applyLink":"رابط التقديم",
+      "startDate":"تاريخ البدء",
+      "postedDate":"تاريخ النشر",
+      "Deadline":"تاريخ الانتهاء",
+      "description":"وصف المناقصة",
+      "save":"حفظ",
+      "action": "الحدث",
+      "AddNew":"إضافة مناقصة جديد",
+      "filter":"فرز حسب"
+
+    },
+    "Majors": {
+      "Title": "الأقسام",
+      "Tenders": "أقسام المناقصات",
+      "Jobs": "أقسام الوظايف",
+      "AddNew": "إضافة قسم جديد",
+      "UpdateMajor": "تعديل القسم",
+      "name":"عنوان القسم",
+      "active":"مفعل",
+      "disabled":"غير مفعل",
+      "activate":"تفعيل",
+      "deactivate":"إلغاء التفعيل",
+      "status":"الحالة",
+      "save":"حفظ",
+      "Update": "تعديل",
+      "Delete": "حذف",
+      "action": "الحدث"
+    },
+    
+    "apisuccessmesages":{
+      "title":"تم بنجاح",
+      "updatepwd":"تمت تعديل كلمة المرور بنجاح",
+      "updatecurrentuser":"تم تعديل بياناتك الشخصية بنجاح",
+      "saveAdress":"تمت إضافة العنوان بنجاح",
+      "AddToCart":"تمت إضافة المنتج للسلة ",
+      "updateCartItems":"تم تعديل الكمية",
+      "DeleteItemsFromCart":"تمت إزالة المنتج من السلة "
+    },
+    "apifailmessages":{
+      "apiFail":"حدث خطاء ما تحقق من اتصالك بالانترنت ،ان استمرت المشكله تواصل مع مركز الدعم لمعرفة السبب",
+      "title":"عذرا"
+     
+  
+    },
+    "ContactUS": {
+      "Tittle": " تواصل معنا",
+      "Name": "إسمك",
+      "Email": "بريدك الالكتروني",
+      "Send":"أرسل",
+      "Message": "ضع رسالتك هنا"
+    }
+  
+  
+  
+  }
+  
