@@ -18,7 +18,7 @@ class MajorController extends Controller
         $major = Major::where('active','1');
         if($major->exists())
         {
-            return response()->json($major->get(), 200);
+            return response()->json($major->paginate(10), 200);
         }
         else{
             return response()->json(['message' => 'You do not have active major '], 404);
@@ -58,7 +58,7 @@ class MajorController extends Controller
         $major = Major::where('major_id',$id);
         if($major->exists())
         {
-            return response()->json($major->get(), 200);
+            return response()->json($major->paginate(), 200);
         }
         else{
             return response()->json(['message' => 'major not found'], 404);
@@ -89,7 +89,7 @@ class MajorController extends Controller
         if($major->exists())
         {
             $major->Update($request->all());
-            return response()->json($major->get(), 200);
+            return response()->json($major->paginate(), 200);
         }
         else{
             return response()->json(['message' => 'major not found'], 404);
