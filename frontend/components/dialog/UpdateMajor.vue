@@ -20,7 +20,7 @@
           <v-layout justify-center wrap align-center class="py-9">
             <v-flex sm7 xs8 md7 lg7>
               <TextBoxMaterial
-               v-model="majorName"
+               v-model="oneMajorData.major_name"
                 rules="requiredRules"
                 :lable="$t('Majors.name')"
               />
@@ -82,8 +82,8 @@ export default {
         }
       },
     },
-    majorName(){
-        return this.getoneMajor.major_name
+    oneMajorData(){
+        return {...this.getoneMajor[0]}
     }
   },
   methods: {
@@ -91,12 +91,7 @@ export default {
     ...mapActions({putNewMajor: "majors/putNewMajor"}),
   
     save() {
-      this.putNewMajor({
-        major_id:this.getoneMajor.major_id,
-        major_name: this.majorName,
-        type: this.getoneMajor.type,
-        active:this.getoneMajor.active
-      });
+      this.putNewMajor(this.oneMajorData);
     },
   },
 };

@@ -1,6 +1,6 @@
 export default () => ({
   allMajors: [],
-  oneMajor: {},
+  oneMajor: [],
     addVisibal: false,
     updateVisibal: false,
   })

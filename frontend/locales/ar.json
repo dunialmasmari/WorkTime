@@ -2,7 +2,8 @@
     "Core":{
       "Footer":{
         "about_us":"من نحن",
-        "contact_us":"تواصل معنا"
+        "contact_us":"تواصل معنا",
+        "allrights":"جميع الحقوق محفوظة وورك تايم-2021"
       },
       "Header":{
         "language":{
@@ -30,7 +31,7 @@
       "emptyfieldrequired":"يجب ملىء هذا الحقل" ,
       "chooserequired":"هذا الحقل ضروري" ,
       "exceededlimitation":"لقد تجاوزت الحد المسموح للكتابه",
-      "undermainlimitation":"يجب ان لا يكون اقل من 100 حرف ",
+      "undermainlimitation":"يجب ان لا يكون اقل من 50 حرف ",
       "emailvalidation":"يجب كتابة الايميل بشكل صحيح",
       "wrongfieldinfo":"خطاء في ادخال البيانات",
       "passwordnotmuch":"كلمة المرور لا تتطابق",
@@ -48,7 +49,7 @@
     },
     "Home":{
       "latestTenders":"اخر المناقصات",
-      "majorsTenders":"fg"
+      "majorsTenders":"المناقصات على حسب الاقسام"
     },
     "LogIn": {
       "LogInTitle": "تسجيل الدخول ",
@@ -63,7 +64,9 @@
       "Title":"المناقصات",
       "name":"عنوان المناقصه",
       "image":"صورة المناقصه",
+      "downloadpdfs":"تحميل الملفات",
       "major":"القسم",
+      "more":"مزيد من المعلومات",
       "location":"المنطقة",
       "company":"الشركة/المنظمة",
       "applyLink":"رابط التقديم",
@@ -96,13 +99,7 @@
     },
     
     "apisuccessmesages":{
-      "title":"تم بنجاح",
-      "updatepwd":"تمت تعديل كلمة المرور بنجاح",
-      "updatecurrentuser":"تم تعديل بياناتك الشخصية بنجاح",
-      "saveAdress":"تمت إضافة العنوان بنجاح",
-      "AddToCart":"تمت إضافة المنتج للسلة ",
-      "updateCartItems":"تم تعديل الكمية",
-      "DeleteItemsFromCart":"تمت إزالة المنتج من السلة "
+      "title":"تم بنجاح"
     },
     "apifailmessages":{
       "apiFail":"حدث خطاء ما تحقق من اتصالك بالانترنت ،ان استمرت المشكله تواصل مع مركز الدعم لمعرفة السبب",
@@ -116,9 +113,53 @@
       "Email": "بريدك الالكتروني",
       "Send":"أرسل",
       "Message": "ضع رسالتك هنا"
-    }
+    },
   
-  
-  
+  "cities":{"Abyan":"أبين",
+      "Aden":"عدن",
+      "AlMahrah":"المهرة",
+      "AlMahwit":"المحويت",
+      "Sanaa":"صنعا",
+      "Amran":"عمران",
+      "Dhale":"الضالع",
+      "Dhamar":"ذمار",
+      "Hadramaut":"حضرموت",
+      "AlJawf":"الجوف",
+      "Hajjah":"حجة",
+      "Ibb":"إب",
+      "Lahij":"لحج",
+      "Marib":"مأرب",
+      "AlBayda":"البيضاء",
+      "Raymah":"ريمة",
+      "Sadah":"صعدة",
+      "AmanatAlAsimah":"أمانة العاصمة",
+      "Shabwah":"شبوة",
+      "Socotra":"سقطرى",
+      "Taiz":"تعز"
+  },
+  "citiee":{
+       "Abyan":"Abyan",
+       "Aden":"Aden",
+       "AlMahrah": "Al Mahrah",
+       "AlMahwit": "Al Mahwit",
+       "Sanaa": "Sana'a",
+       "Amran": "Amran",
+       "Dhale": "Dhale",
+       "Dhamar": "Dhamar",
+       "Hadramaut": "Hadramaut",
+       "AlJawf": "Al Jawf",
+       "Hajjah": "Hajjah",
+       "Ibb": "Ibb",
+       "Lahij": "Lahij",
+       "Marib": "Ma'rib",
+       "AlBayda": "Al Bayda",
+       "Raymah": "Raymah",
+       "Sadah": "Sa'dah",
+       "AmanatAlAsimah": "Amanat Al Asimah (Sanaa City)",
+       "Shabwah": "Shabwah",
+       "Socotra": "Socotra",
+       "Taiz": "Taiz"
+        
+  }
   }
   

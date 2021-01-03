@@ -8,7 +8,8 @@
       transition="fade-transition"
     >
       <v-footer
-        elevation="12"
+        elevation="5"
+       
           ma-0 pa-0 
           style="padding:0;"
         app
@@ -16,17 +17,18 @@
       
       >
         <v-layout  
-          style=" width:100%;"
+          style=" width:100%; background-color:#5f5d5e;"
           class="py-3"
+          color="#5f5d5e"
            justify-center align-center>
           <v-flex lg5 md5 xs12 sm12>
             <v-layout justify-center align-center>
-              <v-avatar size="80" tile>
-                <v-img :src="require('@/static/v.png')" height="80" contain />
+              <v-avatar  width="150" tile>
+                <v-img :src="require('@/static/hrlogo.png')" width="150" height="80" contain />
               </v-avatar>
             </v-layout>
 
-            <v-layout justify-center align-center class="py-5">
+            <v-layout justify-center align-center >
               <a
               style="text-decoration:none;"
                 class="ma-5"
@@ -67,9 +69,9 @@
           </v-flex>
          
         </v-layout>
-           <v-layout class="my-4" 
+           <v-layout class="my-2" 
            justify-center  align-center>
-         <h3>ghfh</h3>
+         <h4> {{ $t('Core.Footer.allrights')}} </h4>
           
          
         </v-layout>

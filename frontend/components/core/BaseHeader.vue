@@ -1,25 +1,31 @@
 <template>
-  <v-app-bar elevation="2" color="black" app height="80">
+  <v-app-bar  color="#fff" app height="80">
     <v-layout justify-center align-center >
     <v-toolbar-items>
       <v-flex align-center layout>
         <div class="Navbar">
 <!--          <v-toolbar flat color="brown">-->
-              <v-btn  color="#ffffff" text :to="`/${$i18n.locale}/`">
+              <v-btn  color="#5f5d5e" text :to="`/${$i18n.locale}/`">
                 Home
               </v-btn>
-              <v-btn text color="#ffffff" :to="`/${$i18n.locale}/tenders`">
+              <v-btn text color="#5f5d5e" :to="`/${$i18n.locale}/tenders`">
                 Tenders
+              </v-btn>
+                 <v-btn text color="#5f5d5e" :to="`/${$i18n.locale}/about_us`">
+                about us
+              </v-btn>
+                 <v-btn text color="#5f5d5e" :to="`/${$i18n.locale}/contact_us`">
+                contact us
               </v-btn>
 <!--          </v-toolbar>-->
         </div>
       </v-flex>
     </v-toolbar-items>
     </v-layout>
-
+    <v-spacer />
     <div>
       <v-avatar size="150" tile>
-        <v-img :src="require('@/static/v.png')" height="70" contain />
+        <v-img :src="require('@/static/hrlogo.png')" height="70" contain />
       </v-avatar>
     </div>
   </v-app-bar>

@@ -4,12 +4,13 @@ export default {
   
   setTenders: (state,data) => {
     state.allTenders = data
+     state.allMajors.unshift(data)
   },
   setOneTender: (state) => {
     state.oneTender = true
   },
   addedTender: (state,data) => {
-   // state.tenderMajor = data
+    state.allMajors.unshift(data)
   },
   updatedOldTender: (state,data) => {
   //  state.filterField = data

@@ -11,44 +11,109 @@
         <v-sheet :color="colors[i]" height="100%">
           <v-row class="fill-height" align="center" justify="center">
             <div class="display-3">{{ slide }} Slide</div>
+            <!-- <v-img :src="require('@/static/' + slide )" /> -->
           </v-row>
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
     <v-layout class="py-5 mx-6">
       <v-flex sm2 xs12 md2 lg11>
-        <h2 class="py-2" style="color: #00695c">{{ $t("Home.latestTenders")}}</h2>
+        <h2 class="py-2" style="color: #5f5d5e">
+          {{ $t("Home.latestTenders") }}
+        </h2>
       </v-flex>
     </v-layout>
     <v-layout>
       <v-divider
         class="elevation-5 align-center mx-6 py-2"
-        style="background-color: #3b8070"
+        style="background-color: #28acde"
       />
     </v-layout>
-    <v-layout class="py-4" align-center justify-center>
-      <v-flex class="py-2" sm2 xs12 md2 lg11 style="background-color: #f5f5f5">
-        <v-flex lg12 md8 sm8 xs12>
-          <v-layout class="py-4" align-center justify-center wrap>
-            <v-card v-for="(tender,i) in getallTenders" :key="i" class="ma-3" width="280" height="406">
-              <v-img
-                :src="tender.image"
-                height="200px"
-              />
-              <v-card-title style="height:130px;"> {{ tender.title }} </v-card-title>
-          
+    <v-layout class="py-4" align-center wrap justify-center>
+      <v-flex
+        class="py-2"
+        sm12
+        xs12
+        md12
+        lg12
+        style="background-color: #f5f5f5"
+      >
+        <v-layout class="py-4" align-center justify-center wrap>
+          <v-flex
+            lg3
+            md5
+            sm5
+            xs12
+            v-for="(tender, i) in getallTenders.data"
+            :key="i"
+          >
+            <v-card class="ma-3" width="280" height="406">
+              <v-img :src="tender.image" height="200px" />
+              <v-card-title style="height: 100px">
+                {{ tender.title }}
+              </v-card-title>
+
               <v-divider
                 class="elevation-5 align-center mx-6"
-                style="background-color: #3b8070"
+                style="background-color: #28acde"
               />
               <v-card-subtitle>
                 {{ tender.company }}
                 <br />
-                {{ $t('Tenders.Deadline')}}:{{ tender.deadline }}
+                {{ $t("Tenders.Deadline") }}:{{ tender.deadline }}
+                <br />
+              
+              <v-btn small  color="#28acde" class=" mx-0 " >
+              <span style="color:#fff">{{  $t("Tenders.more") }}</span>
+              </v-btn>
               </v-card-subtitle>
             </v-card>
-          </v-layout>
-        </v-flex>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+    </v-layout>
+      <v-layout class="py-5 mx-6">
+      <v-flex sm2 xs12 md2 lg11>
+        <h2 class="py-2" style="color: #5f5d5e">
+          {{ $t("Home.majorsTenders") }}
+        </h2>
+      </v-flex>
+    </v-layout>
+    <v-layout>
+      <v-divider
+        class="elevation-5 align-center mx-6 py-2"
+        style="background-color: #28acde"
+      />
+    </v-layout>
+    <v-layout class="py-4" align-center wrap justify-center>
+      <v-flex
+        class="py-2"
+        sm12
+        xs12
+        md12
+        lg12
+        style="background-color: #f5f5f5"
+      >
+        <v-layout class="py-4" align-center wrap justify-center>
+          <v-flex
+          mx-3
+            v-for="(major, i) in getTenderMajor"
+            :key="i"
+            sm12
+            xs12
+            md3
+            lg3
+            ><v-card>
+              <v-layout align-center  justify-center>
+              
+                <h3 class="py-2">
+                  {{ major.name }}
+                  ({{ major.count }})
+                  </h3>
+              </v-layout>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </div>
@@ -65,8 +130,9 @@ export default {
   //     }, 1000)
   //   })
   // },
-    async fetch({ store }) {
-    await store.dispatch('tenders/loadAllTender')
+  async fetch({ store }) {
+    await store.dispatch("tenders/loadAllTender");
+    await store.dispatch("tenders/loadTenderMajor");
   },
   data: () => ({
     tenders: 0,
@@ -125,13 +191,13 @@ export default {
     slidstoShow: null,
   }),
   computed: {
-    ...mapGetters({getallTenders: 'tenders/getallTenders'})
+    ...mapGetters({
+      getallTenders: "tenders/getallTenders",
+      getTenderMajor: "tenders/getTenderMajor",
+    }),
   },
-  mounted() {
-   
-  },
+  mounted() {},
   methods: {
-   
     reserve() {
       this.loading = true;
 

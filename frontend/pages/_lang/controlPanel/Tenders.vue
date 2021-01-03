@@ -7,7 +7,7 @@
       <v-spacer />
       <div class="ma-3 py-2">
         <v-btn
-          @click="AddChangeVisibal(true)"
+          :to="`/${$i18n.locale}/controlPanel/tenders/AddTender`"
           dark
           style="height: 40px"
           color="#0b0b0b"
@@ -20,7 +20,7 @@
       <v-flex lg9 py-4>
         <v-data-table
           :headers="headers"
-          :items="allTenders"
+          :items="allTenders.data"
           hide-default-footer
           sort-by="calories"
           class="elevation-1"

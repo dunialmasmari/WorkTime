@@ -26,7 +26,7 @@ class TenderController extends Controller
         ->select('majors.major_name','tenders.*')->where('tenders.tender_id', $id);
         if ($tender->exists())
          {
-          return response()->json($tender->paginate() , 200);
+          return response()->json($tender->get(), 200);
          } 
         else 
         {
@@ -39,6 +39,7 @@ class TenderController extends Controller
         $tenders=tender::where('active','1')->get();
         $majors=Major::where('active','1')->get();
         $collection =collect([]);
+        $major_ar=array();
         foreach($majors as $major)
         {  
             foreach($tenders as $tender)
@@ -47,12 +48,14 @@ class TenderController extends Controller
                 {
                     $key=$major->major_name ; 
                     $count=tender::where('active','1')->where('major_id',$major->major_id)->get()->count();
-                    $collection->prepend( $count,$key);
+                    
+                    $major_ar[]=['count'=>$count,'name'=>$key];
+                   // $collection->prepend( $count,$key);
                 break;
                 }
             }
         }
-        return response()->json($collection,200);
+        return response()->json($major_ar,200);
       }
 
       public function filterAllActiveTender(Request $request)

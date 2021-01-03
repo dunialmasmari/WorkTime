@@ -181,7 +181,7 @@ export default {
     },
     deleteItem(item) {
       this.deleteId = item.major_id;
-      this.deleteOneMajor(this.deleteId)
+      this.deleteOneMajor(item)
     },
   },
 };
