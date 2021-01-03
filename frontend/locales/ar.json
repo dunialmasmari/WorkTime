@@ -28,6 +28,9 @@
       }
     },
     "validation":{
+      "startDateValidation":"يجب ان يكون تاريخ نشر المناقصه اصغر من تاريخ الانتهاء",
+      "endDateValidation":"يجب ان يكون تاريخ الانتهاء  اكبر من تاريخ النشر ",
+      "filetype":"يجب ان تكون صيغة الملف zip او pdf",
       "emptyfieldrequired":"يجب ملىء هذا الحقل" ,
       "chooserequired":"هذا الحقل ضروري" ,
       "exceededlimitation":"لقد تجاوزت الحد المسموح للكتابه",

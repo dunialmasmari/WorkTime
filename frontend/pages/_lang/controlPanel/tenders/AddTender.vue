@@ -9,7 +9,7 @@
     </v-layout>
 
     <v-form
-      ref="firstform"
+      ref="form"
       v-model="firstValid"
       class="py-5"
       :lazy-validation="firstLazy"
@@ -44,7 +44,9 @@
                   />
                 </v-layout>
                 <v-layout justify-center align-center>
-                  <span style="color: red; font-size: 12px">this is it</span>
+                  <span v-if="imageRules" style="color: red; font-size: 12px">{{
+                    $t("validation.emptyfieldrequired")
+                  }}</span>
                 </v-layout>
               </v-flex>
               <v-flex sm8 xs10 md9 lg8 class="mx-3">
@@ -59,7 +61,7 @@
                   :items="items"
                   :label="$t('Tenders.major')"
                   v-model="major"
-                  :rules="requiredRules"
+                  :rules="[(v) => !!v || $t('validation.emptyfieldrequired')]"
                   item-text="name"
                   item-value="id"
                   dense
@@ -70,7 +72,7 @@
                   :items="cities"
                   :label="$t('Tenders.location')"
                   v-model="location"
-                  :rules="requiredRules"
+                  :rules="[(v) => !!v || $t('validation.emptyfieldrequired')]"
                   item-text="name"
                   item-value="id"
                   class="toggle"
@@ -104,7 +106,12 @@
                     <v-text-field
                       slot="activator"
                       v-model="startDate"
-                      :rules="startRules"
+                      :rules="[
+                        (v) => !!v || $t('validation.emptyfieldrequired'),
+                        (v) =>
+                          (v && v < endDate) ||
+                          $t('validation.startDateValidation'),
+                      ]"
                       dense
                       :label="$t('Tenders.startDate')"
                       readonly
@@ -132,7 +139,12 @@
                     <v-text-field
                       slot="activator"
                       v-model="endDate"
-                      :rules="endRules"
+                      :rules="[
+                        (v) => !!v || $t('validation.emptyfieldrequired'),
+                        (v) =>
+                          (v && v > startDate) ||
+                          $t('validation.endDateValidation'),
+                      ]"
                       dense
                       :label="$t('Tenders.Deadline')"
                       readonly
@@ -151,10 +163,31 @@
                 <v-file-input
                   v-model="pdfs"
                   truncate-length="15"
+                  :rules="[
+                    (v) => !!v || $t('validation.emptyfieldrequired'),
+                    (v) =>
+                      (v &&
+                        (v.type === 'application/pdf' ||
+                          v.type === 'application/zip')) ||
+                      $t('validation.filetype'),
+                  ]"
                 ></v-file-input>
               </v-flex>
               <v-flex xs12 sm9 md10 lg10 class="my-3">
-                <tinymce id="d1" v-model="description"></tinymce>
+                <v-layout>
+                  <tinymce
+                    id="d1"
+                    v-model="description"
+                    @input="checkeditorvalidation()"
+                  ></tinymce>
+                </v-layout>
+                <v-layout>
+                  <span
+                    v-if="descriptionRules"
+                    style="color: red; font-size: 12px"
+                    >{{ $t("validation.emptyfieldrequired") }}</span
+                  >
+                </v-layout>
               </v-flex>
             </v-layout>
             <!--Todo description -->
@@ -170,12 +203,10 @@
 <script>
 import ButtonMatirlal from "~/components/material/ButtonMatirlal.vue";
 import i18n from "~/middleware/i18n.js";
-// import Editor from '@tinymce/tinymce-vue'
 import { mapActions } from "vuex";
 export default {
   layout: "control",
   components: {
-    // 'editor': Editor,
     "Material-ButtonMatirlal": ButtonMatirlal,
   },
   asyncData({ app }) {
@@ -203,21 +234,11 @@ export default {
         { name: app.i18n.t("cities.Socotra"), id: "Socotra" },
         { name: app.i18n.t("cities.Taiz"), id: "Taiz" },
       ],
-      requiredRules: [
-        (v) => !!v || app.i18n.t('validation.emptyfieldrequired'),
-        (v) => (v && v.length <= 50) || app.i18n.t('validation.undermainlimitation'),
-      ],
-      // endRules: [
-      //   (v) => !!v || app.i18n.t('validation.emptyfieldrequired'),
-      //   (v) => (v && v > this.startDate) || app.i18n.t('validation.undermainlimitation'),
-      // ],
-      // startRules: [
-      //   (v) => !!v || app.i18n.t('validation.emptyfieldrequired'),
-      //   (v) => (v && v > 50) || app.i18n.t('validation.undermainlimitation'),
-      // ],
     };
   },
   data: () => ({
+    imageRules: false,
+    descriptionRules: false,
     firstValid: false,
     firstLazy: false,
     pdfs: null,
@@ -240,56 +261,107 @@ export default {
     ...mapActions({ addNewTender: "admintenders/addNewTender" }),
     onUploadFile() {
       this.$refs.fileInput.click();
+      if (this.image === null) {
+        this.imageRules = true;
+      } else {
+        this.imageRules = false;
+      }
     },
     onFilePicked(event) {
       console.log(this.$refs.fileInput.files[0]);
       const files = event.target.files;
-      let fileName = files[0].name;
-      if (fileName.lastIndexOf(".") <= 0) {
-        return alert(i18n.t("validation.imagename"));
-      }
-      let fileSize = files[0].size;
-      console.log(fileSize);
-      if (fileSize > 500 * 500) {
-        return alert(i18n.t("validation.imagesize"));
-      }
-      let fileType = files[0].type;
-      console.log(fileType);
-      if (fileType !== "image/png") {
-        if (fileType !== "image/jpeg") {
-          return alert(i18n.t("validation.imagetype"));
+      if (files.length > 0) {
+        let fileName = files[0].name;
+        if (fileName.lastIndexOf(".") <= 0) {
+          return alert(i18n.t("validation.imagename"));
         }
-      }
-      const fileReder = new FileReader();
-      fileReder.addEventListener("load", () => {
-        this.imageUrl = fileReder.result;
-        console.log(this.imageUrl);
-      });
-      fileReder.readAsDataURL(files[0]);
+        let fileSize = files[0].size;
+        console.log(fileSize);
+        if (fileSize > 500 * 500) {
+          return alert(i18n.t("validation.imagesize"));
+        }
+        let fileType = files[0].type;
+        console.log(fileType);
+        if (fileType !== "image/png") {
+          if (fileType !== "image/jpeg") {
+            return alert(i18n.t("validation.imagetype"));
+          }
+        }
+        const fileReder = new FileReader();
+        fileReder.addEventListener("load", () => {
+          this.imageUrl = fileReder.result;
+          console.log(this.imageUrl);
+        });
+        fileReder.readAsDataURL(files[0]);
 
-      this.image = files[0];
+        this.image = files[0];
+      }
+      if (this.image === null) {
+        this.imageRules = true;
+      } else {
+        this.imageRules = false;
+      }
+    },
+    checkeditorvalidation() {
+      if (this.description.length < 50) {
+        this.descriptionRules = true;
+      } else {
+        this.descriptionRules = false;
+      }
+    },
+    typeValidation() {
+      if (
+        this.pdfs.type === "application/pdf" ||
+        this.pdfs.type === "application/zip"
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     },
     submit() {
       console.log(this.image, this.pdfs);
       console.log(this.pdfs);
+      if (this.image === null) {
+        this.imageRules = true;
+      } else {
+        this.imageRules = false;
+      }
+      if(this.description!==null){
+       if (this.description.length < 50) {
+        this.descriptionRules = true;
+      } else {
+        this.descriptionRules = false;
+      }
+      }else{
+         this.descriptionRules = true;
+      }
+      this.$refs.form.validate();
+      if (
+        this.firstValid === true &&
+        this.imageRules === false &&
+        this.descriptionRules === false
+      ) {
+        this.addNewTender({
+          description: this.description,
+          apply_link: this.applyLink,
+          start_date: this.startDate,
+          deadline: this.endDate,
+          posted_date: this.endDate,
+          active: 1,
 
-      this.addNewTender({
-        description: this.description,
-        apply_link: this.applyLink,
-        start_date: this.startDate,
-        deadline: this.endDate,
-        posted_date: this.endDate,
-        active: 1,
-
-        location: this.location,
-        company: this.company,
-        major_id: 1,
-        title: this.title,
-        files: {
-          image: this.image,
-          filename: this.pdfs,
-        },
-      });
+          location: this.location,
+          company: this.company,
+          major_id: 1,
+          title: this.title,
+          files: {
+            image: this.image,
+            filename: this.pdfs,
+          },
+        });
+      } else {
+        console.log( this.firstValid,  this.imageRules, this.descriptionRules )
+      }
     },
   },
 };

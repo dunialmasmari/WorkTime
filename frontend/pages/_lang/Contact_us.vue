@@ -86,7 +86,10 @@
                 <v-textarea
                   v-model="message"
                   :label="$t('ContactUS.Message')"
-                  :rules="messageRules"
+                  :rules=" [
+        (v) => !!v || $t('validation.emptyfieldrequired'),
+        (v) => (v && v.length > 50) || $t('validation.undermainlimitation'),
+      ]"
                   class="my-5 toggle"
                   required
                 />
@@ -112,10 +115,6 @@ export default {
    asyncData ({ app })  {
     return {
       one:'',
-      messageRules: [
-        (v) => !!v || app.i18n.t('validation.emptyfieldrequired'),
-        (v) => (v && v.length > 50) || app.i18n.t('validation.undermainlimitation'),
-      ],
     }
   },
   data() {

@@ -30,9 +30,11 @@
             <span v-if="item.active == 0">{{ $t("Majors.Tenders") }}</span>
           </template> -->
           <template v-slot:item.actions="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">
+            <v-btn  text :to="`/${$i18n.locale}/controlPanel/tenders/${item.tender_id}`">
+            <v-icon small class="mr-2" >
               mdi-pencil
             </v-icon>
+            </v-btn>
             <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
           </template>
           <template v-slot:no-data>

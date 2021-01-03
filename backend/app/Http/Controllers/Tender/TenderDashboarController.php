@@ -79,13 +79,13 @@ class TenderDashboarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $id)
+    public function show( $id)
     {
-        $tender = tender::join('majors', '.major_id', '=', 'majors.major_id')
-        ->select('majors.major_name', 'tenders.*' )->where('tenders.tender_id',$id);
+        $tender = tender::join('majors', 'tenders.major_id', '=', 'majors.major_id')
+        ->select('majors.major_name', 'tenders.*' )->where('tenders.tender_id', $id);
         if($tender->exists())
         {
-            return response()->json($tender->paginate(), 200);
+            return response()->json($tender->get(), 200);
         }
         else{
             return response()->json(['message' => 'You do not have active tenders '], 404);
