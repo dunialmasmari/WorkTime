@@ -27,5 +27,12 @@ class userProfController extends Controller
             
         ]);
         return response()->json(['message' => 'add sucessful'], 201); 
- }
+    }
+
+    public function getActiveUser()
+    {
+        $users=userProf::paginate(6);
+        return response()->json($users,200);
+    } 
+
 }

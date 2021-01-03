@@ -59,6 +59,6 @@ Route::post('ContactUs','ContactUSController@sendEmail');
 
 Route::namespace('UserProf')->group(function(){
     Route::post('addUser','userProfController@userProfAdd');
-    Route::get('addUser','userProfController@getActiveUser');
+    Route::get('getUser','userProfController@getActiveUser');
 
     });
