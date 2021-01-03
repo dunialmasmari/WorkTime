@@ -56,3 +56,9 @@ Route::get('checklogin', 'login\loginController@checklogin');
 Route::namespace('ContactUs')->group(function(){
 Route::post('ContactUs','ContactUSController@sendEmail');
 });
+
+Route::namespace('UserProf')->group(function(){
+    Route::post('addUser','userProfController@userProfAdd');
+    Route::get('addUser','userProfController@getActiveUser');
+
+    });
