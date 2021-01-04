@@ -17,6 +17,19 @@ class TenderDashboarController extends Controller
     public function index()
     {	
         $tender = tender::join('majors', 'tenders.major_id', '=', 'majors.major_id')
+        ->select('majors.major_name', 'tenders.*' );//->where('tenders.active','1');
+        if($tender->exists())
+        {
+            return response()->json($tender->paginate(10), 200);
+        }
+        else{
+            return response()->json(['message' => 'You do not have active tenders '], 404);
+        }  
+    }
+
+    public function getactivetender()
+    {	
+        $tender = tender::join('majors', 'tenders.major_id', '=', 'majors.major_id')
         ->select('majors.major_name', 'tenders.*' )->where('tenders.active','1');
         if($tender->exists())
         {
@@ -85,7 +98,7 @@ class TenderDashboarController extends Controller
         ->select('majors.major_name', 'tenders.*' )->where('tenders.tender_id', $id);
         if($tender->exists())
         {
-            return response()->json($tender->get(), 200);
+            return response()->json(['data' => $tender->get(), 'path the folder of files' => public_path('files/'), 'path the folder of images' => public_path('images/')], 200);
         }
         else{
             return response()->json(['message' => 'You do not have active tenders '], 404);
@@ -169,5 +182,20 @@ class TenderDashboarController extends Controller
             return response()->json(['message' => 'tender not found'], 404);
         }
     }
+
+    public function delete($id)
+    {
+        $tender = tender::where('tender_id',$id);
+        if($tender->exists())
+        {
+           
+                $tender->delete();
+                return response()->json(['message' => 'tender deleted'], 200);
+        }
+        else{
+            return response()->json(['message' => 'tender not found'], 404);
+        }
+    }
+
 
 }
