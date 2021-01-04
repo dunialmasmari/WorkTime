@@ -3,7 +3,7 @@
     <v-text-field
       dense
       :color="colour"
-      class="py-0 styled-input toggle"
+      class="py-0 my-3 styled-input toggle"
       :label="lable"
       :rules="typeofrules"
       :placeholder="placeholder"
@@ -29,7 +29,7 @@
             },
             outlined: {
                 type: Boolean,
-                default: true,
+                default: false,
             },
             colour: {
                 type: String,

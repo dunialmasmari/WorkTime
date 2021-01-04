@@ -15,10 +15,10 @@ class MajorController extends Controller
      */
     public function index()
     {
-        $major = Major::where('active','1');
+        $major = Major::select('majors.major_name','majors.major_id','majors.type','majors.active');
         if($major->exists())
         {
-            return response()->json($major->paginate(10), 200);
+            return response()->json($major->get(), 200);
         }
         else{
             return response()->json(['message' => 'You do not have active major '], 404);
@@ -55,10 +55,10 @@ class MajorController extends Controller
      */
     public function show($id)
     {
-        $major = Major::where('major_id',$id);
+        $major = Major::select('majors.major_name','majors.major_id','majors.type','majors.active')->where('major_id',$id);
         if($major->exists())
         {
-            return response()->json($major->paginate(), 200);
+            return response()->json($major->get(), 200);
         }
         else{
             return response()->json(['message' => 'major not found'], 404);
@@ -85,11 +85,11 @@ class MajorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $major = Major::where('major_id',$id);
+        $major = Major::select('majors.major_name','majors.major_id','majors.type','majors.active')->where('major_id',$id);
         if($major->exists())
         {
             $major->Update($request->all());
-            return response()->json($major->paginate(), 200);
+            return response()->json($major->get(), 200);
         }
         else{
             return response()->json(['message' => 'major not found'], 404);

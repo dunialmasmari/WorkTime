@@ -103,7 +103,7 @@ export default {
     async loadTenderFilter({ commit },data) {
         commit('app/loadingStart', null, { root: true })
         await this.$axios
-            .get(`Tender/filters?major_id=${data.major_id}&company=${data.company}&location=${data.location}`, {
+            .get(`Tender/filters?page=${data.page}&major_id=${data.major_id}&company=${data.company}&location=${data.location}`, {
                 retry: 5,
                 retryDelay: 10000,
             })
@@ -125,8 +125,6 @@ export default {
                 throw error
             })
     },
-
-    
     async addNewMajor({ commit }, data) {
         commit('app/loadingStart', null, { root: true })
         await this.$axios

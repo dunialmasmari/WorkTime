@@ -1,54 +1,66 @@
 <template>
   <div>
     <v-layout wrap class="py-2 mx-6">
-      <v-flex >
-      <h2  style="color: #00695c">{{getOneTender.title}}</h2>
+      <v-flex>
+        <h2 style="color: #5f5d5e;">{{ getOneTender.title }}</h2>
       </v-flex>
     </v-layout>
-    <v-layout wrap class="py-5 mx-6">
-      <v-flex sm2 xs12 md5 lg7>
-      <h4>{{ $t("Tenders.major") }}:</h4>
-        <v-layout align-center wrap justify-center>
-               <v-flex sm2 xs12 md6 lg6>
-           
-                <v-card-subtitle class="py-2">
-                  {{ $t("Tenders.major") }}:{{getOneTender.location}}</v-card-subtitle
-                >
-                  </v-flex>
-              <v-flex sm2 xs12 md6 lg6>
-                <v-card-subtitle class="py-2">
-                  {{ $t("Tenders.company") }}:{{getOneTender.company}}</v-card-subtitle
-                >
-                </v-flex>
-                 <v-flex sm2 xs12 md6 lg6>
-           
-                <v-card-subtitle class="py-2">
-                  {{ $t("Tenders.location") }}:{{getOneTender.location}}</v-card-subtitle
-                >
-                  </v-flex>
-              <v-flex sm2 xs12 md6 lg6>
-                <v-card-subtitle class="py-2">
-                  {{ $t("Tenders.applyLink") }}:{{getOneTender.apply_link}}</v-card-subtitle
-                >
-                </v-flex>
-              <v-flex sm2 xs12 md6 lg6>
-                <v-card-subtitle class="py-2">
-                  {{ $t("Tenders.postedDate") }}:{{getOneTender.posted_date}}</v-card-subtitle
-                >
-                 </v-flex>
-              <v-flex sm2 xs12 md6 lg6>
-                <v-card-subtitle class="py-2">
-                  {{ $t("Tenders.Deadline") }}:{{getOneTender.deadline}}</v-card-subtitle
-                >
-              </v-flex>
-        </v-layout>
-      </v-flex>
-      <v-flex sm2 xs12 md2 lg5>
+    <v-layout align-center wrap justify-center class="py-5 mx-6">
+    
+      <v-flex sm2 xs12 md2 lg2>
         <v-img
           src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
           height="200px"
           width="200px"
         />
+      </v-flex>
+    
+      <v-flex sm2 xs12 md5 lg6 style="height: 200%">
+        <!-- <h4>{{ $t("Tenders.major") }}:</h4> -->
+          <v-card style="height: 100%" width="auto">
+    <v-layout align-center wrap justify-center class="py-5 mx-6">
+          <v-layout align-center wrap justify-center style="">
+            <v-flex sm2 xs12 md6 lg6>
+              
+              <v-card-subtitle class="py-2">
+                {{ $t("Tenders.major") }}:
+                {{ getOneTender.major_name }}</v-card-subtitle
+              >
+            </v-flex>
+            <v-flex sm2 xs12 md6 lg6>
+              <v-card-subtitle class="py-2">
+                {{ $t("Tenders.company") }}:
+                {{ getOneTender.company }}</v-card-subtitle
+              >
+            </v-flex>
+            <v-flex sm2 xs12 md6 lg6>
+              <v-card-subtitle class="py-2">
+                {{ $t("Tenders.location") }}:
+                {{ getOneTender.location }}</v-card-subtitle
+              >
+            </v-flex>
+            <v-flex sm2 xs12 md6 lg6>
+              <v-card-subtitle class="py-2">
+                {{ $t("Tenders.applyLink") }}:
+                {{ getOneTender.apply_link }}</v-card-subtitle
+              >
+            </v-flex>
+            <v-flex sm2 xs12 md6 lg6>
+              <v-card-subtitle class="py-2">
+                {{ $t("Tenders.postedDate") }}:
+                {{ getOneTender.posted_date }}</v-card-subtitle
+              >
+            </v-flex>
+            <v-flex sm2 xs12 md6 lg6>
+              <v-card-subtitle class="py-2">
+                {{ $t("Tenders.Deadline") }}:
+                {{ getOneTender.deadline }}</v-card-subtitle
+              >
+            </v-flex>
+          </v-layout>
+          
+    </v-layout>
+        </v-card>
       </v-flex>
     </v-layout>
     <v-layout>
@@ -59,47 +71,29 @@
     </v-layout>
     <v-layout class="py-4" align-center justify-center>
       <v-flex class="py-2" sm2 xs12 md2 lg11 style="background-color: #f5f5f5">
-        <v-flex sm2 xs12 md2 lg6>
-          <h3>{{ $t("Tenders.description") }}:</h3>
+  
+        <v-flex sm12 xs12 md12 lg12>
+      <v-toolbar-items class="mx-5 pa-2">
+      <div class="ma-3 pa-2">
+           <h3 style="color:#5f5d5e">{{ $t("Tenders.description") }}:</h3>
+      </div>
+      <v-spacer />
+      <div class="ma-1 py-2">
+        <v-btn
+          @click="downloadpdfs()"
+          dark
+          style="height: 40px"
+          color="#28acde"
+        >
+          <span>{{ $t("Tenders.downloadpdfs") }}</span>
+        </v-btn>
+      </div>
+    </v-toolbar-items>
         </v-flex>
         <v-flex lg12 md8 sm8 xs12>
-          <v-layout class="py-4" align-center justify-center wrap>
-            {{getOneTender.description}}
-            توريد أدوات الأمن والسلامة المهنية تعلن مؤسسة بناء للتنمية عن رغبتها
-            في إنزال المناقصة العامة التالية: اخر موعد للتسليم (اليوم /الساعة /
-            التاريخ) قيمة الضمان (دولار) صلاحية ضمان العطاء مدة صلاحية العطاء
-            عملة العطاء مصدر التمويل اسم المناقصة/ مكونات المناقصة رقم المناقصة
-            يوم الإثنين 11/01/2021 الساعة الحادية عشر صباحاً 2200 120 يوم 90 يوم
-            دولار امريكي الجهات الممولة توريد أدوات الأمن والسلامة المهنية
-            31/2020 وعليه تدعو مؤسسة بناء للتنمية الاخوة الموردين المؤهلين
-            والذين سبق ان عملوا في نفس المجال تقديم عطاءاتهم عن طريق المناقصة
-            المذكور أعلاه وذلك وفقا لوثائق المناقصات. يمكن الحصول على وثائق
-            المناقصة من خلال الرابط الأتي https://forms.gle/rEhfcHEkGYtaEtE68
-            يسلم العطاء في مظروف مغلق ومختوم ومكتوب عليه اسم المشروع ورقم
-            المناقصة، قبل الموعد المحدد أعلاه لفتح المظاريف على العنوان التالي:
-            مؤسسة بناء للتنمية المقر الرئيسي – تقاطع شارع عمان مع شارع جيبوتي
-            –جوار أكاديمية بازرعة للطيران تلفون:772939778 / 01-443942، البريد
-            الكتروني: tenders@bfdyemen.org تفتح المظاريف بجلسة علنية في مقر
-            مؤسسة بناء للتنمية الرئيسي - صنعاء - تقاطع شارع عمان مع شارع جيبوتي
-            حسب المواعيد المحددة أعلاه. وأي عطاء يقدم أو يصل بعد هذا الموعد
-            سيرفض وسوف يعاد إلى صاحبه مغلقاً. على المتقدم احضار صورة من السجل
-            التجاري ساري المفعول. على المتقدم إحضار صورة من البطاقة الضريبية
-            سارية المفعول. على المتقدم احضار صورة من شهادة مزاولة المهنة سارية
-            المفعول. يجب احضار العينات المطلوبة في جدول الكميات وتسليمها مع
-            العطاء. يرفق مع العطاء ضمان بنكي غير مشروط أو شيك مقبول الدفع
-            بالمبلغ المحدد أعلاه صالح للمدة المذكورة أعلاه ابتداء من تاريخ فتح
-            المظاريف وسيرفض أي عطاء غير مصحوب بضمان المناقصة. يقدم العطاء
-            بالعملة المذكورة أعلاه، وسيتم استبعاد أي عطاء يتم تقديمه بعملة
-            مغايرة. مؤسسة بناء للتنمية غير ملزمة بقبول أقل عطاء. يجب ارفاق جميع
-            وثائق المناقصة وختم جميع الوثائق. سوف يتم استبعاد أي عطاء غير مستوفي
-            للمتطلبات المذكورة أعلاه في مرحلة الاستجابة الأولية. ملاحظة: تتبنى
-            "مؤسسة بناء للتنمية " مبدأ عدم التسامح تجاه الفساد، وهي ملتزمة
-            باحترام أعلى المعايير من حيث الكفاءة والمسؤولية والشفافية في أنشطتها
-            عبر منهجية تشاركية لتعزيز وضمان الشفافية داخل المؤسسة حيث اسست جهة
-            تنسيق للشفافية والمساءلة. إذا شاهدت أو اشتبهت في ممارسات تجارية غير
-            قانونية أو غير لائقة أو غير أخلاقية (مثل التماس أو قبول أو محاولة
-            تقديم أو قبول أي رشاوي) أثناء عملية المناقصة، يرجى إرسال بريد
-            إلكتروني إلى contact@bfdyemen.org
+          <v-layout class="py-4 mx-3" align-center justify-center wrap>
+            {{ getOneTender.description }}
+            
           </v-layout>
         </v-flex>
       </v-flex>
@@ -118,8 +112,8 @@ export default {
   //     }, 1000)
   //   })
   // },
-  async fetch({ store,route }) {
-    await store.dispatch("tenders/loadOneTender",route.params.TenderDetails);
+  async fetch({ store, route }) {
+    await store.dispatch("tenders/loadOneTender", route.params.TenderDetails);
   },
   data: () => ({
     tenders: 0,

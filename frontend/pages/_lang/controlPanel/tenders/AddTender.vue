@@ -9,7 +9,7 @@
     </v-layout>
 
     <v-form
-      ref="firstform"
+      ref="form"
       v-model="firstValid"
       class="py-5"
       :lazy-validation="firstLazy"
@@ -43,10 +43,15 @@
                     @change="onFilePicked"
                   />
                 </v-layout>
+                <v-layout justify-center align-center>
+                  <span v-if="imageRules" style="color: red; font-size: 12px">{{
+                    $t("validation.emptyfieldrequired")
+                  }}</span>
+                </v-layout>
               </v-flex>
               <v-flex sm8 xs10 md9 lg8 class="mx-3">
                 <TextBoxMaterial
-                  rules=" "
+                  rules="requiredRules"
                   :lable="$t('Tenders.name')"
                   v-model="title"
                 />
@@ -56,7 +61,7 @@
                   :items="items"
                   :label="$t('Tenders.major')"
                   v-model="major"
-                  outlined
+                  :rules="[(v) => !!v || $t('validation.emptyfieldrequired')]"
                   item-text="name"
                   item-value="id"
                   dense
@@ -64,26 +69,28 @@
               </v-flex>
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
                 <v-select
-                  :items="items"
+                  :items="cities"
                   :label="$t('Tenders.location')"
                   v-model="location"
-                  outlined
+                  :rules="[(v) => !!v || $t('validation.emptyfieldrequired')]"
+                  item-text="name"
+                  item-value="id"
                   class="toggle"
                   dense
                 />
               </v-flex>
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
                 <TextBoxMaterial
-                  rules=" "
+                  rules="requiredRules"
                   :lable="$t('Tenders.company')"
                   v-model="company"
                 />
               </v-flex>
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
                 <TextBoxMaterial
-                  rules=" "
+                  rules="requiredRules"
                   :lable="$t('Tenders.applyLink')"
-                  :v-model="applyLink"
+                  v-model="applyLink"
                 />
               </v-flex>
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
@@ -99,10 +106,15 @@
                     <v-text-field
                       slot="activator"
                       v-model="startDate"
+                      :rules="[
+                        (v) => !!v || $t('validation.emptyfieldrequired'),
+                        (v) =>
+                          (v && v < endDate) ||
+                          $t('validation.startDateValidation'),
+                      ]"
                       dense
                       :label="$t('Tenders.startDate')"
                       readonly
-                      outlined
                       v-on="on"
                     />
                   </template>
@@ -127,10 +139,15 @@
                     <v-text-field
                       slot="activator"
                       v-model="endDate"
+                      :rules="[
+                        (v) => !!v || $t('validation.emptyfieldrequired'),
+                        (v) =>
+                          (v && v > startDate) ||
+                          $t('validation.endDateValidation'),
+                      ]"
                       dense
                       :label="$t('Tenders.Deadline')"
                       readonly
-                      outlined
                       v-on="on"
                     />
                   </template>
@@ -146,15 +163,36 @@
                 <v-file-input
                   v-model="pdfs"
                   truncate-length="15"
+                  :rules="[
+                    (v) => !!v || $t('validation.emptyfieldrequired'),
+                    (v) =>
+                      (v &&
+                        (v.type === 'application/pdf' ||
+                          v.type === 'application/zip')) ||
+                      $t('validation.filetype'),
+                  ]"
                 ></v-file-input>
               </v-flex>
               <v-flex xs12 sm9 md10 lg10 class="my-3">
-                <tinymce id="d1" v-model="description"></tinymce>
+                <v-layout>
+                  <tinymce
+                    id="d1"
+                    v-model="description"
+                    @input="checkeditorvalidation()"
+                  ></tinymce>
+                </v-layout>
+                <v-layout>
+                  <span
+                    v-if="descriptionRules"
+                    style="color: red; font-size: 12px"
+                    >{{ $t("validation.emptyfieldrequired") }}</span
+                  >
+                </v-layout>
               </v-flex>
             </v-layout>
             <!--Todo description -->
             <v-layout justify-center align-center>
-              <ButtonMatirlal  :texts="$t('Tenders.save')" class="py-4" />
+              <ButtonMatirlal :texts="$t('Tenders.save')" class="py-4" />
             </v-layout>
           </v-card>
         </v-flex>
@@ -165,17 +203,44 @@
 <script>
 import ButtonMatirlal from "~/components/material/ButtonMatirlal.vue";
 import i18n from "~/middleware/i18n.js";
-// import Editor from '@tinymce/tinymce-vue'
 import { mapActions } from "vuex";
 export default {
   layout: "control",
   components: {
-    // 'editor': Editor,
     "Material-ButtonMatirlal": ButtonMatirlal,
   },
+  asyncData({ app }) {
+    return {
+      cities: [
+        { name: app.i18n.t("cities.Abyan"), id: "Abyan" },
+        { name: app.i18n.t("cities.Aden"), id: "Aden" },
+        { name: app.i18n.t("cities.AlMahrah"), id: "AlMahrah" },
+        { name: app.i18n.t("cities.AlMahwit"), id: "AlMahwit" },
+        { name: app.i18n.t("cities.Sanaa"), id: "Sanaa" },
+        { name: app.i18n.t("cities.Amran"), id: "Amran" },
+        { name: app.i18n.t("cities.Dhale"), id: "Dhale" },
+        { name: app.i18n.t("cities.Dhamar"), id: "Dhamar" },
+        { name: app.i18n.t("cities.Hadramaut"), id: "Hadramaut" },
+        { name: app.i18n.t("cities.AlJawf"), id: "AlJawf" },
+        { name: app.i18n.t("cities.Hajjah"), id: "Hajjah" },
+        { name: app.i18n.t("cities.Ibb"), id: "Ibb" },
+        { name: app.i18n.t("cities.Lahij"), id: "Lahij" },
+        { name: app.i18n.t("cities.Marib"), id: "Marib" },
+        { name: app.i18n.t("cities.AlBayda"), id: "AlBayda" },
+        { name: app.i18n.t("cities.Raymah"), id: "Raymah" },
+        { name: app.i18n.t("cities.Sadah"), id: "Sadah" },
+        { name: app.i18n.t("cities.AmanatAlAsimah"), id: "AmanatAlAsimah" },
+        { name: app.i18n.t("cities.Shabwah"), id: "Shabwah" },
+        { name: app.i18n.t("cities.Socotra"), id: "Socotra" },
+        { name: app.i18n.t("cities.Taiz"), id: "Taiz" },
+      ],
+    };
+  },
   data: () => ({
-    firstValid:false,
-    firstLazy:false,
+    imageRules: false,
+    descriptionRules: false,
+    firstValid: false,
+    firstLazy: false,
     pdfs: null,
     description: null,
     applyLink: null,
@@ -189,55 +254,114 @@ export default {
     menuEnd: false,
     imageUrl: null,
     image: null,
+
     items: ["Paypall", "Mastercard", "Visa"],
   }),
   methods: {
     ...mapActions({ addNewTender: "admintenders/addNewTender" }),
     onUploadFile() {
       this.$refs.fileInput.click();
+      if (this.image === null) {
+        this.imageRules = true;
+      } else {
+        this.imageRules = false;
+      }
     },
     onFilePicked(event) {
       console.log(this.$refs.fileInput.files[0]);
       const files = event.target.files;
-      let fileName = files[0].name;
-      if (fileName.lastIndexOf(".") <= 0) {
-        return alert(i18n.t("validation.imagename"));
-      }
-      let fileSize = files[0].size;
-      console.log(fileSize);
-      if (fileSize > 500 * 500) {
-        return alert(i18n.t("validation.imagesize"));
-      }
-      let fileType = files[0].type;
-      console.log(fileType);
-      if (fileType !== "image/png") {
-        if (fileType !== "image/jpeg") {
-          return alert(i18n.t("validation.imagetype"));
+      if (files.length > 0) {
+        let fileName = files[0].name;
+        if (fileName.lastIndexOf(".") <= 0) {
+          return alert(i18n.t("validation.imagename"));
         }
+        let fileSize = files[0].size;
+        console.log(fileSize);
+        if (fileSize > 500 * 500) {
+          return alert(i18n.t("validation.imagesize"));
+        }
+        let fileType = files[0].type;
+        console.log(fileType);
+        if (fileType !== "image/png") {
+          if (fileType !== "image/jpeg") {
+            return alert(i18n.t("validation.imagetype"));
+          }
+        }
+        const fileReder = new FileReader();
+        fileReder.addEventListener("load", () => {
+          this.imageUrl = fileReder.result;
+          console.log(this.imageUrl);
+        });
+        fileReder.readAsDataURL(files[0]);
+
+        this.image = files[0];
       }
-      const fileReder = new FileReader();
-      fileReder.addEventListener("load", () => {
-        this.imageUrl = fileReder.result;
-        console.log(this.imageUrl);
-      });
-      fileReder.readAsDataURL(files[0]);
-      this.image = files[0];
+      if (this.image === null) {
+        this.imageRules = true;
+      } else {
+        this.imageRules = false;
+      }
+    },
+    checkeditorvalidation() {
+      if (this.description.length < 50) {
+        this.descriptionRules = true;
+      } else {
+        this.descriptionRules = false;
+      }
+    },
+    typeValidation() {
+      if (
+        this.pdfs.type === "application/pdf" ||
+        this.pdfs.type === "application/zip"
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     },
     submit() {
-      this.addNewTender({
-        user_id:1,
-        description: this.description,
-        apply_link:  this.applyLink,
-        start_date:this.startDate,
-        deadline:this.endDate,
-        active:1,
-        image: this.image,
-        pdfs: this.pdfs,
-        location:  this.location,
-        company:  this.company,
-        major_id:  this.major,
-        title:  this.title,
-      });
+      console.log(this.image, this.pdfs);
+      console.log(this.pdfs);
+      if (this.image === null) {
+        this.imageRules = true;
+      } else {
+        this.imageRules = false;
+      }
+      if(this.description!==null){
+       if (this.description.length < 50) {
+        this.descriptionRules = true;
+      } else {
+        this.descriptionRules = false;
+      }
+      }else{
+         this.descriptionRules = true;
+      }
+      this.$refs.form.validate();
+      if (
+        this.firstValid === true &&
+        this.imageRules === false &&
+        this.descriptionRules === false
+      ) {
+        this.addNewTender({
+          description: this.description,
+          apply_link: this.applyLink,
+          start_date: this.startDate,
+          deadline: this.endDate,
+          posted_date: this.endDate,
+          active: 1,
+
+          location: this.location,
+          company: this.company,
+          major_id: 1,
+          title: this.title,
+          files: {
+            image: this.image,
+            filename: this.pdfs,
+          },
+        });
+      } else {
+        console.log( this.firstValid,  this.imageRules, this.descriptionRules )
+      }
     },
   },
 };

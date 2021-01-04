@@ -75,6 +75,7 @@ export default {
             path: '/ControlPanel',
             component: 'pages/_lang/controlPanel.vue',
             children: [
+              
               {
                 path: '/Majors',
                 component: 'pages/_lang/controlPanel/Majors.vue',
@@ -84,6 +85,11 @@ export default {
                 path: '/Tenders',
                 component: 'pages/_lang/controlPanel/Tenders.vue',
                 children: [
+                  {
+                    path: '/',
+                    component: 'pages/_lang/controlPanel/Tenders.vue',
+                    name: 'adminTenders',
+                  },
                   {
                     path: '/AddTender',
                     component: 'pages/_lang/controlPanel/tenders/AddTender.vue',
@@ -122,7 +128,7 @@ export default {
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
-    rtl: true,
+    rtl: false,
     // theme: {
     //   dark: true,
     //   themes: {

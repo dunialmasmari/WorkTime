@@ -90,7 +90,7 @@ export default {
                 if (respo.status === 200) {
                     console.log(respo.data)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('putMajor', respo.data)
+                    commit('putMajor', respo.data[0])
                 }
             })
             .catch((error) => {
@@ -102,7 +102,7 @@ export default {
     async deleteOneMajor({ commit }, data) {
         commit('app/loadingStart', null, { root: true })
         await this.$axios
-            .delete(`major/?${data}`, {
+            .delete(`major/${data.major_id}`, {
                 retry: 5,
                 retryDelay: 10000,
             })
@@ -115,7 +115,7 @@ export default {
                 if (respo.status === 200) {
                     console.log(respo.data)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('deleteMajor', respo.data)
+                    commit('deleteMajor',data)
                 }
             })
             .catch((error) => {

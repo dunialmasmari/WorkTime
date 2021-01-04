@@ -7,7 +7,7 @@
       <v-spacer />
       <div class="ma-3 py-2">
         <v-btn
-          @click="AddChangeVisibal(true)"
+          :to="`/${$i18n.locale}/controlPanel/tenders/AddTender`"
           dark
           style="height: 40px"
           color="#0b0b0b"
@@ -20,7 +20,7 @@
       <v-flex lg9 py-4>
         <v-data-table
           :headers="headers"
-          :items="allTenders"
+          :items="allTenders.data"
           hide-default-footer
           sort-by="calories"
           class="elevation-1"
@@ -30,9 +30,11 @@
             <span v-if="item.active == 0">{{ $t("Majors.Tenders") }}</span>
           </template> -->
           <template v-slot:item.actions="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">
+            <v-btn  text :to="`/${$i18n.locale}/controlPanel/tenders/${item.tender_id}`">
+            <v-icon small class="mr-2" >
               mdi-pencil
             </v-icon>
+            </v-btn>
             <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
           </template>
           <template v-slot:no-data>

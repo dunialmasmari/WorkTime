@@ -31,8 +31,8 @@ export default {
       type: 'success',
       group: 'successmesages',
       closeOnClick: true,
-      text: 'apisuccessmesages.' + data,
-      title: 'apisuccessmesages.title' + data,
+      text: 'apisuccessmesages.title' ,
+     // title: 'apisuccessmesages.title' + data,
     })
 
     state.messages = 'success'
@@ -43,7 +43,7 @@ export default {
       speed: 400,
       type: 'error',
       group: 'failmessages',
-      text: 'apifailmessages.' + data,
+      text: 'apifailmessages.apiFail' ,
       title: 'apifailmessages.title',
     })
 
