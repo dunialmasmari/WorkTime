@@ -2,7 +2,7 @@
   <div>
     <v-layout wrap class="py-2 mx-6">
       <v-flex>
-        <h2 style="color: #5f5d5e;">{{ getOneTender.title }}</h2>
+        <h2 style="color: #000000;">{{ getOneTender.title }}</h2>
       </v-flex>
     </v-layout>
     <v-layout align-center wrap justify-center class="py-5 mx-6">
@@ -75,7 +75,7 @@
         <v-flex sm12 xs12 md12 lg12>
       <v-toolbar-items class="mx-5 pa-2">
       <div class="ma-3 pa-2">
-           <h3 style="color:#5f5d5e">{{ $t("Tenders.description") }}:</h3>
+           <h3 style="color:#000000">{{ $t("Tenders.description") }}:</h3>
       </div>
       <v-spacer />
       <div class="ma-1 py-2">
@@ -83,7 +83,7 @@
           @click="downloadpdfs()"
           dark
           style="height: 40px"
-          color="#28acde"
+          color="#4f9dd5"
         >
           <span>{{ $t("Tenders.downloadpdfs") }}</span>
         </v-btn>

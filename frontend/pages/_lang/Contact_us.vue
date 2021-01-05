@@ -4,13 +4,13 @@
       <v-flex lg9 sm10 xs10 md9>
         <v-layout wrap justify-center align-center>
           <v-layout
-            style="background-color: #ffffff; border: #28acde 1px solid;"
+            style="background-color: #ffffff; border: #4f9dd5 1px solid;"
             wrap
             my-10
           >
             <v-flex lg6 sm6 xs12 md6 class="px-0" id="footerbg">
               <v-layout justify-center align-center>
-                <v-avatar width="150" tile>
+                <v-avatar width="150" height="90"  style="background-color: #ffffff; " tile>
                   <v-img
                     :src="require('@/static/hrlogo.png')"
                     height="90"
@@ -94,7 +94,7 @@
                   required
                 />
                 <v-layout justify-center>
-                  <v-btn :disabled="!valid" color="#28acde" type="submit">
+                  <v-btn :disabled="!valid" color="#4f9dd5" type="submit">
                     <span style="color:#fff;">{{
                     $t("ContactUS.Send")
                   }}</span>
@@ -143,7 +143,7 @@ export default {
 #footerbg {
   width: 100%;
   height: 480px;
-  background-color: #28acde !important;
+  background-color: #4f9dd5 !important;
   -webkit-background-size: cover !important;
   -moz-background-size: cover !important;
   -o-background-size: cover !important;

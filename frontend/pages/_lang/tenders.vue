@@ -3,27 +3,27 @@
     <v-flex>
       <v-layout class="py-5 my-4">
         <v-flex class="mx-8">
-          <h2 class="PageTittle" style="color: #5f5d5e">
+          <h2 class="PageTittle" style="color: #000000">
             {{ $t("Tenders.Title") }}
           </h2>
         </v-flex>
       </v-layout>
       <v-divider />
       <v-layout wrap class="my-5 mx-8">
-        <v-flex lg3 md3 sm4 xs12 class="ma-5">
-          <v-card width="250">
+        <v-flex lg3 md3 sm12 xs12 class="my-5">
+          <v-card >
             <v-layout
               justify-center
               align-center
               class="py-4"
-              style="background: #28acde; color: #ffffff"
+              style="background: #4f9dd5; color: #ffffff"
             >
               <h4>
                 {{ $t("Tenders.filter") }}
               </h4>
             </v-layout>
             <v-layout align-center justify-center wrap class="py-2">
-              <v-flex lg12 md12 sm12 xs6 class="px-3 py-1">
+              <v-flex lg12 md12 sm4 xs8 class="px-3 py-1">
                 <v-select
                   :label="$t('Tenders.major')"
                   v-model="chosenmajor"
@@ -34,7 +34,7 @@
                   item-value="id"
                 />
               </v-flex>
-              <v-flex lg12 md12 sm12 xs6 class="px-3 py-1">
+              <v-flex lg12 md12 sm4 xs8 class="px-3 py-1">
                 <v-select
                   :label="$t('Tenders.location')"
                   v-model="chosenlocation"
@@ -43,7 +43,7 @@
                   @change="getTenders"
                 />
               </v-flex>
-              <v-flex lg12 md12 sm12 xs6 class="px-3 py-1">
+              <v-flex lg12 md12 sm4 xs8 class="px-3 py-1">
                 <v-select
                   :label="$t('Tenders.company')"
                   v-model="chosencompany"
@@ -55,7 +55,7 @@
             </v-layout>
           </v-card>
         </v-flex>
-        <v-flex lg8 md8 sm8 xs12>
+        <v-flex lg9 md9 sm11 xs12>
           <v-layout justify-center align-center wrap class="ma-5">
             <v-card
               v-for="(tender, i) in getTenderFilter.data"
@@ -83,8 +83,8 @@
                 <v-btn
                   :to="`/${$i18n.locale}/tenders/TenderDetails/${tender.tender_id}`"
                   small
-                  color="#28acde"
-                  class="mx-0"
+                  color="#4f9dd5"
+                  class="mx-0 my-2"
                 >
                   <span style="color: #fff">{{ $t("Tenders.more") }}</span>
                 </v-btn>
@@ -94,7 +94,7 @@
           <v-layout justify-center align-center>
             <v-pagination
               v-model="page"
-              color="#28acde"
+              color="#4f9dd5"
               :length="getTenderFilter.last_page"
               @input="getTenders()"
             ></v-pagination>
