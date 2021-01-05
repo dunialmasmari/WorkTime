@@ -43,13 +43,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::get('Tender/get','TenderController@getActiveTenders'); // for get all tenders 
     Route::get('Tender/get/{id}','TenderController@getTenderById'); //for get tender by its id 
     Route::get('Tender/major','TenderController@getTenderMajor'); // for get all major and its count in tenders 
-    
     Route::get('Tender/filters','TenderController@filterAllActiveTender');
     Route::get('Tender/filter/field','TenderController@filterActiveTenderField');
+
+    Route::get('Tender/dowenloadFile/{filename}','TenderController@dowenloadFile');
+
 });
 
-Route::apiResource('major', 'Major\MajorController');
-Route::apiResource('tender', 'Tender\TenderDashboarController');
+Route::apiResource('major', 'Major\MajorController'); 
+Route::get('getactivemajors', 'Major\MajorController@getactivemajors'); 
+Route::delete('delete/{id}', 'Major\MajorController@delete');
+
+Route::apiResource('tender', 'Tender\TenderDashboarController'); 
+Route::get('getactivetender', 'Tender\TenderDashboarController@getactivetender'); 
+Route::delete('delete/{id}', 'Tender\TenderDashboarController@delete'); 
+
 Route::post('login', 'login\loginController@login');
 Route::get('checklogin', 'login\loginController@checklogin');
 
