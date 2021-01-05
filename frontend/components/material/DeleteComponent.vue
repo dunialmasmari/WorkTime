@@ -2,7 +2,7 @@
   <v-dialog v-model="show" max-width="500">
     <div class="Create">
       <v-card class="pb-5" style="border-radius: 15px">
-        <v-card-title class="pa-2" style="background-color: #0b0b0b">
+        <v-card-title class="pa-2" style="background-color: #4f9dd5">
           <v-btn icon tile @click.stop="show = false">
             <v-icon size="30" class="white--text">mdi-close</v-icon>
           </v-btn>

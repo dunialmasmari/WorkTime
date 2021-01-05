@@ -2,7 +2,7 @@
   <div>
     <v-toolbar-items class="mx-5 pa-2">
       <div class="ma-3 pa-2">
-        <h3 style="color: #0b0b0b">{{ $t("Majors.Title") }}</h3>
+        <h3 style="color: #4f9dd5">{{ $t("Majors.Title") }}</h3>
       </div>
       <!-- </v-toolbar-items>
     <v-card>
@@ -20,7 +20,7 @@
           @click="AddChangeVisibal(true)"
           dark
           style="height: 40px"
-          color="#0b0b0b"
+          color="#4f9dd5"
         >
           <span>{{ $t("Majors.AddNew") }}</span>
         </v-btn>
@@ -68,7 +68,7 @@
                 @click="AddChangeVisibal(true)"
                 dark
                 style="height: 40px"
-                color="#0b0b0b"
+                color="#4f9dd5"
               >
                 <span>{{ $t("Majors.AddNew") }}</span>
               </v-btn>

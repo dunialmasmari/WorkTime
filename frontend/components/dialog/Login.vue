@@ -8,7 +8,7 @@
         style="border-radius:15px;">
         <v-card-title
           class="pa-2"
-          style="background-color:#0b0b0b;">
+          style="background-color:#4f9dd5;">
           <v-btn
             icon
             tile

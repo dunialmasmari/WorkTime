@@ -17,14 +17,14 @@
       
       >
         <v-layout  
-          style=" width:100%; background-color:#5f5d5e;"
+          style=" width:100%; background-color:#000000;"
           class="py-3"
-          color="#5f5d5e"
+          color="#000000"
            justify-center align-center>
           <v-flex lg5 md5 xs12 sm12>
             <v-layout justify-center align-center>
-              <v-avatar  width="150" tile>
-                <v-img :src="require('@/static/hrlogo.png')" width="150" height="80" contain />
+              <v-avatar  width="160"  height="90" tile style="background-color:#ffff">
+                <v-img :src="require('@/static/hrlogo.png')" width="150" height="250" contain />
               </v-avatar>
             </v-layout>
 
@@ -32,7 +32,7 @@
               <a
               style="text-decoration:none;"
                 class="ma-5"
-                href="https://www.facebook.com/stories/1625112850844098/UzpfSVNDOjI5NjEzMTUwOTczMTA2MTI=/"
+                href="https://www.facebook.com/work.time.35728"
                 target="_blank"
                 rel="noopener noreferrer"
                 ><v-icon color="white">mdi-facebook</v-icon></a
@@ -40,7 +40,7 @@
               <a
               style="text-decoration:none;"
                 class="ma-5"
-                href="http://"
+                href="https://www.instagram.com/worktime66/"
                 target="_blank"
                 rel="noopener noreferrer"
                 ><v-icon color="white">mdi-instagram</v-icon></a
@@ -48,7 +48,7 @@
               <a
               style="text-decoration:none;"
                 class="ma-5"
-                href="http://"
+                href="https://twitter.com/worktim1231?s=08"
                 target="_blank"
                 rel="noopener noreferrer"
                 ><v-icon color="white">mdi-twitter</v-icon></a

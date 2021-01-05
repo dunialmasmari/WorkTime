@@ -184,7 +184,7 @@ export default {
 //   left:auto;
 // }
 #app-drawer {
-background-image: linear-gradient(to right top, #0b0b0b, #2a2a2a, #484848, #696969, #8c8c8c);
+background:  #4f9dd5;
  .v-list__item {
     border-radius: 4px;
 
@@ -222,7 +222,7 @@ scrollbar-width:thin;
 
 /* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-    background: #0b0b0b;
+    background: #4f9dd5;
 }
 .v-application a{
   color: white !important;

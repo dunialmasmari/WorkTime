@@ -4,12 +4,12 @@
       <v-layout class="py-5 my-4">
         <v-flex  class="CheckoutCard" >
           <v-layout justify-center align-center>
-              <v-avatar width="150" tile>
+              <v-avatar width="150" height="90" tile>
                 <v-img :src="require('@/static/hrlogo.png')" height="100" contain />
               </v-avatar>
           </v-layout>
           <v-layout justify-center align-center>
-          <h3 class="py-2 PolicyTittle" style="color:5f5d5e;">
+          <h3 class="py-2 PolicyTittle" style="color:000000;">
             {{ $t('Core.Footer.about_us') }}
           </h3>
           </v-layout>
@@ -30,24 +30,32 @@
             xs12
             md12 >
             <v-layout>
-              <h3 style="color:5f5d5e;"
+              <h3 style="color:#4f9dd5;"
                 class="text-xs-center px-5 py-4 PageTittle" >   {{ $t('Core.Footer.about_us') }}</h3>
             </v-layout>
             <p
               class="px-3 AlignText"
              >
-              Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Sint in iusto suscipit at enim! Earum laborum
-              sapiente vitae deserunt veniam voluptate nostrum veritatis,
-              ipsam laboriosam! Consequatur, iste obcaecati. Quo, perspiciatis.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Et earum incidunt impedit ex provident fugit tenetur fuga,
-              architecto voluptatum eum optio itaque ea aut. Illum dolores
-              eos nam atque voluptatibus. Lorem ipsum dolor sit, amet consectetur
-              adipisicing elit. Modi vel ullam, maxime rem, consequuntur fugiat quos
-              neque veritatis, maiores cumque ratione itaque aperiam autem asperiores
-              distinctio odit cupiditate omnis impedit?</p>
-
+                {{ $t('Core.aboutus.description') }}
+                </p>
+                 <v-layout>
+              <h3 style="color:#4f9dd5;"
+                class="text-xs-center px-5 py-4 PageTittle" >   {{ $t('Core.aboutus.vesion') }}</h3>
+            </v-layout>
+            <p
+              class="px-3 AlignText"
+             >
+                {{ $t('Core.aboutus.vesionDes') }}
+                </p>
+                 <v-layout>
+              <h3 style="color:#4f9dd5;"
+                class="text-xs-center px-5 py-4 PageTittle" >   {{ $t('Core.aboutus.services') }}</h3>
+            </v-layout>
+            <p
+              class="px-3 AlignText"
+             >
+                {{ $t('Core.aboutus.servicesDes') }}
+                </p>
           </v-flex>
         </v-layout>
       </div>
