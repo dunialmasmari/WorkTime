@@ -204,7 +204,11 @@ class TenderController extends Controller
         $value=[$major_ar,$compa_ar,$loca_ar];
         $filters=array_combine($key,$value);
         //print_r($filters);
-
         return response()->json($filters,200);
     } 
+
+    public function dowenloadFile($filename)
+    {
+            return response()->download(public_path('files/'.$filename), 'filename');
+    }
 }

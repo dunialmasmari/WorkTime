@@ -1,7 +1,7 @@
 <template>
   <v-footer
     id="core-footer"
-    color="#363636"
+    color="#000000"
   >
     <v-spacer />
 

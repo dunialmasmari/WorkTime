@@ -3,7 +3,7 @@
     <v-layout slot="tittle">
       <v-toolbar-items class="mx-5 pa-2">
         <div class="ma-3 pa-2">
-          <h3 style="color: #0b0b0b">{{ $t("Tenders.AddNew") }}</h3>
+          <h3 style="color:#4f9dd5">{{ $t("Tenders.AddNew") }}</h3>
         </div>
       </v-toolbar-items>
     </v-layout>
@@ -24,7 +24,7 @@
                   <v-avatar
                     size="200px"
                     tile
-                    style="border: blue solid 1px"
+                    style="border: #4f9dd5 solid 1px"
                     align="center"
                     justify="center"
                   >

@@ -8,10 +8,10 @@
       v-if="responsive"
       class="default v-btn--simple"
       dark
-      color="#0b0b0b"
+      color="#4f9dd5"
       icon
       @click.stop="onClickBtn">
-      <v-icon color="#0b0b0b">mdi-view-list</v-icon>
+      <v-icon color="#4f9dd5">mdi-view-list</v-icon>
     </v-btn>
 
     <v-toolbar-items class="mr-5">
@@ -33,7 +33,7 @@
               v-on="on">
               <v-avatar>
                 <v-icon
-                  color="#0b0b0b"
+                  color="#4f9dd5"
                   style="font-size:30px;">mdi-account</v-icon>
               </v-avatar>
 
@@ -48,7 +48,7 @@
                 @click="logoutbtn()"
               >
                 <v-list-item-action>
-                  <v-icon color="#0b0b0b" >mdi-logout</v-icon>
+                  <v-icon color="#4f9dd5" >mdi-logout</v-icon>
                 </v-list-item-action>
                 <v-list-item-title>{{ $t('Core.Header.Menu.logOut') }}</v-list-item-title>
               </v-list-item>
@@ -69,14 +69,14 @@
               v-on="on">
               <v-badge
                 :content="notifications.length"
-                color="#0b0b0b"
+                color="#4f9dd5"
                 overlap
                 offset-x="24"
                 offset-y="20"
               >
                 <v-avatar>
                   <v-icon
-                    color="#0b0b0b"
+                    color="#4f9dd5"
                     style="font-size:30px;">mdi-bell</v-icon>
                 </v-avatar>
               </v-badge>
@@ -101,7 +101,7 @@
               dark
               v-on="on"
             >
-              <v-icon color="#0b0b0b">mdi-translate</v-icon>
+              <v-icon color="#4f9dd5">mdi-translate</v-icon>
             </v-btn>
           </template>
           <v-list >
@@ -131,12 +131,12 @@
       hide-no-data
       item-text="name"
       item-value="abbr"
-      color="#0b0b0b"
+      color="#4f9dd5"
       return-object
     >
       <v-icon
         slot="prepend"
-        color="#0b0b0b" >mdi-magnify</v-icon>
+        color="#4f9dd5" >mdi-magnify</v-icon>
     </v-autocomplete> -->
     <v-spacer />
     <!--    <span-->

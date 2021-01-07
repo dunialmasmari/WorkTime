@@ -25,6 +25,18 @@ class MajorController extends Controller
         }
     }
 
+    public function getactivemajors()
+    {
+        $major = Major::select('majors.major_name','majors.major_id','majors.type')->where('major_id',$id);
+        if($major->exists())
+        {
+            return response()->json($major->get(), 200);
+        }
+        else{
+            return response()->json(['message' => 'You do not have active major '], 404);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -117,6 +129,20 @@ class MajorController extends Controller
             }
         }
         else{
+            return response()->json(['message' => 'major not found'], 404);
+        }
+    } 
+
+    public function delete($id)
+    {
+        $major = Major::where('major_id',$id);
+        if($major->exists())
+        {
+            $major->delete();
+            return response()->json(['message' => 'major deleted'], 200);
+        }
+        else
+        {
             return response()->json(['message' => 'major not found'], 404);
         }
     }

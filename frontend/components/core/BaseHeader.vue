@@ -1,22 +1,45 @@
 <template>
-  <v-app-bar  color="#fff" app height="80">
+  <v-app-bar  color="#fff" style="border-bottom:3px solid #4f9dd5" app height="80">
     <v-layout justify-center align-center >
     <v-toolbar-items>
       <v-flex align-center layout>
         <div class="Navbar">
 <!--          <v-toolbar flat color="brown">-->
-              <v-btn  color="#5f5d5e" text :to="`/${$i18n.locale}/`">
+              <v-btn  color="#000000" class="whenactive" text :to="`/${$i18n.locale}/home`">
                 Home
               </v-btn>
-              <v-btn text color="#5f5d5e" :to="`/${$i18n.locale}/tenders`">
+              <v-btn text color="#000000" class="whenactive" :to="`/${$i18n.locale}/tenders`">
                 Tenders
               </v-btn>
-                 <v-btn text color="#5f5d5e" :to="`/${$i18n.locale}/about_us`">
+                 <v-btn text color="#000000" class="whenactive" :to="`/${$i18n.locale}/about_us`">
                 about us
               </v-btn>
-                 <v-btn text color="#5f5d5e" :to="`/${$i18n.locale}/contact_us`">
+                 <v-btn text color="#000000" class="whenactive" :to="`/${$i18n.locale}/contact_us`">
                 contact us
               </v-btn>
+              <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              text
+              dark
+              v-on="on"
+            >
+              <v-icon color="#000000">mdi-translate</v-icon>
+            </v-btn>
+          </template>
+          <v-list >
+            <v-list-item
+              @click="setlocale('ar')"
+            >
+              <v-list-item-title>{{ $t('Core.Header.language.ar') }}</v-list-item-title>
+            </v-list-item>
+            <v-list-item
+              @click="setlocale('en')"
+            >
+              <v-list-item-title>{{ $t('Core.Header.language.en') }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
 <!--          </v-toolbar>-->
         </div>
       </v-flex>
@@ -28,6 +51,7 @@
         <v-img :src="require('@/static/hrlogo.png')" height="70" contain />
       </v-avatar>
     </div>
+    
   </v-app-bar>
 </template>
 <script>
@@ -69,3 +93,11 @@ export default {
   },
 }
 </script>
+<style lang="scss">
+  .whenactive.v-btn--active{
+    background-color: #4f9dd5;
+    span{
+    color:#fff;
+  }
+  }
+ </style>

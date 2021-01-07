@@ -1,0 +1,10 @@
+api for get active major http://127.0.0.1:8000/api/getactivemajors no paramerts
+
+api for delete the major http://127.0.0.1:8000/api/delete the paramet is " id "
+
+
+api for get active tender http://127.0.0.1:8000/api/getactivetender no paramerts
+
+api for delete the tender http://127.0.0.1:8000/api/delete the paramet is " id "
+
+api for dowenload file http://127.0.0.1:8000/api/Tender/dowenloadFile the paramet is " filename "

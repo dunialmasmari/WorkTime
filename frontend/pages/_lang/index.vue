@@ -2,23 +2,23 @@
   <div>
     <v-carousel
       cycle
-      height="400"
+      height="600"
       hide-delimiter-background
       hide-delimiters
       show-arrows-on-hover
     >
-      <v-carousel-item v-for="(slide, i) in slides" :key="i">
+      <v-carousel-item v-for="(slide, i) in 2" :key="i">
         <v-sheet :color="colors[i]" height="100%">
           <v-row class="fill-height" align="center" justify="center">
-            <div class="display-3">{{ slide }} Slide</div>
-            <!-- <v-img :src="require('@/static/' + slide )" /> -->
+            <!-- <div class="display-3">{{ slide }} Slide</div> -->
+            <v-img :src="require('@/static/' + slide+'.jpg' )" width="100%" height="100%" />
           </v-row>
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
     <v-layout class="py-5 mx-6">
-      <v-flex sm2 xs12 md2 lg11>
-        <h2 class="py-2" style="color: #5f5d5e">
+      <v-flex sm12 xs12 md2 lg12>
+        <h2 class="py-2" style="color: #000000">
           {{ $t("Home.latestTenders") }}
         </h2>
       </v-flex>
@@ -26,7 +26,7 @@
     <v-layout>
       <v-divider
         class="elevation-5 align-center mx-6 py-2"
-        style="background-color: #28acde"
+        style="background-color: #4f9dd5"
       />
     </v-layout>
     <v-layout class="py-4" align-center wrap justify-center>
@@ -39,15 +39,9 @@
         style="background-color: #f5f5f5"
       >
         <v-layout class="py-4" align-center justify-center wrap>
-          <v-flex
-            lg3
-            md5
-            sm5
-            xs12
-            v-for="(tender, i) in getallTenders.data"
-            :key="i"
-          >
-            <v-card class="ma-3" width="280" height="406">
+
+            <v-card  v-for="(tender, i) in getallTenders.data"
+            :key="i" class="ma-3" width="280" height="406">
               <v-img :src="tender.image" height="200px" />
               <v-card-title style="height: 100px">
                 {{ tender.title }}
@@ -55,7 +49,7 @@
 
               <v-divider
                 class="elevation-5 align-center mx-6"
-                style="background-color: #28acde"
+                style="background-color: #4f9dd5"
               />
               <v-card-subtitle>
                 {{ tender.company }}
@@ -63,18 +57,18 @@
                 {{ $t("Tenders.Deadline") }}:{{ tender.deadline }}
                 <br />
               
-              <v-btn small  color="#28acde" class=" mx-0 " >
+              <v-btn small   :to="`/${$i18n.locale}/tenders/TenderDetails/${tender.tender_id}`"
+                color="#4f9dd5" class=" mx-0 my-2" >
               <span style="color:#fff">{{  $t("Tenders.more") }}</span>
               </v-btn>
               </v-card-subtitle>
             </v-card>
-          </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
       <v-layout class="py-5 mx-6">
       <v-flex sm2 xs12 md2 lg11>
-        <h2 class="py-2" style="color: #5f5d5e">
+        <h2 class="py-2" style="color: #000000">
           {{ $t("Home.majorsTenders") }}
         </h2>
       </v-flex>
@@ -82,7 +76,7 @@
     <v-layout>
       <v-divider
         class="elevation-5 align-center mx-6 py-2"
-        style="background-color: #28acde"
+        style="background-color: #4f9dd5"
       />
     </v-layout>
     <v-layout class="py-4" align-center wrap justify-center>

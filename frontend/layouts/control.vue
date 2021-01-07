@@ -77,6 +77,16 @@ export default {
 </script>
 
 <style lang="scss">
+.ar{
+h1 ,h2, h3,h4, h5, span ,p,a,div {
+  font-family: 'Almarai', sans-serif !important;
+}
+}
+.en{
+h1 ,h2, h3,h4, h5, span ,p,a,div {
+  font-family:'Nanum Gothic', sans-serif !important;
+}
+}
 .v-application--wrap {
   background-color:#FAFDF6 ;
 }
