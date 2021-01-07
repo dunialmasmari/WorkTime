@@ -9,6 +9,8 @@ use App\Models\tender;
 use App\Models\Major;
 use Illuminate\Support\Collection;
 use validator;
+use Carbon\Carbon;
+
 
 class TenderController extends Controller
 {
@@ -17,6 +19,7 @@ class TenderController extends Controller
     {
         $tender=tender::where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->limit(8)->paginate();
         return response()->json($tender,200);
+        
     }
     
     public function getTenderById($id) 
