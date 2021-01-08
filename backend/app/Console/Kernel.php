@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-//use App\Console\Commands\TenderNotify;
+use App\Console\Commands\TenderNotify;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,9 +14,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //App\Console\Commands\TenderNotify::class,
+       Commands\TenderNotify::class,
     ];
-
+    
     /**
      * Define the application's command schedule.
      *
@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('user:notify_email')
                  ->daily();
+                 //->daily()->at('01:00');
     }
 
     /**

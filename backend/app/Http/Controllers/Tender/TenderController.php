@@ -19,6 +19,8 @@ class TenderController extends Controller
     {
         $tender=tender::where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->limit(8)->paginate();
         return response()->json($tender,200);
+      
+
         
     }
     
@@ -204,11 +206,7 @@ class TenderController extends Controller
         $value=[$major_ar,$compa_ar,$loca_ar];
         $filters=array_combine($key,$value);
         //print_r($filters);
+
         return response()->json($filters,200);
     } 
-
-    public function dowenloadFile($filename)
-    {
-            return response()->download(public_path('files/'.$filename), 'filename');
-    }
 }
