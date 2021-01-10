@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTendersTable extends Migration
+class Jobs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateTendersTable extends Migration
      */
     public function up()
     {
-        Schema::create('tenders', function (Blueprint $table) {
-            $table->bigIncrements('tender_id');
+        Schema::create('jobs', function (Blueprint $table) {
+            $table->bigIncrements('job_id');
             $table->foreignId('user_id');
             $table->foreignId('major_id');
             $table->string('title');
-            $table->string('image');
+            //$table->string('image');
             $table->string('company');
-            $table->string('filenames');
             $table->longText('description');
+            $table->string('filenames');
             $table->date('start_date');
             $table->date('deadline');
             $table->date('posted_date');
@@ -38,6 +38,6 @@ class CreateTendersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tenders');
+        //
     }
 }

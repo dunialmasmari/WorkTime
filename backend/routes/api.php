@@ -70,3 +70,10 @@ Route::namespace('UserProf')->group(function(){
     Route::get('getUser','userProfController@getActiveUser');
 
     });
+
+    Route::namespace('Job')->group(function(){
+        Route::apiResource('job', 'JobDashboarController'); 
+        Route::get('getActivejob', 'JobDashboarController@getActiveJobs'); 
+        Route::delete('jobs/{id}', 'Tender\TenderDashboarController@delete'); 
+    });
+
