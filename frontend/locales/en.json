@@ -1,7 +1,7 @@
 {
     "Core": {
       "Footer": {
-        "about_us": "about us ",
+        "about_us": "about WorkTime ",
         "contact_us": "Connect us",
         "allrights": "All Rights Reserved Worktime-2021"
       },
@@ -61,7 +61,8 @@
     "Home": {
       "Tenders": "Tenders",
       "latestTenders": "latestTenders",
-      "majorsTenders": "Tenders according to the departments"
+      "majorsTenders": "Tenders according to the departments",
+      "Tenders&JobsAlerts": "Tenders Jobs Alerts"
     },
     "LogIn": {
       "LogInTitle": "Login",

@@ -61,7 +61,8 @@
   "Home": {
     "Tenders": "المناقصات",
     "latestTenders": "اخر المناقصات",
-    "majorsTenders": "المناقصات على حسب الاقسام"
+    "majorsTenders": "المناقصات على حسب الاقسام",
+    "Tenders&JobsAlerts": "إشعارات "
   },
   "LogIn": {
     "LogInTitle": "تسجيل الدخول ",
