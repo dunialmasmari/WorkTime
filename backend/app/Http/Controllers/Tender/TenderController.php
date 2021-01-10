@@ -10,12 +10,15 @@ use App\Models\tender;
 use App\Models\Major;
 use Illuminate\Support\Collection;
 use validator;
+use Carbon\Carbon;
+
 
 class TenderController extends Controller
 {
     //
     public function getActiveTenders()
     {
+
         /*if (Auth::check()) 
         {*/
             $tender=tender::where('active','1')->where('deadline','>=',now())
@@ -224,11 +227,7 @@ class TenderController extends Controller
         $value=[$major_ar,$compa_ar,$loca_ar];
         $filters=array_combine($key,$value);
         //print_r($filters);
+
         return response()->json($filters,200);
     } 
-
-    public function dowenloadFile($filename)
-    {
-            return response()->download(public_path('files/'.$filename), 'filename');
-    }
 }
