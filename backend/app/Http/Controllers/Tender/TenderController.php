@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tender;
 
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\tender;
@@ -17,50 +18,70 @@ class TenderController extends Controller
     //
     public function getActiveTenders()
     {
-        $tender=tender::where('active','1')->where('deadline','>=',now())->where('start_date','<=',now())->orderByRaw('start_date DESC')->limit(8)->paginate();
-        return response()->json($tender,200);
-      
 
-        
+        if (Auth::check()) 
+        {
+            $tender=tender::where('active','1')->where('deadline','>=',now())
+            ->where('start_date','<=',now())->orderByRaw('start_date DESC')->paginate();//->limit(8)
+            return response()->json($tender,200);
+        }
+        else
+        {
+            return response()->json(['message' => 'The pages not found'], 401);
+        } 
     }
     
     public function getTenderById($id) 
     {
-        //$tender=tender::where('tender_id', $id);
-        $tender=tender::join('majors','tenders.major_id','=','majors.major_id')
-        ->select('majors.major_name','tenders.*')->where('tenders.tender_id', $id);
-        if ($tender->exists())
-         {
-          return response()->json($tender->get(), 200);
-         } 
-        else 
+        if (Auth::check()) 
         {
-          return response()->json(["message" => "Tender not found!"], 404);
+            //$tender=tender::where('tender_id', $id);
+            $tender=tender::join('majors','tenders.major_id','=','majors.major_id')
+            ->select('majors.major_name','tenders.*')->where('tenders.tender_id', $id);
+            if ($tender->exists())
+            {
+            return response()->json($tender->get(), 200);
+            } 
+            else 
+            {
+            return response()->json(["message" => "Tender not found!"], 404);
+            }
         }
+        else
+        {
+            return response()->json(['message' => 'The pages not found'], 401);
+        } 
       }
 
       public function getTenderMajor()
       {
-        $tenders=tender::where('active','1')->get();
-        $majors=Major::where('active','1')->get();
-        $collection =collect([]);
-        $major_ar=array();
-        foreach($majors as $major)
-        {  
-            foreach($tenders as $tender)
-            {
-                if($tender->major_id == $major->major_id)
+        if (Auth::check()) 
+        {
+            $tenders=tender::where('active','1')->get();
+            $majors=Major::where('active','1')->get();
+            $collection =collect([]);
+            $major_ar=array();
+            foreach($majors as $major)
+            {  
+                foreach($tenders as $tender)
                 {
-                    $key=$major->major_name ; 
-                    $count=tender::where('active','1')->where('major_id',$major->major_id)->get()->count();
-                    
-                    $major_ar[]=['count'=>$count,'name'=>$key];
-                   // $collection->prepend( $count,$key);
-                break;
+                    if($tender->major_id == $major->major_id)
+                    {
+                        $key=$major->major_name ; 
+                        $count=tender::where('active','1')->where('major_id',$major->major_id)->get()->count();
+                        
+                        $major_ar[]=['count'=>$count,'name'=>$key];
+                    // $collection->prepend( $count,$key);
+                    break;
+                    }
                 }
             }
+            return response()->json($major_ar,200);
         }
-        return response()->json($major_ar,200);
+        else
+        {
+            return response()->json(['message' => 'The pages not found'], 401);
+        } 
       }
 
       public function filterAllActiveTender(Request $request)
