@@ -77,3 +77,13 @@ Route::namespace('UserProf')->group(function(){
         Route::delete('jobs/{id}', 'Tender\TenderDashboarController@delete'); 
     });
 
+    Route::namespace('Job')->group(function(){
+        Route::get('Jobs/get','JobController@getActiveJobs'); // for get all Jobs 
+        Route::get('Jobs/get/{id}','JobController@getJobById'); //for get Job by its id 
+        Route::get('Jobs/major','JobController@getJobMajor'); // for get all major and its count in Jobs 
+        Route::get('Jobs/filters','JobController@filterAllActiveJob');
+        Route::get('Jobs/filter/field','JobController@filterActiveJobField');
+    
+        Route::get('Jobs/dowenloadFile/{filename}','JobController@dowenloadFile');
+    
+    });
