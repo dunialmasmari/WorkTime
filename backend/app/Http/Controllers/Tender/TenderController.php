@@ -19,7 +19,7 @@ class TenderController extends Controller
         if (Auth::check()) 
         {
             $tender=tender::where('active','1')->where('deadline','>=',now())
-            ->where('start_date','<=',now())->orderByRaw('start_date DESC')->limit(8)->paginate();
+            ->where('start_date','<=',now())->orderByRaw('start_date DESC')->paginate();//->limit(8)
             return response()->json($tender,200);
         }
         else

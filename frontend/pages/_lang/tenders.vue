@@ -66,7 +66,10 @@
             >
               <v-img :src="tender.image" height="200px" />
               <v-layout align-center>
-                <v-card-title style="height: 100px">
+                <v-card-title style="height: 100px" 
+                :rules="rules"
+            counter
+            maxlength="2" >
                   {{ tender.title }}
                 </v-card-title>
               </v-layout>
