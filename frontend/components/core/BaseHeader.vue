@@ -6,16 +6,16 @@
         <div class="Navbar">
 <!--          <v-toolbar flat color="brown">-->
               <v-btn  color="#000000" class="whenactive" text :to="`/${$i18n.locale}/home`">
-                Home
+                {{ $t('Core.Navbar.Home') }}
               </v-btn>
               <v-btn text color="#000000" class="whenactive" :to="`/${$i18n.locale}/tenders`">
-                Tenders
+                {{ $t('Core.Navbar.tenders') }}
               </v-btn>
                  <v-btn text color="#000000" class="whenactive" :to="`/${$i18n.locale}/about_us`">
-                about us
+                 {{ $t('Core.Navbar.about_us') }}
               </v-btn>
                  <v-btn text color="#000000" class="whenactive" :to="`/${$i18n.locale}/contact_us`">
-                contact us
+                 {{ $t('Core.Navbar.contact_us') }}
               </v-btn>
               <v-menu offset-y>
           <template v-slot:activator="{ on }">

@@ -19,7 +19,7 @@
     <v-layout class="py-5 mx-6">
       <v-flex sm12 xs12 md2 lg12>
         <h2 class="py-2" style="color: #000000">
-          {{ $t("Home.latestTenders") }}
+          {{ $t("Home.Tenders") }}
         </h2>
       </v-flex>
     </v-layout>
