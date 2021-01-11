@@ -16,7 +16,7 @@ class MajorController extends Controller
      */
     public function index()
     {
-        if (session()->has('data')) 
+        if (Auth::check()) 
         {
             $major = Major::select('majors.major_name','majors.major_id','majors.type','majors.active');
             if($major->exists())
@@ -35,9 +35,9 @@ class MajorController extends Controller
 
     public function getactivemajors()
     {
-        if (session()->has('data')) 
+        if (Auth::check()) 
         {
-            $major = Major::select('majors.major_name','majors.major_id','majors.type')->where('major_id',$id);
+            $major = Major::select('majors.major_name','majors.major_id','majors.type')->where('active','1');
             if($major->exists())
             {
                 return response()->json($major->get(), 200);
@@ -70,7 +70,7 @@ class MajorController extends Controller
      */
     public function store(Request $request)
     {
-        if (session()->has('data')) 
+        if (Auth::check()) 
         {
             $major = Major::create($request->all());
             return response()->json($major, 201);
@@ -89,7 +89,7 @@ class MajorController extends Controller
      */
     public function show($id)
     {
-        if (session()->has('data')) 
+        if (Auth::check()) 
         {
             $major = Major::select('majors.major_name','majors.major_id','majors.type','majors.active')->where('major_id',$id);
             if($major->exists())
@@ -127,7 +127,7 @@ class MajorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (session()->has('data')) 
+        if (Auth::check()) 
         {
             $major = Major::where('major_id',$id);
             if($major->exists())
@@ -153,7 +153,7 @@ class MajorController extends Controller
      */
     public function destroy($id)
     {
-        if (session()->has('data')) 
+        if (Auth::check()) 
         {
             $major = Major::where('major_id',$id);
             if($major->exists())
@@ -177,9 +177,9 @@ class MajorController extends Controller
         }
     } 
 
-    public function delete($id)
+    public function deletemajor($id)
     {
-        if (session()->has('data')) 
+        if (Auth::check()) 
         {
             $major = Major::where('major_id',$id);
             if($major->exists())
