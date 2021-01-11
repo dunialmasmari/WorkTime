@@ -17,7 +17,7 @@ class TenderDashboarController extends Controller
      */
     public function index()
     {	
-        if (Auth::check()) 
+        if (session()->has('data')) 
         {
             $tender = tender::join('majors', 'tenders.major_id', '=', 'majors.major_id')
             ->select('majors.major_name', 'tenders.*' );//->where('tenders.active','1');
@@ -37,7 +37,7 @@ class TenderDashboarController extends Controller
 
     public function getactivetender()
     {	
-        if (Auth::check()) 
+        if (session()->has('data')) 
         {
             $tender = tender::join('majors', 'tenders.major_id', '=', 'majors.major_id')
             ->select('majors.major_name', 'tenders.*' )->where('tenders.active','1');
@@ -73,7 +73,7 @@ class TenderDashboarController extends Controller
      */
     public function store(Request $request)
     {  
-        if (Auth::check()) 
+        if (session()->has('data')) 
         {
             $tender = new tender();
             $tender->user_id = $request->input('user_id');
@@ -116,7 +116,7 @@ class TenderDashboarController extends Controller
      */
     public function show( $id)
     {
-        if (Auth::check()) 
+        if (session()->has('data')) 
         {
             $tender = tender::join('majors', 'tenders.major_id', '=', 'majors.major_id')
             ->select('majors.major_name', 'tenders.*' )->where('tenders.tender_id', $id);
@@ -154,7 +154,7 @@ class TenderDashboarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Auth::check()) 
+        if (session()->has('data')) 
         {
             $tender = tender::where('tender_id',$id);
             if($tender->exists())
@@ -202,7 +202,7 @@ class TenderDashboarController extends Controller
      */
     public function destroy($id)
     {
-        if (Auth::check()) 
+        if (session()->has('data')) 
         {
             $tender = tender::where('tender_id',$id);
             if($tender->exists())
@@ -228,7 +228,7 @@ class TenderDashboarController extends Controller
 
     public function delete($id)
     {
-        if (Auth::check()) 
+        if (session()->has('data')) 
         {
             $tender = tender::where('tender_id',$id);
             if($tender->exists())

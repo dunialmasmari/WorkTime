@@ -4,12 +4,14 @@ namespace App\Http\Controllers\login;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Session;
 use App\User;
 
 class loginController extends Controller
 {
     public function login(Request $request)
     {
+       
         $data = $request->validate([
             'email' => 'email|required',
             'password' => 'required'
@@ -17,6 +19,7 @@ class loginController extends Controller
  
         if (auth()->attempt($data)) {
             $token = auth()->user()->createToken('LaravelAuthApp')->accessToken; 
+            session()->put('data',$data);
             return response()->json(['message' => 'login sucessfuly', 'data' => $data, 'token' => $token], 200);
         } else {
             return response()->json(['message' => 'Unauthorised'], 401);
@@ -31,5 +34,11 @@ class loginController extends Controller
         else{
             return response()->json(['message' => 'The user is not logged in'], 401);
         }
+    }
+
+    public function logout(){
+            session()->forget('data');
+            return response()->json(['message' => 'logout sucess'], 200);
+       
     }
 }
