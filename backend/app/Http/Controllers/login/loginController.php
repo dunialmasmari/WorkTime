@@ -11,7 +11,6 @@ class loginController extends Controller
 {
     public function login(Request $request)
     {
-       
         $data = $request->validate([
             'email' => 'email|required',
             'password' => 'required'
@@ -20,7 +19,7 @@ class loginController extends Controller
         if (auth()->attempt($data)) {
             $token = auth()->user()->createToken('LaravelAuthApp')->accessToken; 
             session()->put('data',$data);
-            return response()->json(['message' => 'login sucessfuly', 'data' => $data, 'token' => $token], 200);
+            return response()->json(['message' => 'login sucessfuly', 'token' => $token], 200);// 'data' => $data, 
         } else {
             return response()->json(['message' => 'Unauthorised'], 401);
         }
@@ -40,5 +39,8 @@ class loginController extends Controller
             session()->forget('data');
             return response()->json(['message' => 'logout sucess'], 200);
        
+    }
+    public function details(){
+        return response()->json(['user' => auth()->user()], 200);
     }
 }
