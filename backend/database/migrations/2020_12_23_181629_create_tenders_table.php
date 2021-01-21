@@ -20,12 +20,13 @@ class CreateTendersTable extends Migration
             $table->string('title');
             $table->string('image');
             $table->string('company');
+            $table->string('filenames');
             $table->longText('description');
-            $table->string('apply_link');
-            $table->datetime('start_date');
-            $table->datetime('deadline');
-            $table->datetime('posted_date');
+            $table->date('start_date');
+            $table->date('deadline');
+            $table->date('posted_date');
             $table->boolean('active');
+            $table->string('location');
             $table->timestamps();
         });
     }
