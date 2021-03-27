@@ -5,13 +5,13 @@ export default function ({ isHMR, app, store, route, error, redirect }) {
     return
   }
   // Get locale from params
-  console.log(route.fullPath, route.params, defaultLocale)
   const locale = route.params.lang || defaultLocale
   if (!store.state.app.locales.includes(locale)) {
     return error({ message: 'This page could not be found.', statusCode: 404 })
   }
 
   // Set locale
+  store.dispatch('auth/checkLoggedIn')
   store.commit('app/SET_LANG', locale)
   console.log(store.state)
   app.i18n.locale = store.state.app.locale

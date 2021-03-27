@@ -8,12 +8,11 @@
         @submit.prevent="loginfunc()">
         <v-layout justify-center align-center class="py-9">
           <v-card>
-            <v-layout  justify-center align-center style="background-color:blue; margin-top:-20px; margin-left:5%; margin-right:5%;">
-              <v-flex sm3 xs5 md3 lg3 class="py-3 ">
-                <h4>
-                  {{ $t('LogIn.LogInTitle') }}
+            <v-layout  justify-center align-center style="color:#fff; background-color:#4f9dd5; margin-top:-20px; margin-left:5%; margin-right:5%;">
+            
+                <h4 class="my-3">{{ $t('LogIn.LogInTitle') }}
                 </h4>
-              </v-flex>
+            
             </v-layout>
             <v-layout
               class="py-5 my-5"

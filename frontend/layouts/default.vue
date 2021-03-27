@@ -1,7 +1,7 @@
 <template>
   <v-app :class="$i18n.locale" :id="$i18n.locale">
     <BaseHeader />
-    <v-main>
+    <v-main class="mb-4">
       <v-btn
         v-show="fab"
         v-scroll="onScroll"

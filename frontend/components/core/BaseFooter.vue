@@ -1,12 +1,5 @@
 <template>
-  <div class="footer">
-    <v-lazy
-      v-model="isFooter"
-      :options="{
-        threshold: 0.5,
-      }"
-      transition="fade-transition"
-    >
+
       <v-footer
         elevation="5"
        
@@ -17,14 +10,14 @@
       
       >
         <v-layout  
-          style=" width:100%; background-color:#000000;"
+          style=" width:100%; background-color:rgb(03,39,64);"
           class="py-3"
           color="#000000"
-           justify-center align-center>
-          <v-flex lg5 md5 xs12 sm12>
+           justify-center align-center wrap>
+          <v-flex lg5 md5 xs12 sm5>
             <v-layout justify-center align-center>
-              <v-avatar  width="160"  height="90" tile style="background-color:#ffff">
-                <v-img :src="require('@/static/hrlogo.png')" width="150" height="250" contain />
+              <v-avatar  width="160"  height="90" tile >
+                <v-img :src="require('@/static/hrlogo1.png')" width="150" height="250" contain />
               </v-avatar>
             </v-layout>
 
@@ -56,7 +49,7 @@
             </v-layout>
           </v-flex>
           <v-divider class="mx-4" vertical style="background-color: white" />
-          <v-flex lg5 md5 xs12 sm12>
+          <v-flex lg5 md5 xs12 sm5>
             <v-layout justify-center align-center class="my-1">
               <v-btn text color="white" :to="`/${$i18n.locale}/contact_us`">
              {{ $t('Core.Footer.contact_us')}}
@@ -77,8 +70,6 @@
         </v-layout>
       </v-footer>
      
-    </v-lazy>
-  </div>
 </template>
 
 <script>

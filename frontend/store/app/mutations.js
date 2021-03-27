@@ -12,11 +12,13 @@ export default {
     //set('drawer')
   },
   SET_LANG(state, locale) {
+  
     if (state.locales.includes(locale)) {
       state.locale = locale
     }
   },
   projectDirection: (state, lang) => {
+    console.log( Vue.prototype.$vuetify )
     if (lang === 'ar') {
       state.direction = true
     }

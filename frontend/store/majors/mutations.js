@@ -10,6 +10,10 @@ export default {
     console.log('dsf')
     state.oneMajor = data
   },
+  setActiveMajors: (state,data) => {
+    console.log('dsf')
+    state.activeMajors = data
+  },
   addMajor: (state, data) => {
     console.log('dsf')
     state.allMajors.unshift(data)

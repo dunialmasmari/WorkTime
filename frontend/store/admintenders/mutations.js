@@ -7,7 +7,7 @@ export default {
    //  state.allMajors.unshift(data)
   },
   setOneTender: (state,data) => {
-    state.oneTender = data[0]
+    state.oneTender = data.data[0]
   },
   addedTender: (state,data) => {
     console.log(data)
@@ -15,16 +15,23 @@ export default {
   //  this.$router.push({ name: 'adminTenders' })
   },
   updatedOldTender: (state,data) => {
-    const index = state.allTenders.find((s) => s.tender_id === data.data.tender_id)
+    const index = state.allTenders.data.find((s) => s.tender_id === data[0].tender_id)
     if (index) {
      
-      Object.assign(index, data)
+      Object.assign(index, data[0])
       console.log(index)
   
 
     }
   },
   deletedTender: (state,data) => {
- //   state.tenderFilter = data
+    console.log(state.allTenders, data.data)
+    const index = state.allTenders.data.find((s) => s.tender_id === data.data.tender_id)
+    console.log(index)
+    if (index) {
+     // data.active = !data.active
+      Object.assign(index, data.data)
+      console.log(index)
+    }
   },
 }

@@ -10,9 +10,9 @@
           >
             <v-flex lg6 sm6 xs12 md6 class="px-0" id="footerbg">
               <v-layout justify-center align-center>
-                <v-avatar width="150" height="90"  style="background-color: #ffffff; " tile>
+                <v-avatar width="150" height="90" tile>
                   <v-img
-                    :src="require('@/static/hrlogo.png')"
+                    :src="require('@/static/hrlogo2.png')"
                     height="90"
                     contain
                   />
@@ -25,16 +25,14 @@
               </v-layout>
               <v-layout justify-center align-center class="mx-4">
                 <h5 style="color: white">
-                  If you have any questions regarding our services, please fill
-                  the form below and we will try to get back to you as soon as
-                  possible
+                  {{ $t("ContactUS.description") }}
                 </h5>
               </v-layout>
-              <v-layout justify-center align-center class="py-5">
+              <v-layout justify-center align-center class="py-5 ">
                 <a
                 style="text-decoration:none;"
                   class="ma-5"
-                  href="https://www.facebook.com/stories/1625112850844098/UzpfSVNDOjI5NjEzMTUwOTczMTA2MTI=/"
+                  href="https://www.facebook.com/work.time.35728"
                   target="_blank"
                   rel="noopener noreferrer"
                   ><v-icon color="white">mdi-facebook</v-icon></a
@@ -42,7 +40,7 @@
                 <a
                  style="text-decoration:none;"
                   class="ma-5"
-                  href="http://"
+                  href="https://www.instagram.com/worktime66/"
                   target="_blank"
                   rel="noopener noreferrer"
                   ><v-icon color="white">mdi-instagram</v-icon></a
@@ -50,17 +48,17 @@
                 <a
                  style="text-decoration:none;"
                   class="ma-5"
-                  href="http://"
+                  href="https://twitter.com/worktim1231?s=08"
                   target="_blank"
                   rel="noopener noreferrer"
                   ><v-icon color="white">mdi-twitter</v-icon></a
                 >
               </v-layout>
               <v-layout justify-center align-center class="py-5" wrap>
-                <h5 style="color: white">+697 77777777777777</h5>
+                <h5 style="color: white">00967777986662</h5>
               </v-layout>
               <v-layout justify-center align-center wrap>
-                <h5 style="color: white">+697 77777777777777</h5>
+                <h5 style="color: white">00967775527633</h5>
               </v-layout>
             </v-flex>
             <v-flex class="ma-2 pa-3" lg5 sm5 xs12 md5>

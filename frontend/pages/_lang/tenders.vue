@@ -9,8 +9,8 @@
         </v-flex>
       </v-layout>
       <v-divider />
-      <v-layout wrap class="my-5 mx-8">
-        <v-flex lg3 md3 sm12 xs12 class="my-5">
+      <v-layout wrap class="my-5 mx-1">
+        <!-- <v-flex lg3 md3 sm12 xs12 class="my-5">
           <v-card >
             <v-layout
               justify-center
@@ -54,44 +54,53 @@
               </v-flex>
             </v-layout>
           </v-card>
-        </v-flex>
-        <v-flex lg9 md9 sm11 xs12>
-          <v-layout justify-center align-center wrap class="ma-5">
+        </v-flex> -->
+        <v-flex lg12 md12 sm12 xs12>
+           <v-layout v-if="!getTenderFilter.data"  justify-center align-center wrap class="my-5">
+         <v-avatar size="50%" tile>
+                  <v-img
+                    :src="require('@/static/nodata.png')"
+                  
+                    contain
+                  />
+                </v-avatar>
+       </v-layout>
+          <v-layout  v-if="getTenderFilter.data" justify-center align-center wrap class="my-5">
             <v-card
               v-for="(tender, i) in getTenderFilter.data"
-              :key="i"
-              class="ma-3"
-              width="280"
-              height="406"
-            >
-              <v-img :src="tender.image" height="200px" />
-              <v-layout align-center>
-                <v-card-title style="height: 100px">
-                  {{ tender.title }}
-                </v-card-title>
-              </v-layout>
+              :key="i" class="ma-3" width="280" height="460">
+              <v-img :src="`https://worktimebackend.herokuapp.com/images/`+tender.image" contain height="200px"  />
+              <v-card-title style="height: 90px;">
+              {{ tender.title && tender.title.length > 45 ? tender.title.substring(0,45)+".." : tender.title  }}
+              </v-card-title>
               <v-divider
                 class="elevation-5 align-center mx-6"
-                style="background-color: #3b8070"
+                style="background-color: #4f9dd5"
               />
-              <v-card-subtitle>
-                {{ tender.company }}
-                <br />
-                {{ $t("Tenders.Deadline") }}:{{ tender.deadline }}
-                <br />
-
-                <v-btn
-                  :to="`/${$i18n.locale}/tenders/TenderDetails/${tender.tender_id}`"
-                  small
-                  color="#4f9dd5"
-                  class="mx-0 my-2"
-                >
-                  <span style="color: #fff">{{ $t("Tenders.more") }}</span>
-                </v-btn>
+              <div style="height: 110px">
+              <v-card-subtitle class="py-1"   >
+                <v-icon
+                   >mdi-home</v-icon>  <span>{{ tender.company }}</span>
               </v-card-subtitle>
+               <v-card-subtitle class="py-1">
+                <v-icon
+                   >mdi-map-marker</v-icon>  <span> {{ tender.location }}</span>
+              </v-card-subtitle>
+              <v-card-subtitle class="py-1">
+                  <v-icon
+                   >mdi-calendar</v-icon><span style="color:red;">{{ $t("Tenders.Deadline") }}</span>:{{ tender.deadline }}
+             
+              </v-card-subtitle >
+              </div>
+              <v-card-subtitle class="py-1">
+              <v-btn small   :to="`/${$i18n.locale}/tenders/tenderDetails/${tender.tender_id}`"
+                color="#4f9dd5" class=" mx-0" >
+              <span style="color:#fff">{{  $t("Tenders.more") }}</span>
+              </v-btn>
+            </v-card-subtitle >
             </v-card>
           </v-layout>
-          <v-layout justify-center align-center>
+          <v-layout v-if="getTenderFilter.data"  justify-center align-center>
             <v-pagination
               v-model="page"
               color="#4f9dd5"
@@ -107,61 +116,19 @@
 <script>
     import { mapGetters, mapActions } from 'vuex'
     export default {
-        async fetch({ store }) {
-          await store.dispatch('tenders/loadFilterField')
-            await store.dispatch('tenders/loadTenderFilter',{
-              page:1,
-              major_id:'',
-              company:'',
-              location:'',
-            })
+        // async fetch({ store }) {
+        //  // await store.dispatch('tenders/loadFilterField')
+        //     await store.dispatch('tenders/loadTenderFilter',{
+        //       page:1,
+        //       major_id:'',
+        //       company:'',
+        //       location:'',
+        //     })
 
-        },
+        // },
         data: () => ({
           page:1,
-            card:[
-                {
-                    title: "Top western road trips Top western road trips Top western road trips",
-                    dedline:'20-20-2002',
-                    adress:'alyemen- aden'
-                },
-                {
-                    title: "Top western road trips Top western road trips",
-                    dedline:'20-20-2002',
-                    adress:'alyemen- aden'
-                },
-                {
-                    title: "Top western road trips Top western road trips",
-                    dedline:'20-20-2002',
-                    adress:'alyemen- aden'
-                },
-                {
-                    title: "Top western road trips Top western road trips",
-                    dedline:'20-20-2002',
-                    adress:'alyemen- aden'
-                },
-                {
-                    title: "Top western road trips Top western road trips",
-                    dedline:'20-20-2002',
-                    adress:'alyemen- aden'
-                },
-                {
-                    title: "Top western road trips Top western road trips",
-                    dedline:'20-20-2002',
-                    adress:'alyemen- aden'
-                },
-                {
-                    title: "Top western road trips Top western road trips",
-                    dedline:'20-20-2002',
-                    adress:'alyemen- aden'
-                },
-                {
-                    title: "Top western road ",
-                    dedline:'20-20-2002',
-                    adress:'alyemen- aden'
-                }
-            ],
-            
+          
             slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth'],
             ex2: { label: '', val: 100, color: 'green lighten-1' },
             color: '#6d597a',
@@ -173,6 +140,14 @@
         }),
         computed: {
     ...mapGetters({getFilterField: 'tenders/getFilterField',getTenderFilter:'tenders/getTenderFilter'})
+  },
+  mounted() {
+     this.loadTenderFilter({
+                    page:1,
+              major_id:'',
+              company:'',
+              location:'',
+                }) //},3000)
   },
         methods: {
             ...mapActions({

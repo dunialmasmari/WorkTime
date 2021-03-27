@@ -8,7 +8,11 @@
 // :image-src="getMostOrdered.productDefaultConfig.imgUrl"
 import { mapActions, mapGetters } from 'vuex'
 export default {
+
    layout:'control',
+   async fetch({route,redirect}) {
+    return redirect('/ar/controlPanel/AllTenders')
+   },
   //  asyncData () {
   //   return new Promise((resolve) => {
   //     setTimeout(function () {

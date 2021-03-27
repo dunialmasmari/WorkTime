@@ -24,7 +24,7 @@
             contain/> -->
         </v-avatar>
       </v-list-item-avatar>
-      <p style="margin: 0px 15px !important;   " >user name</p>
+      <p style="margin: 0px 15px !important;   " >WorkTime</p>
       <v-btn
         icon
         class="ma-0 pa-0 extandbtn"
@@ -35,7 +35,7 @@
     </v-list-item>
     <v-divider />
 
-    <v-list-item
+    <!-- <v-list-item
       :to="`/${$i18n.locale}/controlPanel/`"
       class="v-list-item"
     >
@@ -43,7 +43,7 @@
         <v-icon style="font-size:24px">  mdi-home</v-icon>
       </v-list-item-action>
       <v-list-item-title >{{ $t('Core.Drawer.Dashboard') }}</v-list-item-title>
-    </v-list-item>
+    </v-list-item> -->
     <v-list-group
       v-for="item in itemss"
       :key="item.title"
@@ -106,7 +106,7 @@ export default {
         action: ' mdi-clipboard-text',
         title:  "Core.Drawer.jobs&tendersManagement",
         sub: [
-          { title:  "Core.Drawer.tendersManagement", to: '/tenders' },
+          { title:  "Core.Drawer.tendersManagement", to: '/AllTenders' },
           { title:  "Core.Drawer.MajorsManagement", to: '/majors' },
         ]
       }

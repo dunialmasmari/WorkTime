@@ -3,7 +3,7 @@
     <v-layout slot="tittle">
       <v-toolbar-items class="mx-5 pa-2">
         <div class="ma-3 pa-2">
-          <h3 style="color:#4f9dd5">{{ $t("Tenders.AddNew") }}</h3>
+          <h3 style="color: #4f9dd5">{{ $t("Tenders.AddNew") }}</h3>
         </div>
       </v-toolbar-items>
     </v-layout>
@@ -24,11 +24,11 @@
                   <v-avatar
                     size="200px"
                     tile
-                    style="border: #4f9dd5 solid 1px"
+                    style="border: blue solid 1px"
                     align="center"
                     justify="center"
                   >
-                    <v-img :src="imageUrl" aspect-ratio="1" contain />
+                    <v-img :src="image" aspect-ratio="1" contain />
                   </v-avatar>
                 </v-layout>
                 <v-layout justify-center align-center>
@@ -53,17 +53,17 @@
                 <TextBoxMaterial
                   rules="requiredRules"
                   :lable="$t('Tenders.name')"
-                  v-model="title"
+                  v-model="oneTenderData.title"
                 />
               </v-flex>
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
                 <v-select
-                  :items="items"
+                  :items="getActiveMajors"
                   :label="$t('Tenders.major')"
-                  v-model="major"
+                  v-model="oneTenderData.major_id"
                   :rules="[(v) => !!v || $t('validation.emptyfieldrequired')]"
-                  item-text="name"
-                  item-value="id"
+                  item-text="major_name"
+                  item-value="major_id"
                   dense
                 />
               </v-flex>
@@ -71,7 +71,7 @@
                 <v-select
                   :items="cities"
                   :label="$t('Tenders.location')"
-                  v-model="location"
+                  v-model="oneTenderData.location"
                   :rules="[(v) => !!v || $t('validation.emptyfieldrequired')]"
                   item-text="name"
                   item-value="id"
@@ -83,14 +83,14 @@
                 <TextBoxMaterial
                   rules="requiredRules"
                   :lable="$t('Tenders.company')"
-                  v-model="company"
+                  v-model="oneTenderData.company"
                 />
               </v-flex>
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
                 <TextBoxMaterial
                   rules="requiredRules"
                   :lable="$t('Tenders.applyLink')"
-                  v-model="applyLink"
+                  v-model="oneTenderData.apply_link"
                 />
               </v-flex>
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
@@ -105,11 +105,11 @@
                   <template v-slot:activator="{ on }">
                     <v-text-field
                       slot="activator"
-                      v-model="startDate"
+                      v-model="oneTenderData.start_date"
                       :rules="[
                         (v) => !!v || $t('validation.emptyfieldrequired'),
                         (v) =>
-                          (v && v < endDate) ||
+                          (v && v < oneTenderData.deadline) ||
                           $t('validation.startDateValidation'),
                       ]"
                       dense
@@ -119,7 +119,7 @@
                     />
                   </template>
                   <v-date-picker
-                    v-model="startDate"
+                    v-model="oneTenderData.start_date"
                     no-title
                     scrollable
                     @input="menuStart = false"
@@ -138,11 +138,11 @@
                   <template v-slot:activator="{ on }">
                     <v-text-field
                       slot="activator"
-                      v-model="endDate"
+                      v-model="oneTenderData.deadline"
                       :rules="[
                         (v) => !!v || $t('validation.emptyfieldrequired'),
                         (v) =>
-                          (v && v > startDate) ||
+                          (v && v > oneTenderData.start_date) ||
                           $t('validation.endDateValidation'),
                       ]"
                       dense
@@ -152,7 +152,7 @@
                     />
                   </template>
                   <v-date-picker
-                    v-model="endDate"
+                    v-model="oneTenderData.deadline"
                     no-title
                     scrollable
                     @input="menuEnd = false"
@@ -162,6 +162,7 @@
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
                 <v-file-input
                   v-model="pdfs"
+                  @change="pdfchanged()"
                   truncate-length="15"
                   :rules="[
                     (v) => !!v || $t('validation.emptyfieldrequired'),
@@ -171,13 +172,16 @@
                           v.type === 'application/zip')) ||
                       $t('validation.filetype'),
                   ]"
+                  :label="$t('Tenders.uploadfiles')"
                 ></v-file-input>
               </v-flex>
               <v-flex xs12 sm9 md10 lg10 class="my-3">
+                <span>{{ $t("Tenders.description") }}</span>
                 <v-layout>
                   <tinymce
                     id="d1"
-                    v-model="description"
+                    v-model="oneTenderData.description"
+                    initial-value="oneTenderData.description"
                     @input="checkeditorvalidation()"
                   ></tinymce>
                 </v-layout>
@@ -203,7 +207,7 @@
 <script>
 import ButtonMatirlal from "~/components/material/ButtonMatirlal.vue";
 import i18n from "~/middleware/i18n.js";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   layout: "control",
   components: {
@@ -236,12 +240,18 @@ export default {
       ],
     };
   },
+  async fetch({ store, route }) {
+    await store.dispatch(
+      "admintenders/loadOneTender",
+      route.params.UpdateTender
+    );
+    await store.dispatch("majors/loadAllactiveMajors");
+  },
   data: () => ({
     imageRules: false,
     descriptionRules: false,
     firstValid: false,
     firstLazy: false,
-    pdfs: null,
     description: null,
     applyLink: null,
     location: null,
@@ -253,19 +263,48 @@ export default {
     menuStart: false,
     menuEnd: false,
     imageUrl: null,
-    image: null,
-
+    newfile: false,
+    active: null,
     items: ["Paypall", "Mastercard", "Visa"],
   }),
+  computed: {
+    ...mapGetters({
+      getActiveMajors: "majors/getActiveMajors",
+      getOneTender: "admintenders/getOneTender",
+      visible: "majors/getUpdateVisibal",
+    }),
+    oneTenderData() {
+      console.log(this.getOneTender);
+      return {
+        ...this.getOneTender,
+      };
+    },
+    image() {
+      console.log(this.getOneTender);
+      return;
+      "https://worktimebackend.herokuapp.com/images/" +
+        { ...this.getOneTender.image };
+    },
+    pdfs: {
+      get() {
+        return new File(["foo"], this.getOneTender.filename, {
+          type: "application/pdf",
+        });
+      },
+      set(value) {
+        if (value) {
+          this.newfile = true;
+        }
+      },
+    },
+  },
   methods: {
-    ...mapActions({ addNewTender: "admintenders/addNewTender" }),
+    ...mapActions({ updateTender: "admintenders/updateTender" }),
     onUploadFile() {
       this.$refs.fileInput.click();
-      if (this.image === null) {
-        this.imageRules = true;
-      } else {
-        this.imageRules = false;
-      }
+    },
+    pdfchanged() {
+      this.newfile = this.pdf;
     },
     onFilePicked(event) {
       console.log(this.$refs.fileInput.files[0]);
@@ -289,52 +328,38 @@ export default {
         }
         const fileReder = new FileReader();
         fileReder.addEventListener("load", () => {
-          this.imageUrl = fileReder.result;
+          this.image = fileReder.result;
           console.log(this.imageUrl);
         });
         fileReder.readAsDataURL(files[0]);
 
-        this.image = files[0];
-      }
-      if (this.image === null) {
-        this.imageRules = true;
-      } else {
-        this.imageRules = false;
+        this.oneTenderData.image = files[0];
       }
     },
     checkeditorvalidation() {
-      if (this.description.length < 50) {
+      if (this.oneTenderData.description.length < 50) {
         this.descriptionRules = true;
       } else {
         this.descriptionRules = false;
-      }
-    },
-    typeValidation() {
-      if (
-        this.pdfs.type === "application/pdf" ||
-        this.pdfs.type === "application/zip"
-      ) {
-        return true;
-      } else {
-        return false;
       }
     },
     submit() {
       console.log(this.image, this.pdfs);
       console.log(this.pdfs);
+
       if (this.image === null) {
         this.imageRules = true;
       } else {
         this.imageRules = false;
       }
-      if(this.description!==null){
-       if (this.description.length < 50) {
-        this.descriptionRules = true;
+      if (this.oneTenderData.description !== null) {
+        if (this.oneTenderData.description.length < 50) {
+          this.descriptionRules = true;
+        } else {
+          this.descriptionRules = false;
+        }
       } else {
-        this.descriptionRules = false;
-      }
-      }else{
-         this.descriptionRules = true;
+        this.descriptionRules = true;
       }
       this.$refs.form.validate();
       if (
@@ -342,25 +367,27 @@ export default {
         this.imageRules === false &&
         this.descriptionRules === false
       ) {
-        this.addNewTender({
-          description: this.description,
-          apply_link: this.applyLink,
-          start_date: this.startDate,
-          deadline: this.endDate,
-          posted_date: this.endDate,
-          active: 1,
-
-          location: this.location,
-          company: this.company,
-          major_id: 1,
-          title: this.title,
+        this.updateTender({
+          tender_id: this.$route.params.UpdateTender,
+          //    fields:{
+          description: this.oneTenderData.description,
+          apply_link: this.oneTenderData.apply_link,
+          start_date: this.oneTenderData.start_date,
+          deadline: this.oneTenderData.deadline,
+          posted_date: this.oneTenderData.posted_date,
+          active: this.oneTenderData.active,
+          location: this.oneTenderData.location,
+          company: this.oneTenderData.company,
+          major_id: this.oneTenderData.major_id,
+          title: this.oneTenderData.title,
           files: {
-            image: this.image,
+            image: this.oneTenderData.image,
             filename: this.pdfs,
           },
+          //    }
         });
       } else {
-        console.log( this.firstValid,  this.imageRules, this.descriptionRules )
+        console.log(this.firstValid, this.imageRules, this.descriptionRules);
       }
     },
   },

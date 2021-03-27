@@ -7,7 +7,7 @@
       <v-spacer />
       <div class="ma-3 py-2">
         <v-btn
-          :to="`/${$i18n.locale}/controlPanel/tenders/AddTender`"
+          :to="`/${$i18n.locale}/controlPanel/AddTender`"
           dark
           style="height: 40px"
           color="#4f9dd5"
@@ -17,7 +17,7 @@
       </div>
     </v-toolbar-items>
     <v-layout justify-center align-center>
-      <v-flex lg9 py-4>
+      <v-flex lg11 md11 xs11 sm11 py-4>
         <v-data-table
           :headers="headers"
           :items="allTenders.data"
@@ -25,25 +25,47 @@
           sort-by="calories"
           class="elevation-1"
         >
-          <!-- <template v-slot:item.isactive="{ item }">
-            <span v-if="item.active == 1">{{ $t("Majors.Tenders") }}</span>
-            <span v-if="item.active == 0">{{ $t("Majors.Tenders") }}</span>
-          </template> -->
-          <template v-slot:item.actions="{ item }">
-            <v-btn  text dark :to="`/${$i18n.locale}/controlPanel/tenders/${item.tender_id}`">
-            <v-icon small style="color:#4f9dd5" class="mr-2" >
-              mdi-pencil
-            </v-icon>
-            </v-btn>
-            <v-icon small style="color:#4f9dd5" @click="deleteItem(item)"> mdi-delete </v-icon>
+         <template v-slot:item.locations="{ item }">
+            <span >{{ $t("cities."+item.location) }}</span>
           </template>
+            <template v-slot:item.isactive="{ item }">
+            <span v-if="item.active == 1">{{ $t("Majors.active") }}</span>
+            <span v-if="item.active == 0">{{ $t("Majors.disabled") }}</span>
+          </template>
+          <template v-slot:item.actions="{ item }">
+            <v-btn color="#4f9dd5" text  :to="`/${$i18n.locale}/controlPanel/UpdateTender/${item.tender_id}`">
+           <span style="color:#4f9dd5;"> {{ $t("Tenders.update")}}</span> 
+            </v-btn>
+              <v-btn  color="#4f9dd5" text :to="`/${$i18n.locale}/controlPanel/tenderDetails/${item.tender_id}`">
+            <span  style="color:#4f9dd5;"> {{ $t("Tenders.view")}}</span> 
+            </v-btn>
+              <v-btn v-if="item.active == 0" color="#4f9dd5" text @click="deleteItem(item)">{{
+              $t("Majors.activate")
+            }}</v-btn>
+            <v-btn v-if="item.active == 1" color="#4f9dd5" text @click="deleteItem(item)"
+              >{{ $t("Majors.deactivate") }}
+            </v-btn>
+            </template>
           <template v-slot:no-data>
-            <span>no data aaa</span>
-            <!--todo nodta image-->
+           <v-avatar size="100%" tile>
+                  <v-img
+                    :src="require('@/static/nodata.png')"
+                  
+                    contain
+                  />
+                </v-avatar>
           </template>
         </v-data-table>
       </v-flex>
     </v-layout>
+     <v-layout v-if="allTenders.data"  justify-center align-center>
+            <v-pagination
+              v-model="page"
+              color="#4f9dd5"
+              :length="allTenders.last_page"
+              @input="getTenders()"
+            ></v-pagination>
+          </v-layout>
   </div>
 </template>
 
@@ -62,6 +84,7 @@ export default {
   // },
   asyncData({ app }) {
     return {
+      page:1,
       headers: [
         {
           text: app.i18n.t("Tenders.name"),
@@ -70,9 +93,10 @@ export default {
           value: "title",
         },
         { text: app.i18n.t("Tenders.major"), value: "major_name" },
-        { text: app.i18n.t("Tenders.location"), value: "location" },
+        { text: app.i18n.t("Tenders.location"), value: "locations" },
         { text: app.i18n.t("Tenders.company"), value: "company" },
         { text: app.i18n.t("Tenders.Deadline"), value: "deadline" },
+        { text: app.i18n.t("Majors.status"), value: "isactive" },
         { text: app.i18n.t("Tenders.action"), value: "actions" },
       ],
     };
@@ -91,7 +115,7 @@ export default {
     }),
   },
   mounted() {
-    this.loadAllTender();
+    this.loadAllTender(1);
   },
   methods: {
     ...mapActions({
@@ -104,8 +128,13 @@ export default {
       this.UpdateChangeVisibal(true);
     },
     deleteItem(item) {
-      this.deleteId = item.id;
+      this.deleteId = item.tender_id;
+      console.log(item, this.deleteId)
+      this.deleteTender(this.deleteId)
     },
+    getTenders(){
+        this.loadAllTender(this.page);
+    }
   },
 };
 </script>

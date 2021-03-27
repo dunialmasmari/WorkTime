@@ -1,65 +1,72 @@
 <template>
   <div>
-    <v-layout wrap class="py-2 mx-6">
+    <v-layout wrap class="py-5 mx-6">
       <v-flex>
-        <h2 style="color: #000000;">{{ getOneTender.title }}</h2>
+        <h2 style="color: #000000">{{ getOneTender.title }}</h2>
       </v-flex>
     </v-layout>
-    <v-layout align-center wrap justify-center class="py-5 mx-6">
-    
-      <v-flex sm2 xs12 md2 lg2>
+    <v-layout align-center wrap justify-center class="py-5 ">
+      <v-flex sm4 xs5 md3 lg3>
+      <v-layout align-center wrap justify-center class="py-5 mx-2">
         <v-img
-          src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+          contain
+          :src="`https://worktimebackend.herokuapp.com/images/`+getOneTender.image"
           height="200px"
           width="200px"
         />
+        </v-layout>
       </v-flex>
-    
-      <v-flex sm2 xs12 md5 lg6 style="height: 200%">
+
+      <v-flex sm8 xs12 md8 lg8 style="height: 200%" class="mx-2">
         <!-- <h4>{{ $t("Tenders.major") }}:</h4> -->
-          <v-card style="height: 100%" width="auto">
-    <v-layout align-center wrap justify-center class="py-5 mx-6">
-          <v-layout align-center wrap justify-center style="">
-            <v-flex sm2 xs12 md6 lg6>
-              
-              <v-card-subtitle class="py-2">
-                {{ $t("Tenders.major") }}:
-                {{ getOneTender.major_name }}</v-card-subtitle
-              >
-            </v-flex>
-            <v-flex sm2 xs12 md6 lg6>
-              <v-card-subtitle class="py-2">
-                {{ $t("Tenders.company") }}:
-                {{ getOneTender.company }}</v-card-subtitle
-              >
-            </v-flex>
-            <v-flex sm2 xs12 md6 lg6>
-              <v-card-subtitle class="py-2">
-                {{ $t("Tenders.location") }}:
-                {{ getOneTender.location }}</v-card-subtitle
-              >
-            </v-flex>
-            <v-flex sm2 xs12 md6 lg6>
-              <v-card-subtitle class="py-2">
-                {{ $t("Tenders.applyLink") }}:
-                {{ getOneTender.apply_link }}</v-card-subtitle
-              >
-            </v-flex>
-            <v-flex sm2 xs12 md6 lg6>
-              <v-card-subtitle class="py-2">
-                {{ $t("Tenders.postedDate") }}:
-                {{ getOneTender.posted_date }}</v-card-subtitle
-              >
-            </v-flex>
-            <v-flex sm2 xs12 md6 lg6>
-              <v-card-subtitle class="py-2">
-                {{ $t("Tenders.Deadline") }}:
-                {{ getOneTender.deadline }}</v-card-subtitle
-              >
-            </v-flex>
+        <v-card style="height: 100%" width="auto">
+          <v-layout align-center wrap justify-center class="py-5 mx-6">
+            <v-layout align-center wrap justify-center style="">
+              <v-flex sm6 xs12 md6 lg6>
+                <v-card-subtitle class="py-2">
+                   <v-icon
+                   >mdi-home</v-icon> {{ $t("Tenders.major") }}:
+                  {{ getOneTender.major_name }}</v-card-subtitle
+                >
+              </v-flex>
+              <v-flex sm6 xs12 md6 lg6>
+                <v-card-subtitle class="py-2">
+                     <v-icon
+                   >mdi-home</v-icon> 
+                  {{ $t("Tenders.company") }}:
+                  {{ getOneTender.company }}</v-card-subtitle
+                >
+              </v-flex>
+              <v-flex sm6 xs12 md6 lg6>
+                <v-card-subtitle class="py-2">
+                    <v-icon
+                   >mdi-map-marker</v-icon>  {{ $t("Tenders.location") }}:
+                  {{ getOneTender.location }}</v-card-subtitle
+                >
+              </v-flex>
+              <v-flex sm6 xs12 md6 lg6>
+                <v-card-subtitle class="py-2">
+                    <v-icon
+                   >mdi-link</v-icon>  {{ $t("Tenders.applyLink") }}:
+                  {{ getOneTender.apply_link }}</v-card-subtitle
+                >
+              </v-flex>
+              <v-flex sm6 xs12 md6 lg6>
+                <v-card-subtitle class="py-2">
+                    <v-icon
+                   >mdi-calendar</v-icon>  {{ $t("Tenders.postedDate") }}:
+                  {{ getOneTender.posted_date }}</v-card-subtitle
+                >
+              </v-flex>
+              <v-flex sm6 xs12 md6 lg6>
+                <v-card-subtitle class="py-2">
+                <v-icon
+                   >mdi-calendar</v-icon>   <span style="color:red;">{{ $t("Tenders.Deadline") }}</span>:
+                  {{ getOneTender.deadline }} </v-card-subtitle
+                >
+              </v-flex>
+            </v-layout>
           </v-layout>
-          
-    </v-layout>
         </v-card>
       </v-flex>
     </v-layout>
@@ -70,29 +77,34 @@
       />
     </v-layout>
     <v-layout class="py-4" align-center justify-center>
-      <v-flex class="py-2" sm2 xs12 md2 lg11 style="background-color: #f5f5f5">
-  
+      <v-flex
+        class="py-2"
+        sm12
+        xs12
+        md12
+        lg11
+        style="background-color: #f5f5f5"
+      >
         <v-flex sm12 xs12 md12 lg12>
-      <v-toolbar-items class="mx-5 pa-2">
-      <div class="ma-3 pa-2">
-           <h3 style="color:#000000">{{ $t("Tenders.description") }}:</h3>
-      </div>
-      <v-spacer />
-      <div class="ma-1 py-2">
-        <v-btn
-          @click="downloadpdfs()"
-          dark
-          style="height: 40px"
-          color="#4f9dd5"
-        >
-          <span>{{ $t("Tenders.downloadpdfs") }}</span>
-        </v-btn>
-      </div>
-    </v-toolbar-items>
+          <v-toolbar-items class="mx-5 pa-2">
+            <div class="ma-3 pa-2">
+              <h3 style="color: #000000">{{ $t("Tenders.description") }}:</h3>
+            </div>
+            <v-spacer />
+            <div class="ma-1 py-2">
+              <v-btn
+                @click="downloadpdfs()"
+                dark
+                style="height: 40px"
+                color="#4f9dd5"
+              >
+                <span>{{ $t("Tenders.downloadpdfs") }}</span>
+              </v-btn>
+            </div>
+          </v-toolbar-items>
         </v-flex>
-        <v-flex lg12 md8 sm8 xs12>
-          <v-layout class="py-4 mx-3" align-center justify-center wrap>
-            {{ getOneTender.description }}
+        <v-flex lg12 md12 sm12 xs12>
+          <v-layout class="py-4 mx-3" align-center justify-center wrap v-html="getOneTender.description">
             
           </v-layout>
         </v-flex>
@@ -112,74 +124,23 @@ export default {
   //     }, 1000)
   //   })
   // },
-  async fetch({ store, route }) {
-    await store.dispatch("tenders/loadOneTender", route.params.TenderDetails);
-  },
+  // async fetch({ store, route }) {
+  //   await store.dispatch("tenders/loadOneTender", route.params.TenderDetails);
+  // },
   data: () => ({
     tenders: 0,
-    card: [
-      {
-        title:
-          "Top western road trips Top western road trips Top western road trips",
-        dedline: "20-20-2002",
-        adress: "alyemen- aden",
-      },
-      {
-        title: "Top western road trips Top western road trips",
-        dedline: "20-20-2002",
-        adress: "alyemen- aden",
-      },
-      {
-        title: "Top western road trips Top western road trips",
-        dedline: "20-20-2002",
-        adress: "alyemen- aden",
-      },
-      {
-        title: "Top western road trips Top western road trips",
-        dedline: "20-20-2002",
-        adress: "alyemen- aden",
-      },
-      {
-        title: "Top western road trips Top western road trips",
-        dedline: "20-20-2002",
-        adress: "alyemen- aden",
-      },
-      {
-        title: "Top western road trips Top western road trips",
-        dedline: "20-20-2002",
-        adress: "alyemen- aden",
-      },
-      {
-        title: "Top western road trips Top western road trips",
-        dedline: "20-20-2002",
-        adress: "alyemen- aden",
-      },
-      {
-        title: "Top western road ",
-        dedline: "20-20-2002",
-        adress: "alyemen- aden",
-      },
-    ],
-    colors: ["#8D6E63", "#78909C", "#FFAB00", "#004D40"],
-    slides: ["First", "Second", "Third", "Fourth", "Fifth"],
-    show: false,
-    loading: false,
-    selection: 1,
-    orderModel: 0,
-    offersModel: 0,
-    recentlyModel: 0,
-    sizescreen: null,
-    slidstoShow: null,
   }),
   computed: {
     ...mapGetters({ getOneTender: "tenders/getOneTender" }),
   },
-  mounted() {},
+  mounted() {
+    this.loadOneTender(this.$route.params.TenderDetails)
+  },
   methods: {
-    reserve() {
-      this.loading = true;
-
-      setTimeout(() => (this.loading = false), 2000);
+    ...mapActions({ dowenloadFile: "tenders/dowenloadFile",loadOneTender:'tenders/loadOneTender' }),
+    downloadpdfs() {
+      console.log("gg");
+      this.dowenloadFile(this.getOneTender.filename);
     },
   },
 };

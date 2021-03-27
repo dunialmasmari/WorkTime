@@ -1,12 +1,15 @@
 export default {
-    async loadAllTender({ commit }) {
+    async loadAllTender({ commit },data) {
         commit('app/loadingStart', null, { root: true })
         await this.$axios
-            .get(`tender`, {
+            .get(`tender?page=${data}`, {
                 retry: 5,
                 retryDelay: 10000,
             })
             .then((respo) => {
+                // if (respo.status  === 401) {
+                  
+                //     this.$router.push({ path: '/ar/login' }) }
                 if (respo.status === 400) {
                     console.log(respo.data.message)
                     commit('app/loadingFinish', null, { root: true })
@@ -21,6 +24,9 @@ export default {
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
                 commit('app/failMessage', 'apiFail', { root: true })
+              //  if (error.response.status === 401) {
+                  
+                  //  this.$router.push({ path: '/ar/login' }) }
                 throw error
             })
     },
@@ -46,10 +52,13 @@ export default {
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
                 commit('app/failMessage', 'apiFail', { root: true })
+                if (error.response.status === 401) {
+                  
+                    this.$router.push({ path: '/ar/login' }) }
                 throw error
             })
     },
-    async addNewTender({ commit },data) {
+    async addNewTender({ commit ,route},data) {
         commit('app/loadingStart', null, { root: true })
         let formData = new FormData()
        
@@ -57,7 +66,7 @@ export default {
         formData.append('filename',data.files.filename)
        
         await this.$axios
-            .post(`tender?user_id=1&major_id=${data.major_id}&title=${data.title}&company=${data.company}&description=${data.description}&apply_link=${data.apply_link}&start_date=${data.start_date}&deadline=${data.deadline}&posted_date=${data.posted_date}&active=${data.active}&location=${data.location}`, formData ,{ headers: {
+            .post(`tender?user_id=4&major_id=${data.major_id}&title=${data.title}&company=${data.company}&description=${data.description}&apply_link=${data.apply_link}&start_date=${data.start_date}&deadline=${data.deadline}&posted_date=${data.posted_date}&active=${data.active}&location=${data.location}`, formData ,{ headers: {
                 'Content-Type': 'multipart/form-data',
               
               //  'boundary': Math.random().toString().substr(2),
@@ -71,22 +80,33 @@ export default {
                 if (respo.status === 201) {
                     console.log(respo.data)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('addedTender', respo.data)
+                    this.$router.push({ path: '/ar/controlPanel/AllTenders' }) 
+                     commit('addedTender', respo.data)
                 }
             })
             .catch((error) => {
+                console.log('hhsaaaaaa',error.response.status)
+               
                 commit('app/loadingFinish', null, { root: true })
                 commit('app/failMessage', 'apiFail', { root: true })
+                // if (error.response.status === 401) {
+                  
+                //     this.$router.push({ path: '/ar/login' }) }
                 throw error
             })
     },
     async updateTender({ commit },data) {
         commit('app/loadingStart', null, { root: true })
+        let formData = new FormData()
+       
+        formData.append('image',data.files.image)
+        formData.append('filename',data.files.filename)
         await this.$axios
-            .put(`tender/${data.id}`,data.fields ,{
-                retry: 5,
-                retryDelay: 10000,
-            })
+            .put(`tender/${data.tender_id}?tender_id=${data.tender_id}&major_id=${data.major_id}&title=${data.title}&company=${data.company}&description=${data.description}&apply_link=${data.apply_link}&start_date=${data.start_date}&deadline=${data.deadline}&posted_date=${data.posted_date}&active=${data.active}&location=${data.location}`, formData ,{ headers: {
+                'Content-Type': 'multipart/form-data',
+              
+              //  'boundary': Math.random().toString().substr(2),
+              }})
             .then((respo) => {
                 if (respo.status === 400) {
                     console.log(respo.data.message)
@@ -97,11 +117,15 @@ export default {
                     console.log(respo.data)
                     commit('app/loadingFinish', null, { root: true })
                     commit('updatedOldTender', respo.data)
+                    this.$router.push({ path: '/ar/controlPanel/AllTenders' }) 
                 }
             })
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
                 commit('app/failMessage', 'apiFail', { root: true })
+                // if (error.response.status === 401) {
+                  
+                //     this.$router.push({ path: '/ar/login' }) }
                 throw error
             })
     },
@@ -127,6 +151,9 @@ export default {
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
                 commit('app/failMessage', 'apiFail', { root: true })
+                //if (error.response.status === 401) {
+                  
+                 //   this.$router.push({ path: '/ar/login' }) }
                 throw error
             })
     },

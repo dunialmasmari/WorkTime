@@ -1,5 +1,5 @@
 <template>
-  <div id="core-view">
+  <div >
     <v-fade-transition mode="out-in">
       <nuxt />
     </v-fade-transition>

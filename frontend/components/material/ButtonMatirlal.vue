@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-btn type="submit" :disabled="disabled" class="py-5 ButtonMaterial">
-      {{ texts }}
+    <v-btn type="submit" color="#4f9dd5" :disabled="disabled" class="py-5 ButtonMaterial">
+     <span style="color:#fff"> {{ texts }}</span>
     </v-btn>
   </div>
 </template>

@@ -17,7 +17,9 @@
     },
     "Navbar": {
       "Home": "الرئيسية",
-      "tenders": "المناقصات"
+      "tenders": "المناقصات",
+      "about_us": "من نحن",
+      "contact_us": "تواصل معنا"
     },
     "aboutus": {
       "description":"work time هو موقع الكتروني    مصمم علئ شبكه الانترنت متخصص في اعلان ونشر كل  المناقصات بكل انواعها سواء كانت مناقصات توريدات او مناقصات انشائيه خدميه اومناقصات اخرئ..واعلانات التأهيل المسبق للمقاولين والموردين ومقدمي الخدمات وكذالك اعلان الوظائف المهنيه لكي يصل اعلاننا للمناقصه والوظائف الئ اكبر شريحه ممكنه .. تم اطلاق موقع work time عام 2021 حيث يساعد جميع الافراد والشركات والمقاولين والموردين علئ متابعه العطاءات والوظائف الجديده ...",
@@ -28,7 +30,7 @@
     },
     "Drawer": {
       "Dashboard": "الرئيسية",
-      "jobs&tendersManagement": "إدارة المناقصات ",
+      "jobs&tendersManagement": " إدارة الوظائف و المناقصات ",
       "tendersManagement": "إدارة المناقصات",
       "MajorsManagement": "إدارة الاقسام"
     }
@@ -57,8 +59,10 @@
     }
   },
   "Home": {
+    "Tenders": "المناقصات",
     "latestTenders": "اخر المناقصات",
-    "majorsTenders": "المناقصات على حسب الاقسام"
+    "majorsTenders": "المناقصات على حسب الاقسام",
+    "Tenders&JobsAlerts": "إشعارات "
   },
   "LogIn": {
     "LogInTitle": "تسجيل الدخول ",
@@ -74,6 +78,7 @@
     "name": "عنوان المناقصه",
     "image": "صورة المناقصه",
     "downloadpdfs": "تحميل الملفات",
+    "uploadfiles":"مرفقات المناقصات",
     "major": "القسم",
     "more": "مزيد من المعلومات",
     "location": "المنطقة",
@@ -84,6 +89,8 @@
     "Deadline": "تاريخ الانتهاء",
     "description": "وصف المناقصة",
     "save": "حفظ",
+    "update": "تعديل",
+    "view": "عرض التفاصيل",
     "action": "الحدث",
     "AddNew": "إضافة مناقصة جديد",
     "filter": "فرز حسب"
@@ -117,7 +124,8 @@
     "Name": "إسمك",
     "Email": "بريدك الالكتروني",
     "Send": "أرسل",
-    "Message": "ضع رسالتك هنا"
+    "Message": "ضع رسالتك هنا",
+    "description": "إذا كانت لديك أي أسئلة بخصوص خدماتنا ، يرجى ملء النموذج أدناه وسنحاول الرد عليك في أقرب وقت ممكن. "
   },
   "cities": {
     "Abyan": "أبين",
@@ -141,28 +149,5 @@
     "Shabwah": "شبوة",
     "Socotra": "سقطرى",
     "Taiz": "تعز"
-  },
-  "citiee": {
-    "Abyan": "Abyan",
-    "Aden": "Aden",
-    "AlMahrah": "Al Mahrah",
-    "AlMahwit": "Al Mahwit",
-    "Sanaa": "Sana'a",
-    "Amran": "Amran",
-    "Dhale": "Dhale",
-    "Dhamar": "Dhamar",
-    "Hadramaut": "Hadramaut",
-    "AlJawf": "Al Jawf",
-    "Hajjah": "Hajjah",
-    "Ibb": "Ibb",
-    "Lahij": "Lahij",
-    "Marib": "Ma'rib",
-    "AlBayda": "Al Bayda",
-    "Raymah": "Raymah",
-    "Sadah": "Sa'dah",
-    "AmanatAlAsimah": "Amanat Al Asimah (Sanaa City)",
-    "Shabwah": "Shabwah",
-    "Socotra": "Socotra",
-    "Taiz": "Taiz"
   }
 }

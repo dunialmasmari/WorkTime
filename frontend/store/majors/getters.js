@@ -5,6 +5,9 @@ export default {
   getoneMajor(state) {
     return state.oneMajor
   },
+  getActiveMajors(state) {
+    return state.activeMajors
+  },
   getAddVisibal(state) {
     return state.addVisibal
   },

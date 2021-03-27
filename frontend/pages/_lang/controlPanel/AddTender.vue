@@ -3,7 +3,7 @@
     <v-layout slot="tittle">
       <v-toolbar-items class="mx-5 pa-2">
         <div class="ma-3 pa-2">
-          <h3 style="color: #4f9dd5">{{ $t("Tenders.AddNew") }}</h3>
+          <h3 style="color:#4f9dd5">{{ $t("Tenders.AddNew") }}</h3>
         </div>
       </v-toolbar-items>
     </v-layout>
@@ -24,11 +24,11 @@
                   <v-avatar
                     size="200px"
                     tile
-                    style="border: blue solid 1px"
+                    style="border: #4f9dd5 solid 1px"
                     align="center"
                     justify="center"
                   >
-                    <v-img :src="this.oneTenderData.image" aspect-ratio="1" contain />
+                    <v-img :src="imageUrl" aspect-ratio="1" contain />
                   </v-avatar>
                 </v-layout>
                 <v-layout justify-center align-center>
@@ -53,17 +53,17 @@
                 <TextBoxMaterial
                   rules="requiredRules"
                   :lable="$t('Tenders.name')"
-                  v-model="oneTenderData.title"
+                  v-model="title"
                 />
               </v-flex>
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
                 <v-select
-                  :items="items"
+                  :items="getActiveMajors"
                   :label="$t('Tenders.major')"
-                  v-model="oneTenderData.major_id"
+                  v-model="major"
                   :rules="[(v) => !!v || $t('validation.emptyfieldrequired')]"
-                  item-text="name"
-                  item-value="id"
+                  item-text="major_name"
+                  item-value="major_id"
                   dense
                 />
               </v-flex>
@@ -71,7 +71,7 @@
                 <v-select
                   :items="cities"
                   :label="$t('Tenders.location')"
-                  v-model="oneTenderData.location"
+                  v-model="location"
                   :rules="[(v) => !!v || $t('validation.emptyfieldrequired')]"
                   item-text="name"
                   item-value="id"
@@ -83,14 +83,14 @@
                 <TextBoxMaterial
                   rules="requiredRules"
                   :lable="$t('Tenders.company')"
-                  v-model="oneTenderData.company"
+                  v-model="company"
                 />
               </v-flex>
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
                 <TextBoxMaterial
                   rules="requiredRules"
                   :lable="$t('Tenders.applyLink')"
-                  v-model="oneTenderData.apply_link"
+                  v-model="applyLink"
                 />
               </v-flex>
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
@@ -105,11 +105,11 @@
                   <template v-slot:activator="{ on }">
                     <v-text-field
                       slot="activator"
-                      v-model="oneTenderData.start_date"
+                      v-model="startDate"
                       :rules="[
                         (v) => !!v || $t('validation.emptyfieldrequired'),
                         (v) =>
-                          (v && v < oneTenderData.deadline) ||
+                          (v && v < endDate) ||
                           $t('validation.startDateValidation'),
                       ]"
                       dense
@@ -119,7 +119,7 @@
                     />
                   </template>
                   <v-date-picker
-                    v-model="oneTenderData.start_date"
+                    v-model="startDate"
                     no-title
                     scrollable
                     @input="menuStart = false"
@@ -138,11 +138,11 @@
                   <template v-slot:activator="{ on }">
                     <v-text-field
                       slot="activator"
-                      v-model="oneTenderData.deadline"
+                      v-model="endDate"
                       :rules="[
                         (v) => !!v || $t('validation.emptyfieldrequired'),
                         (v) =>
-                          (v && v > oneTenderData.start_date) ||
+                          (v && v > startDate) ||
                           $t('validation.endDateValidation'),
                       ]"
                       dense
@@ -152,7 +152,7 @@
                     />
                   </template>
                   <v-date-picker
-                    v-model="oneTenderData.deadline"
+                    v-model="endDate"
                     no-title
                     scrollable
                     @input="menuEnd = false"
@@ -160,8 +160,9 @@
                 </v-menu>
               </v-flex>
               <v-flex sm5 xs10 md5 lg5 class="mx-3">
+                
                 <v-file-input
-                  v-model="oneTenderData.filename"
+                  v-model="pdfs"
                   truncate-length="15"
                   :rules="[
                     (v) => !!v || $t('validation.emptyfieldrequired'),
@@ -171,13 +172,16 @@
                           v.type === 'application/zip')) ||
                       $t('validation.filetype'),
                   ]"
+                    :label="$t('Tenders.uploadfiles')"
                 ></v-file-input>
               </v-flex>
               <v-flex xs12 sm9 md10 lg10 class="my-3">
+                  <span>{{$t('Tenders.description')}}</span>
+
                 <v-layout>
                   <tinymce
                     id="d1"
-                    v-model="oneTenderData.description"
+                    v-model="description"
                     @input="checkeditorvalidation()"
                   ></tinymce>
                 </v-layout>
@@ -209,6 +213,10 @@ export default {
   components: {
     "Material-ButtonMatirlal": ButtonMatirlal,
   },
+   async fetch({ store }) {
+  //  await store.dispatch("majors/loadAllactiveMajors");
+   
+  },
   asyncData({ app }) {
     return {
       cities: [
@@ -236,9 +244,6 @@ export default {
       ],
     };
   },
-    async fetch({ store, route }) {
-    await store.dispatch("admintenders/loadOneTender", route.params.UpdateTender);
-  },
   data: () => ({
     imageRules: false,
     descriptionRules: false,
@@ -257,22 +262,24 @@ export default {
     menuEnd: false,
     imageUrl: null,
     image: null,
-active:null,
+
     items: ["Paypall", "Mastercard", "Visa"],
   }),
-   computed: {
-    ...mapGetters({getOneTender:'admintenders/getOneTender',visible: "majors/getUpdateVisibal"}),
-    oneTenderData(){
-      console.log(this.getOneTender)
-        return {
-           ...this.getOneTender
-        }
-    }
+  computed:{
+    ...mapGetters({getActiveMajors:'majors/getActiveMajors'})
+  },
+  mounted() {
+    this.loadAllactiveMajors()
   },
   methods: {
-    ...mapActions({ addNewTender: "admintenders/updateTender" }),
+    ...mapActions({ addNewTender: "admintenders/addNewTender",loadAllactiveMajors:'majors/loadAllactiveMajors' }),
     onUploadFile() {
       this.$refs.fileInput.click();
+      if (this.image === null) {
+        this.imageRules = true;
+      } else {
+        this.imageRules = false;
+      }
     },
     onFilePicked(event) {
       console.log(this.$refs.fileInput.files[0]);
@@ -296,32 +303,46 @@ active:null,
         }
         const fileReder = new FileReader();
         fileReder.addEventListener("load", () => {
-          this.oneTenderData.image = fileReder.result;
+          this.imageUrl = fileReder.result;
           console.log(this.imageUrl);
         });
         fileReder.readAsDataURL(files[0]);
 
         this.image = files[0];
       }
+      if (this.image === null) {
+        this.imageRules = true;
+      } else {
+        this.imageRules = false;
+      }
     },
     checkeditorvalidation() {
-      if (this.oneTenderData.description.length < 50) {
+      if (this.description.length < 50) {
         this.descriptionRules = true;
       } else {
         this.descriptionRules = false;
       }
     },
+    typeValidation() {
+      if (
+        this.pdfs.type === "application/pdf" ||
+        this.pdfs.type === "application/zip"
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     submit() {
       console.log(this.image, this.pdfs);
       console.log(this.pdfs);
-      var currentimage;
       if (this.image === null) {
-        this.currentimage = this.oneTenderData.image;
+        this.imageRules = true;
       } else {
-        this.currentimage = this.image;
+        this.imageRules = false;
       }
-      if(this.oneTenderData.description!==null){
-       if (this.oneTenderData.description.length < 50) {
+      if(this.description!==null){
+       if (this.description.length < 50) {
         this.descriptionRules = true;
       } else {
         this.descriptionRules = false;
@@ -332,23 +353,23 @@ active:null,
       this.$refs.form.validate();
       if (
         this.firstValid === true &&
+        this.imageRules === false &&
         this.descriptionRules === false
       ) {
-        this.updateTender({
-          tender_id:this.$route.params.UpdateTender,
-          description: this.oneTenderData.description,
-          apply_link: this.oneTenderData.apply_link,
-          start_date: this.oneTenderData.start_date,
-          deadline: this.oneTenderData.deadline,
-          posted_date: this.oneTenderData.posted_date,
-          active: this.oneTenderData.active,
-          location: this.oneTenderData.location,
-          company: this.oneTenderData.company,
-          major_id: this.oneTenderData.major_id,
-          title: this.oneTenderData.title,
+        this.addNewTender({
+          description: this.description,
+          apply_link: this.applyLink,
+          start_date: this.startDate,
+          deadline: this.endDate,
+          posted_date: this.startDate,
+          active: 1,
+          location: this.location,
+          company: this.company,
+          major_id:this.major,
+          title: this.title,
           files: {
-            image: this.currentimage,
-            filename: this.oneTenderData.filename,
+            image: this.image,
+            filename: this.pdfs,
           },
         });
       } else {

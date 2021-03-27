@@ -3,15 +3,15 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s - frontend',
-    title: 'frontend',
+    titleTemplate: '%s - WorkTime',
+    title: 'WorkTime',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    //  { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
         href:
@@ -19,7 +19,6 @@ export default {
       },
     ]
   },
-
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     '~/assets/style.scss'
@@ -61,7 +60,7 @@ export default {
               },
               {
                 path: '/tenderDetails/:TenderDetails',
-                component: 'pages/_lang/tenders/_TenderDetails.vue',
+                component: 'pages/_lang/tenders/tenderDetails/_TenderDetails.vue',
                 name: 'TenderDetails',
               },
             ]
@@ -87,13 +86,9 @@ export default {
                 name: 'Majors',
               },
               {
-                path: '/Tenders',
-                component: 'pages/_lang/controlPanel/Tenders.vue',
-                children: [
-                  {
-                    path: '/',
-                    component: 'pages/_lang/controlPanel/Tenders.vue',
-                    name: 'adminTenders',
+                path: '/AllTenders',
+                component: 'pages/_lang/controlPanel/AllTenders.vue',
+                name: 'adminTenders',
                   },
                   {
                     path: '/AddTender',
@@ -101,12 +96,16 @@ export default {
                     name: 'AddTender',
                   },
                   {
-                    path: '/:UpdateTender',
-                    component: 'pages/_lang/controlPanel/tenders/_UpdateTender.vue',
+                    path: '/updateTender/:UpdateTender',
+                    component: 'pages/_lang/controlPanel/updateTender/_UpdateTender.vue',
                     name: 'UpdateTender',
                   },
-                ]
-              },
+                  {
+                    path: '/tenderDetails/:TenderDetails',
+                    component: 'pages/_lang/tenders/controlPanel/tenderDetails/_TenderDetails.vue',
+                    name: 'TenderDetails',
+                  },
+               
             ]
           },
         ],
@@ -120,20 +119,23 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    'cookie-universal-nuxt',
+
   ],
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'http://127.0.0.1:8000/api/',
+    // See https://github.com/nuxt-community/axios-module#option
+    baseURL: 'https://worktimebackend.herokuapp.com/api/',
   },
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
-    rtl: false,
+    rtl: true,
     // theme: {
     //   dark: true,
     //   themes: {

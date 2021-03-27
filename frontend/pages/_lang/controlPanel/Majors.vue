@@ -41,9 +41,9 @@
             <span v-if="item.active == 0">{{ $t("Majors.disabled") }}</span>
           </template>
           <template v-slot:item.actions="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">
+           <v-btn @click="editItem(item)" text>sdasd<v-icon small class="mr-2">
               mdi-pencil
-            </v-icon>
+            </v-icon></v-btn> 
             <v-btn v-if="item.active == 0" text @click="deleteItem(item)">{{
               $t("Majors.activate")
             }}</v-btn>
@@ -52,8 +52,13 @@
             </v-btn>
           </template>
           <template v-slot:no-data>
-            <span>no data </span> -->
-            <!--todo nodta image-->
+           <v-avatar size="100%" tile>
+                  <v-img
+                    :src="require('@/static/nodata.png')"
+                  
+                    contain
+                  />
+                </v-avatar>
           </template>
         </v-data-table>
       </v-flex>

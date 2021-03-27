@@ -3,4 +3,5 @@ export default () => ({
   oneMajor: [],
     addVisibal: false,
     updateVisibal: false,
+    activeMajors:[]
   })

@@ -1,4 +1,39 @@
 export default {
+    async dowenloadFile({ commit }, data) {
+        commit('app/loadingStart', null, { root: true })
+        await this.$axios
+            .get(`Tender/dowenloadFile/${data}`, {responseType: 'arraybuffer'})
+            .then((respo) => {
+                console.log('hhsss',respo.data[0])
+                if (respo.status === 401) {
+                    redirect('/login')
+                }
+                if (respo.status === 400) {
+                    console.log(respo.data.message)
+                    commit('app/loadingFinish', null, { root: true })
+                //    commit('app/failMessage', respo.data.message, { root: true })
+                }
+                if (respo.status === 200) {
+                    console.log(respo.data)
+                    let blob = new Blob([respo.data], {type:'application/*'})
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = data
+        link.click();
+                    commit('app/loadingFinish', null, { root: true })
+                 //   commit('setOneTender', respo.data[0])
+                }
+            })
+            .catch((error) => {
+                commit('app/loadingFinish', null, { root: true })
+                //commit('app/failMessage', 'apiFail', { root: true })
+                console.log('hhsaaaaaa')
+                if (error.status === 401) {
+                    redirect('/login')
+                }
+                throw error
+            })
+    },
     async loadAllTender({ commit }) {
         commit('app/loadingStart', null, { root: true })
         await this.$axios
@@ -10,7 +45,7 @@ export default {
                 if (respo.status === 400) {
                     console.log(respo.data.message)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('app/failMessage', respo.data.message, { root: true })
+                   // commit('app/failMessage', respo.data.message, { root: true })
                 }
                 if (respo.status === 200) {
                     console.log(respo.data)
@@ -20,7 +55,7 @@ export default {
             })
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
-                commit('app/failMessage', 'apiFail', { root: true })
+                //commit('app/failMessage', 'apiFail', { root: true })
                 throw error
             })
     },
@@ -36,7 +71,7 @@ export default {
                 if (respo.status === 400) {
                     console.log(respo.data.message)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('app/failMessage', respo.data.message, { root: true })
+                   // commit('app/failMessage', respo.data.message, { root: true })
                 }
                 if (respo.status === 200) {
                     console.log(respo.data)
@@ -46,7 +81,7 @@ export default {
             })
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
-                commit('app/failMessage', 'apiFail', { root: true })
+              //  commit('app/failMessage', 'apiFail', { root: true })
                 throw error
             })
     },
@@ -61,7 +96,7 @@ export default {
                 if (respo.status === 400) {
                     console.log(respo.data.message)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('app/failMessage', respo.data.message, { root: true })
+                //    commit('app/failMessage', respo.data.message, { root: true })
                 }
                 if (respo.status === 200) {
                     console.log(respo.data)
@@ -71,7 +106,7 @@ export default {
             })
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
-                commit('app/failMessage', 'apiFail', { root: true })
+              //  commit('app/failMessage', 'apiFail', { root: true })
                 throw error
             })
     },
@@ -86,7 +121,7 @@ export default {
                 if (respo.status === 400) {
                     console.log(respo.data.message)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('app/failMessage', respo.data.message, { root: true })
+                   // commit('app/failMessage', respo.data.message, { root: true })
                 }
                 if (respo.status === 200) {
                     console.log(respo.data)
@@ -96,7 +131,7 @@ export default {
             })
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
-                commit('app/failMessage', 'apiFail', { root: true })
+                //commit('app/failMessage', 'apiFail', { root: true })
                 throw error
             })
     },
@@ -111,7 +146,7 @@ export default {
                 if (respo.status === 400) {
                     console.log(respo.data.message)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('app/failMessage', respo.data.message, { root: true })
+                  //  commit('app/failMessage', respo.data.message, { root: true })
                 }
                 if (respo.status === 200) {
                     console.log(respo.data)
@@ -121,7 +156,7 @@ export default {
             })
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
-                commit('app/failMessage', 'apiFail', { root: true })
+               // commit('app/failMessage', 'apiFail', { root: true })
                 throw error
             })
     },
@@ -136,7 +171,7 @@ export default {
                 if (respo.status === 400) {
                     console.log(respo.data.message)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('app/failMessage', respo.data.message, { root: true })
+                   // commit('app/failMessage', respo.data.message, { root: true })
                 }
                 if (respo.status === 200) {
                     console.log(respo.data)
@@ -146,7 +181,7 @@ export default {
             })
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
-                commit('app/failMessage', 'apiFail', { root: true })
+                //commit('app/failMessage', 'apiFail', { root: true })
                 throw error
             })
     },
@@ -161,7 +196,7 @@ export default {
                 if (respo.status === 400) {
                     console.log(respo.data.message)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('app/failMessage', respo.data.message, { root: true })
+                    //commit('app/failMessage', respo.data.message, { root: true })
                 }
                 if (respo.status === 200) {
                     console.log(respo.data)
@@ -171,7 +206,7 @@ export default {
             })
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
-                commit('app/failMessage', 'apiFail', { root: true })
+                //commit('app/failMessage', 'apiFail', { root: true })
                 throw error
             })
     },
@@ -186,7 +221,7 @@ export default {
                 if (respo.status === 400) {
                     console.log(respo.data.message)
                     commit('app/loadingFinish', null, { root: true })
-                    commit('app/failMessage', respo.data.message, { root: true })
+                    //commit('app/failMessage', respo.data.message, { root: true })
                 }
                 if (respo.status === 200) {
                     console.log(respo.data)
@@ -196,7 +231,7 @@ export default {
             })
             .catch((error) => {
                 commit('app/loadingFinish', null, { root: true })
-                commit('app/failMessage', 'apiFail', { root: true })
+                //commit('app/failMessage', 'apiFail', { root: true })
                 throw error
             })
     },
